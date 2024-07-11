@@ -1,0 +1,37 @@
+* {
+    box-sizing: border-box;
+}
+
+div {
+    display: block;
+    unicode-bidi: isolate;
+}
+
+body .main-container {
+    margin: 0 auto;
+    max-width: 640px;
+    padding: 0 1em 1em;
+}
+
+.submit-btn { 
+    /* min-width: 63px;
+    min-height: 37px; */
+    padding : 0;
+    font-weight: 600;
+    font-size: 12px;
+    
+    @media screen and (max-width : 470px) {
+        font-size: 10px;
+    }
+    @media screen and (max-width : 380px) {
+        font-size: 8px;
+        padding : 0;
+    }
+}
+
+@media only screen and (max-width: 640px) {
+    body, input, button {
+        font-size: 14px;
+    }
+}
+/* !!!!!!!!!!!!!!!!!!!!!!!! */

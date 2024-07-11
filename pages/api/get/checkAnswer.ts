@@ -36,12 +36,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             if (parseInt(similarity.toString()) >= 100){
                 similarity = 100;
             }
-
-            // handleLocalStorage({ 
-            //     answer: findDateResult.answer, 
-            //     query: answer, 
-            //     similarity: similarity 
-            // });
             
             return res.redirect(302, '/');
         } catch (error) {
