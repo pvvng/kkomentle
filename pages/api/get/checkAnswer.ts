@@ -37,7 +37,10 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                 similarity = 100;
             }
             
-            return res.redirect(302, '/');
+            return res.status(200).json({
+                query : answer,
+                similarity : similarity,
+            });
         } catch (error) {
             console.error("Error in get embedding:", error);
             return res.status(500).json({ error: "Failed to get embedding" });
