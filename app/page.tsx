@@ -1,13 +1,16 @@
 import insertAnswer from "@/util/functions/insertAnswer";
 import axios from "axios";
 import InputContainer from "./components/InputContainer";
+import { FREQUENT_WORDS_ARR } from "@/data/frequent";
 
 export default async function Home() {
 
   // 오늘의 단어 선별하는 API
-  let selectTodayAnswer = await axios('http://localhost:3000/api/answer');  
+  let selectTodayAnswer = await axios('http://localhost:3000/api/word/answer');  
   // 오늘의 단어 업데이트하는 문장
   let updateTodayAnswer = await insertAnswer(selectTodayAnswer.data.word);
+  // frequent words 어레이로 변경하는 api
+  let checkFrequency = await axios('http://localhost:3000/api/word/frequency');  
 
   return (
     <>

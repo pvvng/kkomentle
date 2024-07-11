@@ -2,6 +2,7 @@ import type { NextApiRequest, NextApiResponse } from 'next';
 import fs from 'fs';
 import path from 'path';
 
+/** 오늘의 정답 설정하는 API */
 export default function handler(req: NextApiRequest, res: NextApiResponse) {
     try {
         const filePath = path.join(process.cwd(), 'data', 'secrets.txt');
