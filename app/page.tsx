@@ -9,7 +9,7 @@ export default async function Home() {
   // 오늘의 단어 선별하는 API
   let selectTodayAnswer = await axios('http://localhost:3000/api/word/answer');  
   // // 오늘의 단어 업데이트하는 문장
-  // let updateTodayAnswer = await insertAnswer(selectTodayAnswer.data.word);
+  let updateTodayAnswer = await insertAnswer(selectTodayAnswer.data.word);
   // // frequent words 어레이로 변경하는 api
   // let checkFrequency = await axios('http://localhost:3000/api/word/frequency');  
   // 유사어 파일 생성하는 api
