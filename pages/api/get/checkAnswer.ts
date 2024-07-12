@@ -14,7 +14,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         try {
             // 사용자의 쿼리가 문자열 배열인 경우 첫 번째 요소를 문자열로 추출
             const answer = Array.isArray(req.query.answer) ? req.query.answer[0] : req.query.answer || '';
-
             // db에서 오늘의 정답 임베딩 불러오기
             const db = (await connectDB).db('kkomentle');
             const findDateResultPromise = db.collection('answer').findOne({ date: formattedDate });

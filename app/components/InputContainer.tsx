@@ -1,31 +1,58 @@
 'use client'
 
-import axios from "axios"
-import { useRef } from "react";
+import useQueryAnswerChecker from "@/util/hooks/useQueryAnswerChecker";
+import { useEffect, useState } from "react";
+import TableContainer from "./TableContainer";
+import { SimilarityType } from "@/util/functions/rankSimilarity";
 
 export default function InputContainer(){
 
-    const inputRef = useRef<HTMLInputElement>(null);
+    const { inputRef, result, handleClick } = useQueryAnswerChecker({ initialResult: null });
+    
+    let [guessedWordState, setGuessedWordState] = useState<SimilarityType|null>(null)
 
-    const handleClick = async (event: React.MouseEvent<HTMLButtonElement>) => {
-        // 기본 동작 방지
-        event.preventDefault(); 
-    
-        if (inputRef.current !== null) {
-            try {
-                let res = await axios(`/api/get/checkAnswer?answer=${inputRef.current.value}`);
-                console.log(res.data);
-                // 입력 값 초기화
-                inputRef.current.value = '';
-            } catch (error) {
-                console.error('Error fetching data:', error);
-            }
+    useEffect(() => {
+        // 기본 값 정의
+        let guessedWord :SimilarityType = { query : 'undefiend' ,similarity : -1,rank : -1 };
+
+        let guesses = localStorage.getItem('guesses');
+        let winState = localStorage.getItem('winState');
+
+        if(!guesses){
+            localStorage.setItem('guesses', '[]');
         }
-    };
-    
+        if(!winState){
+            localStorage.setItem('winState', '-1');
+        }
+        if(result){
+            result.rank === undefined
+            // 유사어 순위에 포함되지 않은 단어를 입력했을때
+            ?guessedWord = { 
+                ...result, 
+                similarity: parseFloat(((result.similarity) * 100).toFixed(2)), 
+                rank : '???'
+            }
+            // 유사도 순위에 포함된 단어를 입력했을때,
+            :guessedWord = { 
+                ...result, 
+                similarity: parseFloat(((result.similarity) * 100).toFixed(2)),
+                rank: (result.rank === undefined || typeof result.rank === 'string') 
+                ? '???'
+                : (result.rank >= 1000 ? '1000위 이상' : result.rank)
+            };
+        }
+
+        if(guessedWord.query !== undefined && guessedWord.rank !== -1){
+            setGuessedWordState(guessedWord);
+        }
+    }, [result]);
+
+    useEffect(()=>{
+        console.log(guessedWordState)
+    },[guessedWordState])
+
     return(
-        <>
-            <div className="row w-100" style={{margin : 'auto'}}>
+        <div className="row w-100" style={{margin : 'auto'}}>
             <input 
                 ref={inputRef}
                 className="col-sm-10 col-9 border-1 rounded-start-1 p-2"
@@ -38,14 +65,12 @@ export default function InputContainer(){
             <button 
                 className="col-sm-2 col-3 border-1 rounded-end-1 p-2 submit-btn"
                 type="submit"
-                onClick={(e) => {
-                    handleClick(e);
-                }}
+                onClick={(e) => { handleClick(e) }}
             >
                 추측하기
             </button>
-            </div>
-        </>
+            <TableContainer />
+        </div>
     )
 }
 
