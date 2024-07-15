@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import TableListContainer from "./TableListContainer";
 
 export default function TableContainer({result} : {result : SimilarityType | null}){
+
     
     let [nowInputData, setNowInputData] = useState<JsonSimilarityType|null>(null);
     const storedGuessesArr = useHandleLocalstorage(result);

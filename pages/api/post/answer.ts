@@ -1,5 +1,4 @@
 import { connectDB } from "@/util/database";
-import moment from "moment";
 import { NextApiRequest, NextApiResponse } from "next";
 
 export default async function handler (req :NextApiRequest, res :NextApiResponse){

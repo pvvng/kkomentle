@@ -2,6 +2,7 @@ import insertAnswer from "@/util/functions/insertAnswer";
 import axios from "axios";
 import InputContainer from "./components/InputContainer";
 import getOneTenAndK from "@/util/functions/getOneTenAndK";
+import SaveSimilarWordsContainer from "./components/SaveSimilarWordsContainer";
 
 
 export default async function Home() {
@@ -20,6 +21,7 @@ export default async function Home() {
 
   return (
     <>
+      <SaveSimilarWordsContainer />
       <hr/>
       <div className="main-container">
         <h2>꼬들꼬들 - 단어 유사도 추측 게임</h2>

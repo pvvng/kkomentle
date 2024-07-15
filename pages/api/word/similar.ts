@@ -3,13 +3,14 @@ import path from 'path';
 import { NextApiRequest, NextApiResponse } from "next";
 import detectSimilarWords from '@/util/functions/detectSimilarWords';
 
+/** 오늘의 정답과 유사어의 단어 유사도 비교해서 파일로 저장하는 API */
 export default async function handler(req :NextApiRequest, res :NextApiResponse){
     if (req.method !== 'POST') {
         return res.status(405).json({ message: 'Method Not Allowed' });
     }
     
     try {
-        const similarityData = await detectSimilarWords(); // fetchData는 실제 데이터를 가져오는 함수로 대체되어야 합니다.
+        const similarityData = await detectSimilarWords();
         console.log(similarityData);
     
         const filePath = path.join(process.cwd(), 'data', 'today_similarity_words.ts');

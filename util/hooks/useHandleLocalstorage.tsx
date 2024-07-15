@@ -1,5 +1,6 @@
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { SimilarityType } from "../functions/rankSimilarity";
+import moment from "moment";
 
 // localstorage에 저장하는 추측 값 어레이의 타입
 export interface JsonSimilarityType extends SimilarityType {
@@ -11,6 +12,8 @@ export interface JsonSimilarityType extends SimilarityType {
  * return => localstorage에 저장되는 사용자 입력 값을 담은 어레이
   */
 export function useHandleLocalstorage(result : SimilarityType | null){
+
+    const now = moment().format('YYYY-MM-DD');
 
     let [guessedWordState, setGuessedWordState] = useState<SimilarityType|null>(null);
     let [storedGuessesArr, setStoredGuessesArr] = useState<JsonSimilarityType[]|null>(null);
@@ -31,12 +34,20 @@ export function useHandleLocalstorage(result : SimilarityType | null){
 
         let guesses = localStorage.getItem('guesses');
         let winState = localStorage.getItem('winState');
+        let today = localStorage.getItem('today');
 
         if(!guesses){
             localStorage.setItem('guesses', '[]');
         }
         if(!winState){
             localStorage.setItem('winState', '-1');
+        }
+        if(!today){
+            localStorage.setItem('today', now);
+        }
+        if(today !== now){
+            localStorage.setItem('today', now);
+            localStorage.setItem('guesses', '[]');
         }
         if(result){
             result.rank === undefined

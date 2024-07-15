@@ -2,7 +2,6 @@
 
 import useQueryAnswerChecker from "@/util/hooks/useQueryAnswerChecker";
 import TableContainer from "./TableContainer";
-import { useState } from "react";
 
 export default function InputContainer(){
 
