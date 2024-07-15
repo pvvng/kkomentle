@@ -1,34 +1,39 @@
 'use client'
 
-import { SimilarityType } from "@/util/functions/rankSimilarity";
 import { JsonSimilarityType } from "@/util/hooks/useHandleLocalstorage";
 
 interface PropsType {
-    storedGuessesArr: JsonSimilarityType[] | null, 
-    result : SimilarityType | null
+    tableData: JsonSimilarityType;
+    type : string 
 }
 
-// localstorage에서 뽑아온 데이터의 key
-const objKeyArr: (keyof JsonSimilarityType)[] = [
-    "index",
-    "query",
-    "similarity",
-    "rank",
-]
+export default function TableListContainer({tableData, type} :PropsType){
 
-export default function TableListContainer({storedGuessesArr, result} :PropsType){
     return(
-        storedGuessesArr?.map(sga => 
-            <tr key={sga.index}>
+        <tr key={tableData.index}>
+            <td style={{fontWeight: 400}}>{tableData.index}</td>
+            {
+                type === 'input'?
+                <td style={{color: '#f7617a', fontWeight: 600}}>{tableData.query}</td>
+                :<td style={{fontWeight: 400}}>{tableData.query}</td>
+
+            }
+            <td style={{fontWeight: 400}}>{tableData.similarity}</td>
+            <td style={{fontWeight: 400}}>
                 {
-                    objKeyArr.map((oka) => {
-                        if (result?.query === sga.query){
-                            return null;
+                    tableData.rank === '???' || tableData.rank === '1000위 이하'?
+                    <span>{tableData.rank}</span>:
+                    <div className="text-end w-100">
+                        {
+                            typeof tableData.rank === 'number'&&
+                            <div className="progress" style={{width : '100%', margin:'auto', display : 'inline-block'}}>
+                                <div className="progress-bar" style={{width : `${((1000 - tableData.rank) / 10)}%`, height:'16px' }}>{tableData.rank}위</div>
+                            </div>
                         }
-                        return(<th key={oka} style={{fontWeight: 400}}>{sga[oka]}</th>)
-                    })
+                    </div>
+                    
                 }
-            </tr>
-        )
+            </td>
+        </tr>     
     )
 }

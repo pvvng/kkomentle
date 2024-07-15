@@ -11,6 +11,13 @@ body .main-container {
     margin: 0 auto;
     max-width: 640px;
     padding: 0 1em 1em;
+
+    @media screen and (max-width : 470px) {
+      font-size: 12px;
+    }
+    @media screen and (max-width : 380px) {
+      font-size: 10px;
+    }
 }
 
 @keyframes drop {
@@ -99,5 +106,6 @@ body .main-container {
     body, input, button {
         font-size: 14px;
     }
+    
 }
 /* !!!!!!!!!!!!!!!!!!!!!!!! */

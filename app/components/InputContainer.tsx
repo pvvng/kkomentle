@@ -2,10 +2,20 @@
 
 import useQueryAnswerChecker from "@/util/hooks/useQueryAnswerChecker";
 import TableContainer from "./TableContainer";
+import ClearBoxContainer from "./ClearBoxContainer";
+import { useEffect, useState } from "react";
 
 export default function InputContainer(){
 
     const { inputRef, result, handleClick } = useQueryAnswerChecker({ initialResult: null });
+    const [winState, setWinState] = useState(-1);
+
+    useEffect(() => {
+        let tempState = localStorage.getItem('winState');
+        if(tempState !== null){
+            setWinState(parseInt(tempState));
+        }
+    },[])
 
     return(
         <div className="row w-100" style={{margin : 'auto'}}>
@@ -28,6 +38,11 @@ export default function InputContainer(){
             >
                 추측하기
             </button>
+            {
+                winState !== -1?
+                <ClearBoxContainer />:
+                null
+            }
             <TableContainer result={result} />
         </div>
     )

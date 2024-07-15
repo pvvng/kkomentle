@@ -24,7 +24,7 @@ export default async function Home() {
       <SaveSimilarWordsContainer />
       <hr/>
       <div className="main-container">
-        <h2>꼬들꼬들 - 단어 유사도 추측 게임</h2>
+        <h3>꼬들꼬들 - 단어 유사도 추측 게임</h3>
         <p className="m-0 mt-4 mb-4">
           {selectTodayAnswer.data.index + 1}번째 꼬들꼬들의 정답 단어를 맞혀보세요.
           <br/>

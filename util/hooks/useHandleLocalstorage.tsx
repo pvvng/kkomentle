@@ -63,7 +63,7 @@ export function useHandleLocalstorage(result : SimilarityType | null){
                 similarity: parseFloat(((result.similarity) * 100).toFixed(2)),
                 rank: (result.rank === undefined || typeof result.rank === 'string') 
                 ? '???'
-                : (result.rank >= 1000 ? '1000위 이상' : result.rank)
+                : (result.rank >= 1000 ? '1000위 이하' : result.rank)
             };
         }
 

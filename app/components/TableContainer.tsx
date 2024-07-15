@@ -7,9 +7,10 @@ import TableListContainer from "./TableListContainer";
 
 export default function TableContainer({result} : {result : SimilarityType | null}){
 
-    
     let [nowInputData, setNowInputData] = useState<JsonSimilarityType|null>(null);
-    const storedGuessesArr = useHandleLocalstorage(result);
+    let storedGuessesArr = useHandleLocalstorage(result);
+    // now input이 guesses 에 포함될 경우 filter하기
+    let filteredStoredGuessesArr = storedGuessesArr?.filter(items => items.query !== nowInputData?.query);
 
     useEffect(() => {
         storedGuessesArr?.map(sga => {
@@ -17,7 +18,7 @@ export default function TableContainer({result} : {result : SimilarityType | nul
                 setNowInputData({...sga})
             }
         })
-    } ,[storedGuessesArr])
+    } ,[storedGuessesArr]);
 
     return(
         <table className="w-100 mt-4">
@@ -31,12 +32,7 @@ export default function TableContainer({result} : {result : SimilarityType | nul
                 {/* 사용자가 현재 입력한 값 */}
                 {
                     nowInputData?
-                    <tr>
-                        <th style={{fontWeight: 400}}>{nowInputData.index}</th>
-                        <th style={{color: '#f7617a', fontWeight: 600}}>{nowInputData.query}</th>
-                        <th style={{fontWeight: 400}}>{nowInputData.similarity}</th>
-                        <th style={{fontWeight: 400}}>{nowInputData.rank}</th>
-                    </tr>
+                    <TableListContainer tableData={nowInputData} type="input" />
                     :null
                 }
 
@@ -48,8 +44,11 @@ export default function TableContainer({result} : {result : SimilarityType | nul
                 </tr>
 
                 {/* 사용자가 이전에 입력한 값 (map) / 유사도 높은 순대로 */}  
-                <TableListContainer storedGuessesArr={storedGuessesArr} result={result} />
-
+                {
+                    filteredStoredGuessesArr?.map((fsga, i) => 
+                        <TableListContainer key={i} tableData={fsga} type="list" />
+                    )
+                }
             </tbody>
         </table>
     )
