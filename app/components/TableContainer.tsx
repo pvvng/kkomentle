@@ -1,24 +1,14 @@
 'use client'
 
 import { SimilarityType } from "@/util/functions/rankSimilarity";
-import { JsonSimilarityType, useHandleLocalstorage } from "@/util/hooks/useHandleLocalstorage";
-import { useEffect, useState } from "react";
+import { useHandleLocalstorage } from "@/util/hooks/useHandleLocalstorage";
 import TableListContainer from "./TableListContainer";
 
 export default function TableContainer({result} : {result : SimilarityType | null}){
 
-    let [nowInputData, setNowInputData] = useState<JsonSimilarityType|null>(null);
-    let storedGuessesArr = useHandleLocalstorage(result);
+    let { storedGuessesArr, nowInputData } = useHandleLocalstorage(result);
     // now input이 guesses 에 포함될 경우 filter하기
     let filteredStoredGuessesArr = storedGuessesArr?.filter(items => items.query !== nowInputData?.query);
-
-    useEffect(() => {
-        storedGuessesArr?.map(sga => {
-            if(result?.query === sga.query){
-                setNowInputData({...sga})
-            }
-        })
-    } ,[storedGuessesArr]);
 
     return(
         <table className="w-100 mt-4">

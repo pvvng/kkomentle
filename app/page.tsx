@@ -18,6 +18,8 @@ export default async function Home() {
   // console.log(saveSimilarWords);
   
   let oneTenAndKArr = getOneTenAndK();
+  // 오늘이 기준 날짜로부터 몇번째 정답인지
+  let todayIndex = selectTodayAnswer.data.index + 1;
 
   return (
     <>
@@ -26,7 +28,7 @@ export default async function Home() {
       <div className="main-container">
         <h3>꼬들꼬들 - 단어 유사도 추측 게임</h3>
         <p className="m-0 mt-4 mb-4">
-          {selectTodayAnswer.data.index + 1}번째 꼬들꼬들의 정답 단어를 맞혀보세요.
+          {todayIndex}번째 꼬들꼬들의 정답 단어를 맞혀보세요.
           <br/>
           정답 단어와 가장 유사한 단어의 유사도는{' '} 
           <b>{oneTenAndKArr[0].similarity}</b>
@@ -34,7 +36,7 @@ export default async function Home() {
           10번째로 유사한 단어의 유사도는 {oneTenAndKArr[1].similarity}이고, 
           1,000번째로 유사한 단어의 유사도는 {oneTenAndKArr[2].similarity} 입니다.
         </p>
-        <InputContainer />
+        <InputContainer todayIndex={todayIndex} />
       </div>
     </>
   );

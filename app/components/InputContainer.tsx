@@ -3,19 +3,10 @@
 import useQueryAnswerChecker from "@/util/hooks/useQueryAnswerChecker";
 import TableContainer from "./TableContainer";
 import ClearBoxContainer from "./ClearBoxContainer";
-import { useEffect, useState } from "react";
 
-export default function InputContainer(){
+export default function InputContainer({todayIndex} : {todayIndex : number}){
 
-    const { inputRef, result, handleClick } = useQueryAnswerChecker({ initialResult: null });
-    const [winState, setWinState] = useState(-1);
-
-    useEffect(() => {
-        let tempState = localStorage.getItem('winState');
-        if(tempState !== null){
-            setWinState(parseInt(tempState));
-        }
-    },[])
+    const { inputRef, result, handleClick, winState } = useQueryAnswerChecker({ initialResult: null });
 
     return(
         <div className="row w-100" style={{margin : 'auto'}}>
@@ -40,7 +31,7 @@ export default function InputContainer(){
             </button>
             {
                 winState !== -1?
-                <ClearBoxContainer />:
+                <ClearBoxContainer todayIndex = {todayIndex} />:
                 null
             }
             <TableContainer result={result} />

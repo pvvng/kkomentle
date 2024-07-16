@@ -25,11 +25,13 @@ export default function TableListContainer({tableData, type} :PropsType){
                     <span>{tableData.rank}</span>:
                     <div className="text-end w-100">
                         {
-                            typeof tableData.rank === 'number'&&
+                            typeof tableData.rank === 'number' && tableData.rank !== 0 ? 
                             <div className="progress" style={{width : '100%', margin:'auto', display : 'inline-block'}}>
                                 <div className="progress-bar" style={{width : `${((1000 - tableData.rank) / 10)}%`, height:'16px' }}>{tableData.rank}위</div>
-                            </div>
+                            </div>:
+                            <span className="float-start" style={{fontWeight : 600, color : '#0D6EFD'}}>정답!</span>
                         }
+                        <div style={{clear : 'both'}}></div>
                     </div>
                     
                 }

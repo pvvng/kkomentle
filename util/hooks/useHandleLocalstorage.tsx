@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { SimilarityType } from "../functions/rankSimilarity";
 import moment from "moment";
 
@@ -17,6 +17,8 @@ export function useHandleLocalstorage(result : SimilarityType | null){
 
     let [guessedWordState, setGuessedWordState] = useState<SimilarityType|null>(null);
     let [storedGuessesArr, setStoredGuessesArr] = useState<JsonSimilarityType[]|null>(null);
+    let [nowInputData, setNowInputData] = useState<JsonSimilarityType|null>(null);
+
 
     useEffect(() => {
         const guesses = localStorage.getItem('guesses');
@@ -74,20 +76,26 @@ export function useHandleLocalstorage(result : SimilarityType | null){
 
     useEffect(()=>{
         if(guessedWordState){
+            // 추측한 단어가 정답일 때 winState 변경 
+            if(guessedWordState.rank === 0){
+                localStorage.setItem('winState', '1');
+            }
             const guesses = localStorage.getItem('guesses');
 
             // 혹시 guesses 사라졌을가봐 추가
             if(!guesses){
                 localStorage.setItem('guesses', '[]');
-            }
-            
-            if(guesses){
+            }else{
                 // 이미 추측한 단어면 등록 x
                 let exist = false;
                 let parsedGuesses :JsonSimilarityType[] = JSON.parse(guesses);
                 parsedGuesses.map(pg => {
                     if (pg.query === guessedWordState.query){
                         exist = true;
+                    }
+                    // 만약 어레이에 정답 객체가 있으면 winState 변경
+                    if(pg.rank === 0){
+                        localStorage.setItem('winState', '1');
                     }
                 })
                 // 이전에 추측하지 않은 단어만 localstorage에 등록
@@ -103,5 +111,13 @@ export function useHandleLocalstorage(result : SimilarityType | null){
         }
     },[guessedWordState]);
 
-    return storedGuessesArr;
+    useEffect(() => {
+        storedGuessesArr?.map(sga => {
+            if(result?.query === sga.query){
+                setNowInputData({...sga})
+            }
+        })
+    } ,[storedGuessesArr]);
+
+    return { storedGuessesArr, nowInputData }; 
 }
