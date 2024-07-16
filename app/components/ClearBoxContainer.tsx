@@ -38,7 +38,7 @@ export default function ClearBoxContainer({todayIndex} : {todayIndex : number}){
             <br/>
             <button className="border-1 rounded-1 pt-1 pb-1 mt-2 mb-2">기록 복사하기</button>
             <br/>
-            <span>{todayIndex + 1}번째 꼬맨틀은 오늘 밤 자정(한국 시간 기준)에 열립니다.</span>
+            <span>{todayIndex + 1}번째 꼬들꼬들은 오늘 밤 자정(한국 시간 기준)에 열립니다.</span>
         </div>
     )
 }

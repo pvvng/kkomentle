@@ -1,4 +1,9 @@
-export default function Footer(){
+import axios from "axios"
+
+export default async function Footer(){
+
+    let res = await axios('http://localhost:3000/api/word/yesterdayWord');
+
     return(
         <div style={{marginTop : '100px'}}>
             <hr/>
@@ -45,8 +50,8 @@ export default function Footer(){
             <p className="float-start">A.</p>
             <ul className="mx-4">
                 <li className="mb-1">꼬들꼬들의 유사도는 단어의 철자의 유사도가 아닌, 의미에 대한 유사도라는 점을 기억해주세요. 의미적 맥락을 고려해볼 때 정답 단어와 같은 문단 혹은 문장에 언급될 법한 단어로 추측해보세요.</li>
-                <li className="mb-1">의미적으로는 반대의 의미를 갖더라도, 유사한 맥락에 사용된다면 유사도가 비슷하답니다. ‘사랑'과 ‘증오'는 의미상으로 반대되는 것처럼 보일 수 있지만, 같은 맥락에서 자주 사용되기 때문에 종종 비슷한 유사도를 갖습니다.</li>
-                <li className="mb-1">동음이의어를 고려해주세요. 예를 들어 ‘밤’ 하면 쉽게 떠오르는 2가지 의미 - 어두운 ‘밤', 가을에 따먹는 ‘밤'- 중 정답 단어와 의미맥락적으로 비슷한 밤은 어떤 의미일지 추측해보세요.</li>
+                <li className="mb-1">의미적으로는 반대의 의미를 갖더라도, 유사한 맥락에 사용된다면 유사도가 비슷하답니다. &apos;사랑&apos;과 &apos;증오&apos;는 의미상으로 반대되는 것처럼 보일 수 있지만, 같은 맥락에서 자주 사용되기 때문에 종종 비슷한 유사도를 갖습니다.</li>
+                <li className="mb-1">동음이의어를 고려해주세요. 예를 들어 ‘밤’ 하면 쉽게 떠오르는 2가지 의미 - 어두운 &apos;밤&apos;, 가을에 따먹는 &apos;밤&apos;- 중 정답 단어와 의미맥락적으로 비슷한 밤은 어떤 의미일지 추측해보세요.</li>
             </ul>
             <div style={{clear : 'both'}}></div>
 
@@ -69,7 +74,7 @@ export default function Footer(){
             <p><b>Q. 어제의 정답은 무엇인가요?</b></p>
             <p className="float-start">A.</p>
             <ul className="mx-4">
-                <li className="mb-1">어제의 정답 단어는 "<b>{'한동안'}</b>"입니다.</li>
+                <li className="mb-1">어제의 정답 단어는 &quot;<b>{res.data.yesterday}</b>&quot;입니다.</li>
             </ul>
             <div style={{clear : 'both'}}></div>
         </div>

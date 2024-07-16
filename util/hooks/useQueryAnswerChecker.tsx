@@ -18,8 +18,7 @@ export default function useQueryAnswerChecker({ initialResult = null }: UseInput
     // 정답 상태
     const [winState, setWinState] = useState(-1);
 
-    const handleClick = async (event: React.MouseEvent<HTMLButtonElement>) => {
-        event.preventDefault(); // 기본 동작 방지
+    const handleClick = async () => {
 
         if (inputRef.current !== null) {
             const inputValue = inputRef.current.value;
@@ -46,6 +45,9 @@ export default function useQueryAnswerChecker({ initialResult = null }: UseInput
     
                 } catch (error) {
                     console.error('Error fetching data:', error);
+                }finally{
+                    // 위 과정이 완료되면 input에 포커싱 되게
+                    inputRef.current.focus();
                 }
             }
             inputRef.current.value = ''; // 입력 값 초기화
