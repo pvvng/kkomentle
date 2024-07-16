@@ -3,7 +3,7 @@ import axios from "axios";
 import InputContainer from "./components/InputContainer";
 import getOneTenAndK from "@/util/functions/getOneTenAndK";
 import SaveSimilarWordsContainer from "./components/SaveSimilarWordsContainer";
-
+import Footer from "./components/Footer";
 
 export default async function Home() {
 
@@ -37,6 +37,7 @@ export default async function Home() {
           1,000번째로 유사한 단어의 유사도는 {oneTenAndKArr[2].similarity} 입니다.
         </p>
         <InputContainer todayIndex={todayIndex} />
+        <Footer />
       </div>
     </>
   );
