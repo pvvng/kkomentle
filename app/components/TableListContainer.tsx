@@ -9,6 +9,8 @@ interface PropsType {
 
 export default function TableListContainer({tableData, type} :PropsType){
 
+    console.log(tableData);
+
     return(
         <tr key={tableData.index}>
             <td style={{fontWeight: 400}}>{tableData.index}</td>

@@ -3,10 +3,13 @@
 import useQueryAnswerChecker from "@/util/hooks/useQueryAnswerChecker";
 import TableContainer from "./TableContainer";
 import ClearBoxContainer from "./ClearBoxContainer";
+import { useWinStateLocalstorage } from "../store";
 
 export default function InputContainer({todayIndex} : {todayIndex : number}){
 
-    const { inputRef, result, handleClick, winState } = useQueryAnswerChecker({ initialResult: null });
+    const { inputRef, result, handleClick } = useQueryAnswerChecker({ initialResult: null });
+    const { winState } = useWinStateLocalstorage();
+    console.log(winState)
 
     const handleKeyPress = (e :React.KeyboardEvent<HTMLInputElement>) => {
         // Enter 키 누를 때 버튼 클릭과 동일한 동작을 함
@@ -38,6 +41,8 @@ export default function InputContainer({todayIndex} : {todayIndex : number}){
                 추측하기
             </button>
             {
+                !winState?
+                null:
                 winState !== -1?
                 <ClearBoxContainer todayIndex = {todayIndex} />
                 :null

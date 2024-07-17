@@ -77,6 +77,10 @@ export default async function Footer(){
                 <li className="mb-1">어제의 정답 단어는 &quot;<b>{res.data.yesterday}</b>&quot;입니다.</li>
             </ul>
             <div style={{clear : 'both'}}></div>
+            <hr/>
+            <p>
+                꼬들꼬들은 David Turner의 <a href="https://semantle.novalis.org/">Semantle</a>과 Johannes Gätjen의 <a href="http://semantlich.johannesgaetjen.de/">Semantlich</a>를 바탕으로 데이터 시각화 전문기업 <a href="https://newsjel.ly/?utm_source=semantle_ko&utm_medium=footer_link">뉴스젤리</a>가 만든 꼬맨틀을 바탕으로 만들었습니다.
+            </p>
         </div>
     )
 }

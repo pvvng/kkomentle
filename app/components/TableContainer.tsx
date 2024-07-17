@@ -3,12 +3,14 @@
 import { SimilarityType } from "@/util/functions/rankSimilarity";
 import { useHandleLocalstorage } from "@/util/hooks/useHandleLocalstorage";
 import TableListContainer from "./TableListContainer";
+import { useGuessesLocalstorage } from "../store";
 
 export default function TableContainer({result} : {result : SimilarityType | null}){
 
-    let { storedGuessesArr, nowInputData } = useHandleLocalstorage(result);
+    let { nowInputData } = useHandleLocalstorage(result);
+    const { guesses } = useGuessesLocalstorage();
     // now input이 guesses 에 포함될 경우 filter하기
-    let filteredStoredGuessesArr = storedGuessesArr?.filter(items => items.query !== nowInputData?.query);
+    let filteredStoredGuessesArr = guesses?.filter(items => items.query !== nowInputData?.query);
 
     return(
         <table className="w-100 mt-4">
