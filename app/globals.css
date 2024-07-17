@@ -1,0 +1,120 @@
+* {
+    box-sizing: border-box;
+}
+
+div {
+    display: block;
+    unicode-bidi: isolate;
+}
+
+body .main-container{
+    margin: 0 auto;
+    max-width: 640px;
+    padding: 0 1em 1em;
+
+    @media screen and (max-width : 470px) {
+      font-size: 12px;
+    }
+    @media screen and (max-width : 380px) {
+      font-size: 10px;
+    }
+}
+
+.progress-bar {
+  @media screen and (max-width : 470px) {
+    font-size: 12px;
+  }
+  @media screen and (max-width : 380px) {
+    font-size: 10px;
+  }
+}
+
+@keyframes drop {
+  0% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(80px);
+  }
+  100% {
+    transform: translateY(0px);
+  }
+}
+
+.lava-lamp {
+  position: relative;
+  width: 100px;
+  height: 100px;
+  background: #000;
+  border-radius: 25px;
+  overflow: hidden;
+  margin: auto;
+}
+
+.bubble {
+  position: absolute;
+  top: 0;
+  width: 20px;
+  height: 20px;
+  background: linear-gradient(to bottom, #e64980, #ff8787);
+  border-radius: 50%;
+  left: 30px;
+  animation: drop 5s ease-in-out infinite;
+}
+
+.bubble1 {
+  position: absolute;
+  top: 0;
+  width: 20px;
+  height: 20px;
+  background: linear-gradient(to bottom, #82c91e, #3bc9db);
+  border-radius: 50%;
+  left: 10px;
+  animation: drop 3s ease-in-out infinite;
+}
+
+.bubble2 {
+  position: absolute;
+  top: 0;
+  width: 20px;
+  height: 20px;
+  background: linear-gradient(to bottom, #7950f2, #f783ac);
+  border-radius: 50%;
+  left: 70px;
+  animation: drop 4s ease-in-out infinite;
+}
+
+.bubble3 {
+  position: absolute;
+  top: 0;
+  width: 20px;
+  height: 20px;
+  background: linear-gradient(to bottom, #4481eb, #04befe);
+  border-radius: 50%;
+  left: 50px;
+  animation: drop 6s ease-in-out infinite;
+}
+
+.submit-btn { 
+    /* min-width: 63px;
+    min-height: 37px; */
+    padding : 0;
+    font-weight: 600;
+    font-size: 12px;
+    
+    @media screen and (max-width : 470px) {
+        font-size: 10px;
+    }
+    @media screen and (max-width : 380px) {
+        font-size: 8px;
+        padding : 0;
+    }
+}
+
+@media only screen and (max-width: 640px) {
+    body, input, button {
+        font-size: 14px;
+    }
+    
+}
+/* !!!!!!!!!!!!!!!!!!!!!!!! */
