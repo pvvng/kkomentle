@@ -7,7 +7,6 @@ export default async function Footer(){
     return(
         <div style={{marginTop : '100px'}}>
             <hr/>
-
             <h4 className="mt-4 mb-4"><b>질문과 답변</b></h4>
             <p><b>Q. 꼬들꼬들은 무엇인가요?</b></p>
             <p className="float-start">A.</p>

@@ -66,7 +66,7 @@ interface TodayDateStoreType {
     loadTodayDateState: () => void;
 }
 const NOW = moment().format('YYYY-MM-DD');
-const DEFAULT_TODAY = null;
+const DEFAULT_TODAY :string|null = null;
 
 /** 오늘의 날짜를 저장하는 store */
 export const useTodayDateLocalstorage = create<TodayDateStoreType>((set) => ({
@@ -86,3 +86,18 @@ export const useTodayDateLocalstorage = create<TodayDateStoreType>((set) => ({
         set({ today : storedDate })
     }
 }));
+
+interface AlertBoxStoreType {
+    alert: number;
+    setAlertState: () => void;
+}
+
+/** Header 컴포넌트 alert 창 관리하는 store */
+export const useAlertBoxState = create<AlertBoxStoreType>((set) => ({
+    alert : 0,
+    setAlertState : () => {
+        set((state) => (
+            { alert : state.alert + 1 }
+        ));
+    }
+}))

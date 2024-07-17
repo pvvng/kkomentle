@@ -1,10 +1,16 @@
 import insertAnswer from "@/util/functions/insertAnswer";
 import axios from "axios";
 import InputContainer from "./components/InputContainer";
-import getOneTenAndK from "@/util/functions/getOneTenAndK";
+import getOneTenAndKSimilarlity from "@/util/functions/getOneTenAndK";
 import SaveSimilarWordsContainer from "./components/SaveSimilarWordsContainer";
 import Footer from "./components/Footer";
-import GaveUpButtonContainer from "./components/GaveUpButtoncontainer";
+import Header from "./components/Header";
+import SettingAlertContainer from "./components/SettingAlertContainer";
+
+export interface TodayIndexType {
+  word : string;
+  index : number;
+}
 
 export default async function Home() {
 
@@ -17,28 +23,29 @@ export default async function Home() {
   // 유사어 파일 생성하는 api
   // let saveSimilarWords = await axios.post('http://localhost:3000/api/word/similar')
   // console.log(saveSimilarWords);
+  console.log(selectTodayAnswer.data)
   
-  let oneTenAndKArr = getOneTenAndK();
-  // 오늘이 기준 날짜로부터 몇번째 정답인지
-  let todayIndex = selectTodayAnswer.data.index + 1;
+  let oneTenAndKSimilarityArr = getOneTenAndKSimilarlity();
+  // 정답과 오늘이 기준 날짜로부터 몇번째 정답인지 담긴 객체
+  let todayIndex :TodayIndexType = {...selectTodayAnswer.data};
 
   return (
     <>
       <SaveSimilarWordsContainer />
+      <SettingAlertContainer />  
       <hr/>
       <div className="main-container">
-        <h3>꼬들꼬들 - 단어 유사도 추측 게임</h3>
-        <p className="m-0 mt-4 mb-4">
-          {todayIndex}번째 꼬들꼬들의 정답 단어를 맞혀보세요.
+        <Header />
+        <p className="m-0 mt-sm-4 mb-sm-4 mt-1 mb-3">
+          {todayIndex.index}번째 꼬들꼬들의 정답 단어를 맞혀보세요.
           <br/>
           정답 단어와 가장 유사한 단어의 유사도는{' '} 
-          <b>{oneTenAndKArr[0].similarity}</b>
+          <b>{oneTenAndKSimilarityArr[0].similarity}</b>
           {' '}입니다. 
-          10번째로 유사한 단어의 유사도는 {oneTenAndKArr[1].similarity}이고, 
-          1,000번째로 유사한 단어의 유사도는 {oneTenAndKArr[2].similarity} 입니다.
+          10번째로 유사한 단어의 유사도는 {oneTenAndKSimilarityArr[1].similarity}이고, 
+          1,000번째로 유사한 단어의 유사도는 {oneTenAndKSimilarityArr[2].similarity} 입니다.
         </p>
-        <InputContainer todayIndex={todayIndex} />
-        <GaveUpButtonContainer />
+        <InputContainer {...todayIndex} />
         <Footer />
       </div>
     </>
