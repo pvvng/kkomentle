@@ -5,9 +5,9 @@ export default async function Footer(){
     let res = await axios('http://localhost:3000/api/word/yesterdayWord');
 
     return(
-        <div style={{marginTop : '100px'}}>
+        <>
             <hr/>
-            <h4 className="mt-4 mb-4"><b>질문과 답변</b></h4>
+            <p className="mt-3 mb-3 header-title"><b>질문과 답변</b></p>
             <p><b>Q. 꼬들꼬들은 무엇인가요?</b></p>
             <p className="float-start">A.</p>
             <ul className="mx-4">
@@ -80,6 +80,6 @@ export default async function Footer(){
             <p>
                 꼬들꼬들은 David Turner의 <a href="https://semantle.novalis.org/">Semantle</a>과 Johannes Gätjen의 <a href="http://semantlich.johannesgaetjen.de/">Semantlich</a>를 바탕으로 데이터 시각화 전문기업 <a href="https://newsjel.ly/?utm_source=semantle_ko&utm_medium=footer_link">뉴스젤리</a>가 만든 꼬맨틀을 바탕으로 만들었습니다.
             </p>
-        </div>
+        </>
     )
 }

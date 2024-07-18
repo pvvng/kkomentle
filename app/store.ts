@@ -101,3 +101,62 @@ export const useAlertBoxState = create<AlertBoxStoreType>((set) => ({
         ));
     }
 }))
+
+interface SettingObjType {
+    [key :string] : boolean
+}
+
+const DEFAULT_SETTING  :SettingObjType= {
+    darkmode : false,
+    try : true,
+    time : true,
+    sim : true,
+}
+
+interface SettingStateStoreType {
+    setting : SettingObjType;
+    setSettingState: (checkedVale : SettingObjType) => void;
+}
+
+export const useSettingState = create<SettingStateStoreType>((set) => ({
+    setting : DEFAULT_SETTING,
+    setSettingState : (checkedVale) => {
+        set((state) => (
+            { setting : {
+                ...state.setting, 
+                ...checkedVale
+            }
+        }))
+    }
+}))
+
+interface PlayTimeStoreType {
+    playtime: number|null;
+    setPlayTimeState: (nowplaytime: number) => void;
+    loadPlayTimeState: () => void;
+}
+
+const DEFAULT_PLAYTIME :number|null = null;
+
+/** 플레이타임을 저장하는 store */
+export const usePlayTimeLocalstorage = create<PlayTimeStoreType>((set) => ({
+    playtime : DEFAULT_PLAYTIME,
+    /** 오늘 날짜 localstorage에 저장하기 */
+    setPlayTimeState : (nowplaytime) => {
+        localStorage.setItem('playtime', JSON.stringify(nowplaytime));
+        set({ playtime : nowplaytime })
+    },
+    /** localstorage에 저장된 날짜 불러오기 */
+    loadPlayTimeState : () => {
+        let storedPlayTime = localStorage.getItem('playtime');
+        let parsedPlayTime :number = 0;
+        if(!storedPlayTime){
+            parsedPlayTime = 0;
+            localStorage.setItem('playtime', JSON.stringify(parsedPlayTime));
+        }else{
+            parsedPlayTime = parseInt(storedPlayTime);
+        }
+        set({ playtime : parsedPlayTime })
+    }
+}));
+

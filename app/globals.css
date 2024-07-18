@@ -2,9 +2,45 @@
     box-sizing: border-box;
 }
 
+body{
+  margin : 0;
+  padding : 0;
+}
+
 div {
     display: block;
     unicode-bidi: isolate;
+}
+
+.setting-title{
+  font-weight: 600;
+  @media screen and (max-width : 470px) {
+    font-size: 14px;
+  }
+  @media screen and (max-width : 380px) {
+    font-size: 12px;
+  }
+}
+
+.input-label-wrapper {
+  display: flex;
+  align-items: center; 
+  margin-bottom: 10px;
+}
+
+.input-label-wrapper input,
+.input-label-wrapper label {
+    display: inline-block;
+}
+
+.input-label-wrapper label {
+    margin-left: 8px; /* label과 input 사이의 간격 */
+    @media screen and (max-width : 470px) {
+      font-size: 12px;
+    }
+    @media screen and (max-width : 380px) {
+      font-size: 10px;
+    }
 }
 
 body .main-container{

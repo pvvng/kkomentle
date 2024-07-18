@@ -7,10 +7,12 @@ import { useWinStateLocalstorage } from "../store";
 import GaveUpButtonContainer from "./GaveUpButtoncontainer";
 import { TodayIndexType } from "../page";
 
-export default function InputContainer({word, index} :TodayIndexType){
+export default function InputContainer(props :TodayIndexType){
 
     const { inputRef, result, handleClick } = useQueryAnswerChecker({ initialResult: null });
     const { winState } = useWinStateLocalstorage();
+
+    console.log(result)
 
     const handleKeyPress = (e :React.KeyboardEvent<HTMLInputElement>) => {
         // Enter 키 누를 때 버튼 클릭과 동일한 동작을 함
@@ -45,7 +47,7 @@ export default function InputContainer({word, index} :TodayIndexType){
                 winState === null?
                 null:
                 winState !== -1 &&
-                <ClearBoxContainer todayIndex = {index} />
+                <ClearBoxContainer {...props} />
             }
             <TableContainer result={result} />
             {

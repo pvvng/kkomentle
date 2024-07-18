@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { SimilarityType } from "../functions/rankSimilarity";
-import { useGuessesLocalstorage, useTodayDateLocalstorage, useWinStateLocalstorage } from '@/app/store'
+import { useGuessesLocalstorage, usePlayTimeLocalstorage, useTodayDateLocalstorage, useWinStateLocalstorage } from '@/app/store'
 import moment from "moment";
 
 // localstorage에 저장하는 추측 값 어레이의 타입
@@ -14,8 +14,28 @@ export function useHandleLocalstorage(result : SimilarityType | null){
     const { winState ,setWinState, loadWinState } = useWinStateLocalstorage();
     const { guesses, setGuessesState, loadGuessesState } = useGuessesLocalstorage();
     const { today, setTodayDateState, loadTodayDateState } = useTodayDateLocalstorage();
+    const { playtime, setPlayTimeState, loadPlayTimeState } = usePlayTimeLocalstorage();
+
+    const nowDate = new Date();
+    const nowTime = (nowDate.getHours() * 60) + nowDate.getMinutes();
 
     let [nowInputData, setNowInputData] = useState<JsonSimilarityType|null>(null);
+
+    /** 정답을 맞췄을 때 playtime을 얻는 함수 */
+    function getPlayTime(
+        guessedWord :SimilarityType, 
+        guesses :JsonSimilarityType[] | null,
+    ){
+        let endTime = guessedWord.time || 0;
+    
+        let startTime = guesses?.filter(
+            item => item.index === 1
+        )[0].time || 0;
+
+        let playtime = endTime - startTime;
+
+        setPlayTimeState(playtime);
+    }
 
     useEffect(() => {
         if(!guesses){
@@ -27,6 +47,9 @@ export function useHandleLocalstorage(result : SimilarityType | null){
         if(!today){
             loadTodayDateState();
         }
+        if(!playtime){
+            loadPlayTimeState();
+        }
     }, []);
 
     useEffect(() => {
@@ -37,6 +60,7 @@ export function useHandleLocalstorage(result : SimilarityType | null){
             setGuessesState([]);
             setTodayDateState(now);
             setWinState(-1);
+            setPlayTimeState(0);
         }
     }, [today])
 
@@ -49,16 +73,18 @@ export function useHandleLocalstorage(result : SimilarityType | null){
             // 유사어 순위에 포함되지 않은 단어를 입력했을때
             ?guessedWord = { 
                 ...result, 
+                time : nowTime,
                 similarity: parseFloat(((result.similarity) * 100).toFixed(2)), 
-                rank : '???'
+                rank : '???',
             }
             // 유사도 순위에 포함된 단어를 입력했을때,
             :guessedWord = { 
                 ...result, 
+                time : nowTime,
                 similarity: parseFloat(((result.similarity) * 100).toFixed(2)),
                 rank: (result.rank === undefined || typeof result.rank === 'string') 
                 ? '???'
-                : (result.rank >= 1000 ? '1000위 이하' : result.rank)
+                : (result.rank >= 1000 ? '1000위 이하' : result.rank),
             };
         }
 
@@ -66,6 +92,7 @@ export function useHandleLocalstorage(result : SimilarityType | null){
             // 추측한 단어가 정답일 때 winState 변경 
             if(guessedWord.rank === 0){
                 setWinState(1);
+                getPlayTime(guessedWord, guesses);
             }
 
             if(guesses){
@@ -79,6 +106,7 @@ export function useHandleLocalstorage(result : SimilarityType | null){
                     // 만약 어레이에 정답 객체가 있으면 winState 변경
                     if(pg.rank === 0){
                         setWinState(1);
+                        getPlayTime(pg, guesses);
                     }
                 })
                 // 이전에 추측하지 않은 단어만 localstorage에 등록
@@ -102,3 +130,4 @@ export function useHandleLocalstorage(result : SimilarityType | null){
 
     return { nowInputData }; 
 }
+
