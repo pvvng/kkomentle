@@ -6,16 +6,17 @@ import { TodayIndexType } from "../page";
 import copyToClipboard from "@/util/functions/copyToClipboard";
 import useGetClipBoardText from "@/util/hooks/useGetClipBoardText";
 
-
-
 export default function ClearBoxContainer(props :TodayIndexType){
 
     const { winState } = useWinStateLocalstorage();
-
-    const { WIN_TEXT, LOSE_TEXT, indexGuesses, hours, minutes } = useGetClipBoardText();
+    const { WIN_TEXT, LOSE_TEXT, indexGuesses, hours, minutes } = useGetClipBoardText(props.index);
     
     return(
-        <div className="p-3 mt-3" style={{border: '1px solid', background : '#eeeeff'}}>
+        <div className={
+            props.darkmode.value === 'dark' ? 
+            "p-3 mt-3 dark-mode-clear-box":
+            "p-3 mt-3 light-mode-clear-box"
+        }>
             {
                 winState?
                 <strong className="mb-2">정답 단어를 맞혔습니다. {indexGuesses}번째 추측만에 정답을 맞혔네요!</strong>:

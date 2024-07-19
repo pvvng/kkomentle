@@ -9,7 +9,7 @@ import { useEffect, useState } from "react";
  * hours : playtime의 시간
  * minutes : playtime의 분
  */
-export default function useGetClipBoardText (){
+export default function useGetClipBoardText (index :number){
     // 정답을 몇번만에 맞췄는지 기록하는 상태    
     let [indexGuesses, setIndexGuesses] = useState(0);
 
@@ -50,8 +50,8 @@ export default function useGetClipBoardText (){
     const LOSE_SETTING_TEXT = SETTING_TEXT_TRY + SETTING_TEXT_TIME +  getSettingTextSim(0);
     const WIN_SETTING_TEXT = SETTING_TEXT_TRY + SETTING_TEXT_TIME +  getSettingTextSim(1);
 
-    const WIN_TEXT = `${indexGuesses}번 만에 정답을 맞혔어요\n${WIN_SETTING_TEXT}\n꼬들꼬들`;
-    const LOSE_TEXT = `${indexGuesses}번째 추측에서 포기했어요.\n${LOSE_SETTING_TEXT}\n꼬들꼬들`;
+    const WIN_TEXT = `${index}번째 꼬맨틀을 풀었습니다!.\n${WIN_SETTING_TEXT}\n꼬들꼬들`;
+    const LOSE_TEXT = `${index}번째 꼬맨틀을 시도하지 않고 바로 포기했어요.\n${LOSE_SETTING_TEXT}\n꼬들꼬들`;
 
     useEffect(() => {
         guesses?.map(psg => {

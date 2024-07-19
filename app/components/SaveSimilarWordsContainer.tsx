@@ -26,7 +26,7 @@ export default function SaveSimilarWordsContainer(){
                 loading ? 
                 <div style={{margin : 'auto'}}>
                     <h2 className="text-center">파일 업데이트 중..</h2>
-                    <LoadingSpinner />
+                    <LoadingSpinner darkmode={ {value : 'dark'} } />
                 </div>:
                 <button onClick={fetchSimilarWords}>Fetch Similar Words</button>
 

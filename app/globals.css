@@ -1,15 +1,50 @@
 * {
-    box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+@font-face {
+  font-family: 'Ownglyph_eunbyul21-Rg';
+  src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/2405-2@1.0/Ownglyph_eunbyul21-Rg.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
 }
 
 body{
   margin : 0;
   padding : 0;
+  font-family: 'Ownglyph_eunbyul21-Rg', sans-serif !important;
 }
 
 div {
-    display: block;
-    unicode-bidi: isolate;
+  display: block;
+  unicode-bidi: isolate;
+}
+
+.dark-mode-container {
+  background-color: #111111;
+  color : white;
+}
+
+.dark-mode-clear-box{
+  background-color: #333344;
+  color : rgb(255, 255, 255);
+  border : 1px solid black;
+}
+
+.light-mode-clear-box{
+  background : #eeeeff;
+  color : black;
+  border : 1px solid black;
+}
+
+.dark-mode-setting-box{
+  background: #333333;
+}
+
+.dark-mode-input-and-btn{
+  background: #333333;
+  color : white;
+  border : 1px solid white;
 }
 
 .setting-title{
@@ -34,26 +69,26 @@ div {
 }
 
 .input-label-wrapper label {
-    margin-left: 8px; /* label과 input 사이의 간격 */
-    @media screen and (max-width : 470px) {
-      font-size: 12px;
-    }
-    @media screen and (max-width : 380px) {
-      font-size: 10px;
-    }
+  margin-left: 8px; /* label과 input 사이의 간격 */
+  @media screen and (max-width : 470px) {
+    font-size: 12px;
+  }
+  @media screen and (max-width : 380px) {
+    font-size: 10px;
+  }
 }
 
 body .main-container{
-    margin: 0 auto;
-    max-width: 640px;
-    padding: 0 1em 1em;
+  margin: 0 auto;
+  max-width: 640px;
+  padding: 0 1em 1em;
 
-    @media screen and (max-width : 470px) {
-      font-size: 12px;
-    }
-    @media screen and (max-width : 380px) {
-      font-size: 10px;
-    }
+  @media screen and (max-width : 470px) {
+    font-size: 12px;
+  }
+  @media screen and (max-width : 380px) {
+    font-size: 10px;
+  }
 }
 
 .progress-bar {
@@ -180,19 +215,17 @@ body .main-container{
 }
 
 .submit-btn { 
-    /* min-width: 63px;
-    min-height: 37px; */
-    padding : 0;
-    font-weight: 600;
-    font-size: 12px;
-    
-    @media screen and (max-width : 470px) {
-        font-size: 10px;
-    }
-    @media screen and (max-width : 380px) {
-        font-size: 8px;
-        padding : 0;
-    }
+  padding : 0;
+  font-weight: 600;
+  font-size: 12px;
+  
+  @media screen and (max-width : 470px) {
+      font-size: 10px;
+  }
+  @media screen and (max-width : 380px) {
+      font-size: 8px;
+      padding : 0;
+  }
 }
 
 @media only screen and (max-width: 640px) {
