@@ -1,5 +1,4 @@
 import { JsonSimilarityType } from "@/util/hooks/useHandleLocalstorage";
-import { ChildProcessWithoutNullStreams } from "child_process";
 import moment from "moment";
 import { create } from "zustand";
 
@@ -121,13 +120,15 @@ interface SettingStateStoreType {
 export const useSettingState = create<SettingStateStoreType>((set) => ({
     setting : DEFAULT_SETTING,
     setSettingState : (checkedVale) => {
-        set((state) => (
-            { setting : {
+        set((state) => {
+            const newSetting = {
                 ...state.setting, 
                 ...checkedVale
-            }
-        }))
-    }
+            };
+
+            return { setting: newSetting };
+        });
+    },
 }))
 
 interface PlayTimeStoreType {

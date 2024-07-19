@@ -1,5 +1,6 @@
 'use client'
 
+import { useRouter } from "next/navigation";
 import { useAlertBoxState, useSettingState } from "../store"
 
 const INPUT_LABEL_ARRAY = [
@@ -9,10 +10,11 @@ const INPUT_LABEL_ARRAY = [
     { id: 'sim', content : '결과 공유 텍스트에 최대 유사도 표시하기' },
 ]
 
-export default function SettingAlertContainer(){
+export default function SettingAlertContainer({darkmode} : {darkmode : {[key :string] :string}}){
 
     const { alert, setAlertState } = useAlertBoxState();
     const { setting, setSettingState } = useSettingState();
+    const router = useRouter();
 
     return(
         <div 
@@ -35,7 +37,10 @@ export default function SettingAlertContainer(){
                 }
             }}
         >
-            <div className="w-100 rounded bg-white p-3">
+            <div 
+                className={darkmode.value === 'dark' ? "w-100 rounded p-3 dark-mode-setting-box" : "w-100 rounded p-3 bg-white"}
+                style={{maxWidth : '640px', margin : 'auto'}}
+            >
                 <div onClick={() => {
                     setAlertState();
                 }}>
@@ -48,7 +53,13 @@ export default function SettingAlertContainer(){
                 {INPUT_LABEL_ARRAY.map(ila => 
                         <div key={ila.id} className="input-label-wrapper">
                             <input id={ila.id} checked = {setting[ila.id]} type="checkbox" onChange={(e) => {
-                                setSettingState({ [ila.id] : e.target.checked  })
+                                if(ila.id === 'darkmode'){
+                                    e.target.checked?
+                                    document.cookie = 'mode=dark; max-age=' + (3600 * 24 * 400):
+                                    document.cookie = 'mode=light; max-age=' + (3600 * 24 * 400);
+                                }
+                                setSettingState({ [ila.id] : e.target.checked  });
+                                router.refresh();
                             }} />
                             <label htmlFor={ila.id} className="mx-2">{ila.content}</label>
                         </div>

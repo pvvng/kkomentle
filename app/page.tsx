@@ -6,13 +6,17 @@ import SaveSimilarWordsContainer from "./components/SaveSimilarWordsContainer";
 import Footer from "./components/Footer";
 import Header from "./components/Header";
 import SettingAlertContainer from "./components/SettingAlertContainer";
+import { cookies } from "next/headers";
 
 export interface TodayIndexType {
   word : string;
   index : number;
+  darkmode: {[key :string] :string};
 }
 
 export default async function Home() {
+
+  let darkmode = cookies().get('mode') as {[ket :string] :string};
 
   // 오늘의 단어 선별하는 API
   let selectTodayAnswer = await axios('http://localhost:3000/api/word/answer');  
@@ -23,16 +27,15 @@ export default async function Home() {
   // 유사어 파일 생성하는 api
   // let saveSimilarWords = await axios.post('http://localhost:3000/api/word/similar')
   // console.log(saveSimilarWords);
-  console.log(selectTodayAnswer.data)
   
   let oneTenAndKSimilarityArr = getOneTenAndKSimilarlity();
   // 정답과 오늘이 기준 날짜로부터 몇번째 정답인지 담긴 객체
-  let todayIndex :TodayIndexType = {...selectTodayAnswer.data};
+  let todayIndex :TodayIndexType = {...selectTodayAnswer.data, darkmode : darkmode};
 
   return (
     <>
       <SaveSimilarWordsContainer />
-      <SettingAlertContainer />  
+      <SettingAlertContainer darkmode={darkmode} />  
       <hr/>
       <div className="main-container">
         <Header />

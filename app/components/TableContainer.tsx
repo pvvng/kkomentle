@@ -6,7 +6,12 @@ import TableListContainer from "./TableListContainer";
 import { useGuessesLocalstorage } from "../store";
 import LoadingSpinner from "./LoadingSpinner";
 
-export default function TableContainer({result} : {result : SimilarityType | null}){
+interface PropsType {
+    result : SimilarityType | null,
+    darkmode : {[key :string] :string}
+}
+
+export default function TableContainer({result, darkmode} :PropsType){
 
     let { nowInputData } = useHandleLocalstorage(result);
     const { guesses } = useGuessesLocalstorage();
@@ -14,12 +19,7 @@ export default function TableContainer({result} : {result : SimilarityType | nul
     let filteredStoredGuessesArr = guesses?.filter(items => items.query !== nowInputData?.query);
 
     if(!guesses) return (
-        <>
-            <div className="mt-3" style={{width : 100, margin : 'auto'}}>
-                <LoadingSpinner />
-            </div>
-            <p className="text-center mt-3">로딩 중 입니다.</p>
-        </>
+        <LoadingSpinner darkmode={darkmode} />
     )
 
     return(
