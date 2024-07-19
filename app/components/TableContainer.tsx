@@ -3,12 +3,24 @@
 import { SimilarityType } from "@/util/functions/rankSimilarity";
 import { useHandleLocalstorage } from "@/util/hooks/useHandleLocalstorage";
 import TableListContainer from "./TableListContainer";
+import { useGuessesLocalstorage } from "../store";
+import LoadingSpinner from "./LoadingSpinner";
 
 export default function TableContainer({result} : {result : SimilarityType | null}){
 
-    let { storedGuessesArr, nowInputData } = useHandleLocalstorage(result);
+    let { nowInputData } = useHandleLocalstorage(result);
+    const { guesses } = useGuessesLocalstorage();
     // now input이 guesses 에 포함될 경우 filter하기
-    let filteredStoredGuessesArr = storedGuessesArr?.filter(items => items.query !== nowInputData?.query);
+    let filteredStoredGuessesArr = guesses?.filter(items => items.query !== nowInputData?.query);
+
+    if(!guesses) return (
+        <>
+            <div className="mt-3" style={{width : 100, margin : 'auto'}}>
+                <LoadingSpinner />
+            </div>
+            <p className="text-center mt-3">로딩 중 입니다.</p>
+        </>
+    )
 
     return(
         <table className="w-100 mt-4">

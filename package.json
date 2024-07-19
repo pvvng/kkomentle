@@ -19,7 +19,8 @@
     "openai": "^4.52.4",
     "react": "^18",
     "react-bootstrap": "^2.10.4",
-    "react-dom": "^18"
+    "react-dom": "^18",
+    "zustand": "^4.5.4"
   },
   "devDependencies": {
     "@types/node": "^20",

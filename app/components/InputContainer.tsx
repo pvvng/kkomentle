@@ -3,10 +3,14 @@
 import useQueryAnswerChecker from "@/util/hooks/useQueryAnswerChecker";
 import TableContainer from "./TableContainer";
 import ClearBoxContainer from "./ClearBoxContainer";
+import { useWinStateLocalstorage } from "../store";
+import GaveUpButtonContainer from "./GaveUpButtoncontainer";
+import { TodayIndexType } from "../page";
 
-export default function InputContainer({todayIndex} : {todayIndex : number}){
+export default function InputContainer(props :TodayIndexType){
 
-    const { inputRef, result, handleClick, winState } = useQueryAnswerChecker({ initialResult: null });
+    const { inputRef, result, handleClick } = useQueryAnswerChecker({ initialResult: null });
+    const { winState } = useWinStateLocalstorage();
 
     const handleKeyPress = (e :React.KeyboardEvent<HTMLInputElement>) => {
         // Enter 키 누를 때 버튼 클릭과 동일한 동작을 함
@@ -38,11 +42,16 @@ export default function InputContainer({todayIndex} : {todayIndex : number}){
                 추측하기
             </button>
             {
-                winState !== -1?
-                <ClearBoxContainer todayIndex = {todayIndex} />
-                :null
+                winState === null?
+                null:
+                winState !== -1 &&
+                <ClearBoxContainer {...props} />
             }
             <TableContainer result={result} />
+            {
+                winState === -1 &&
+                <GaveUpButtonContainer />
+            }
         </div>
     )
 }

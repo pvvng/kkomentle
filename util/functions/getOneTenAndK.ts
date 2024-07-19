@@ -1,7 +1,7 @@
 import rankSimilarity, { SimilarityType } from "@/util/functions/rankSimilarity";
 
 /** 1, 10, 1000 번째에 랭크된 유사어 어레이로 뽑는 함수 */
-export default function getOneTenAndK(){
+export default function getOneTenAndKSimilarlity(){
 
     let firstTenK:SimilarityType[] = [];
     let topRanking = rankSimilarity();

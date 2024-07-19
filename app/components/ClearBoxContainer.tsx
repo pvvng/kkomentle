@@ -1,44 +1,50 @@
 'use client'
 
-import { JsonSimilarityType } from "@/util/hooks/useHandleLocalstorage";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useWinStateLocalstorage } from "../store";
+import { TodayIndexType } from "../page";
+import copyToClipboard from "@/util/functions/copyToClipboard";
+import useGetClipBoardText from "@/util/hooks/useGetClipBoardText";
 
-export default function ClearBoxContainer({todayIndex} : {todayIndex : number}){
 
-    let [indexGuesses, setIndexGuesses] = useState(-1);
-    let storedGuesses = localStorage.getItem('guesses');
 
-    useEffect(() => {
-        let parsedStoredGuesses :JsonSimilarityType[] = [];
-        if(storedGuesses){
-            parsedStoredGuesses = JSON.parse(storedGuesses);
-        }
-        // localstorage에서 값을 받아올때, input에 입력하는 값이 즉각적으로 반영되지 않는 문제가 존재한다.
-        // 이 문제를 해결하기 위해, 받아온 guesses 어레이 안에 rank = 0인 데이터 (정답인 데이터)가 존재할 때와 아닐때를 구분한다.
-        let exist = false;
-        parsedStoredGuesses.map(psg => {
-            if(psg.rank === 0){
-                exist = true;
-                setIndexGuesses(psg.index);
-            }
-        });
+export default function ClearBoxContainer(props :TodayIndexType){
 
-        // 맵핑했을때 존재하지 않을때만 index를 전체 어레이의 길어로 변경하기
-        if(!exist){
-            setIndexGuesses(parsedStoredGuesses.length);
-        }
-    },[storedGuesses])
+    const { winState } = useWinStateLocalstorage();
 
+    const { WIN_TEXT, LOSE_TEXT, indexGuesses, hours, minutes } = useGetClipBoardText();
+    
     return(
         <div className="p-3 mt-3" style={{border: '1px solid', background : '#eeeeff'}}>
-            <b>정답 단어를 맞혔습니다. {indexGuesses}번째 추측만에 정답을 맞혔네요!</b>
-            <br/>
-            <span>정답 단어와 비슷한, <Link href="">상위 1,000개의 단어</Link>를 확인해보세요.</span>
-            <br/>
-            <button className="border-1 rounded-1 pt-1 pb-1 mt-2 mb-2">기록 복사하기</button>
-            <br/>
-            <span>{todayIndex + 1}번째 꼬들꼬들은 오늘 밤 자정(한국 시간 기준)에 열립니다.</span>
+            {
+                winState?
+                <strong className="mb-2">정답 단어를 맞혔습니다. {indexGuesses}번째 추측만에 정답을 맞혔네요!</strong>:
+                <strong>{indexGuesses}번째 추측에서 포기했습니다!</strong>
+            }
+            <p className="m-0 mt-2">오늘의 정답은 <strong>{props.word}</strong>였습니다.</p>
+            <p className="m-0">정답 단어와 비슷한, <Link href="today-word">상위 1,000개의 단어</Link>를 확인해보세요.</p>
+            <button 
+                className="border-1 rounded-1 pt-1 pb-1 mt-2 mb-2" 
+                onClick={() => {
+                    if(winState === 0){
+                        copyToClipboard(LOSE_TEXT);
+                    }else{
+                        copyToClipboard(WIN_TEXT);
+                    }
+                }}
+            >기록 복사하기</button>
+            <p className="m-0 mt-3 mb-3">{props.index + 1}번째 꼬들꼬들은 오늘 밤 자정(한국 시간 기준)에 열립니다.</p>
+            <div className="fw-bold">
+                <p className="m-0 mb-1 fst-italic">나의 플레이 기록</p>
+                {
+                    winState?
+                    <>
+                        <p className="m-0">정답을 푸는데 {hours}시간 {minutes}분이 걸렸어요.</p>
+                        <p className="m-0">정답을 풀기까지 {indexGuesses}번 시도했어요.</p>
+                    </>:
+                    null
+                }
+            </div>
         </div>
     )
 }

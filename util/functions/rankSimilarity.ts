@@ -4,7 +4,8 @@ import { SIMILARITY } from "@/data/today_similarity_words";
 export interface SimilarityType {
     query: string;
     similarity: number;
-    rank?: number|string;
+    rank ?: number|string;
+    time ?: number;
 }
 
 /** 유사도 순으로 나열하고, 등급 매기는 함수 */
