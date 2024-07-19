@@ -12,8 +12,6 @@ export default function InputContainer(props :TodayIndexType){
     const { inputRef, result, handleClick } = useQueryAnswerChecker({ initialResult: null });
     const { winState } = useWinStateLocalstorage();
 
-    console.log(result)
-
     const handleKeyPress = (e :React.KeyboardEvent<HTMLInputElement>) => {
         // Enter 키 누를 때 버튼 클릭과 동일한 동작을 함
         if (e.key === 'Enter') {

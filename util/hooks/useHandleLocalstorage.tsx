@@ -28,9 +28,7 @@ export function useHandleLocalstorage(result : SimilarityType | null){
     ){
         let endTime = guessedWord.time || 0;
     
-        let startTime = guesses?.filter(
-            item => item.index === 1
-        )[0].time || 0;
+        let startTime = guesses?.filter(item => item.index === 1)[0]?.time ?? 0;
 
         let playtime = endTime - startTime;
 
