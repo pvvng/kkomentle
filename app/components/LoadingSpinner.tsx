@@ -2,8 +2,6 @@
 
 export default function LoadingSpinner({darkmode} : {darkmode : {[key :string] :string}}){
 
-    console.log(darkmode)
-
     return(
         <>
             <div className="mt-3" style={{margin : 'auto'}}>

@@ -1,15 +1,11 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
-import './font.css'
 import "./globals.css";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { cookies } from "next/headers";
 
-const inter = Inter({ subsets: ["latin"] });
-
 export const metadata: Metadata = {
   title: "꼬들꼬들",
-  description: "단어 유사도 추측 게임 꼬들꼬들",
+  description: "단어 유사도 추측 게임",
 };
 
 export default function RootLayout({
@@ -22,6 +18,10 @@ export default function RootLayout({
 
   return (
     <html lang="en">
+      <head>
+        <title>꼬들꼬들</title>
+        <link rel='manifest' href='/manifest.json' />
+      </head>
         <body className={
           darkmode !== undefined && darkmode.value === 'dark' 
             ? 'dark-mode-container'

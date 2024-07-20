@@ -2,7 +2,7 @@ import rankSimilarity from "@/util/functions/rankSimilarity";
 
 export default async function TodayWord (){
 
-    const topKSimArr = rankSimilarity()
+    const topKSimArr = await rankSimilarity()
     const filterdArr = topKSimArr.filter(
         item => typeof item?.rank === 'number' && item?.rank <= 1000
     );
@@ -21,7 +21,7 @@ export default async function TodayWord (){
                             <tr key={tsa.rank}>
                                 <td>{i}</td>
                                 <td className="text-center">{tsa.query}</td>
-                                <td className="text-center">{(tsa.similarity * 100).toFixed(0)}</td>
+                                <td className="text-center">{(tsa.similarity * 100).toFixed(2)}</td>
                             </tr>
                         )
                     })

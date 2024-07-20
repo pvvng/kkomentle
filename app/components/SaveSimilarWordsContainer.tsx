@@ -12,12 +12,13 @@ export default function SaveSimilarWordsContainer(){
     const fetchSimilarWords = async () => {
         setLoading(true);
         try {
-          const saveSimilarWords = await axios.post('http://localhost:3000/api/word/similar');
-          setResponse(saveSimilarWords.data);
+            // db 유사어 업데이트
+            const saveSimilarWords = await axios.post('http://localhost:3000/api/word/similar');
+            setResponse(saveSimilarWords.data);
         } catch (error) {
-          console.error(error);
+            console.error(error);
         } finally {
-          setLoading(false);
+            setLoading(false);
         }
     };
     return(
@@ -26,7 +27,7 @@ export default function SaveSimilarWordsContainer(){
                 loading ? 
                 <div style={{margin : 'auto'}}>
                     <h2 className="text-center">파일 업데이트 중..</h2>
-                    <LoadingSpinner darkmode={ {value : 'dark'} } />
+                    <LoadingSpinner darkmode={{value : 'dark'}} />
                 </div>:
                 <button onClick={fetchSimilarWords}>Fetch Similar Words</button>
 

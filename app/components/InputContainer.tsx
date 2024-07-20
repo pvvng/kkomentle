@@ -48,6 +48,7 @@ export default function InputContainer(props :TodayIndexType){
                 autoComplete="off"
                 type="text"
                 autoFocus
+                aria-label="userInput"
             />
             <button 
                 className = {
