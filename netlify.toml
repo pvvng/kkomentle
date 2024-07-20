@@ -3,4 +3,7 @@
   functions = "netlify/functions"
 
 [[plugins]]
-  package = "@netlify/plugin-scheduled-functions"
+  package = "@netlify/plugin-some-build-plugin"
+
+[functions."test-scheduled-function"]   
+  schedule = "@daily"
