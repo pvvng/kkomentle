@@ -67,5 +67,3 @@ export default async function Home() {
 
 // 유사어 파일 생성하는 api
 // let saveSimilarWords = await axios.post('http://localhost:3000/api/word/similar');
-
-

@@ -1,10 +1,13 @@
 [build]
-    command = "npm run build"
-    publish = "out"
+  publish = "public"
+  functions = "netlify/functions"
 
-[functions]
-    directory = "netlify/functions"
+[[plugins]]
+  package = "@netlify/plugin-scheduled-functions"
 
 [[functions]]
-    schedule = "0 0 * * *"
-    path = "/.netlify/functions/updateWord"
+  # Schedule for the function
+  name = "updateWord"
+  schedule = "0 0 * * *"
+  # Optionally, you can specify the path to your function
+  # path = "netlify/functions/updateWord.js"
