@@ -4,10 +4,3 @@
 
 [[plugins]]
   package = "@netlify/plugin-scheduled-functions"
-
-[[functions]]
-  # Schedule for the function
-  name = "updateWord"
-  schedule = "0 0 * * *"
-  # Optionally, you can specify the path to your function
-  # path = "netlify/functions/updateWord.js"
