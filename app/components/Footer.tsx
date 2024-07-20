@@ -2,7 +2,7 @@ import axios from "axios"
 
 export default async function Footer(){
 
-    let res = await axios('http://localhost:3000/api/word/yesterdayWord');
+    let res = await axios(process.env.NEXT_APP_URL + 'api/word/yesterdayWord');
 
     return(
         <>

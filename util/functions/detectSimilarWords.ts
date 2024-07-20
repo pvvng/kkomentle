@@ -8,7 +8,7 @@ export default async function detectSimilarWords(date : string) {
 
     for (let fwa of FREQUENT_WORDS_ARR) {
       try {
-        let res = await axios.get(`http://localhost:3000/api/get/checkAnswer?answer=${encodeURIComponent(fwa)}&date=${date}`);
+        let res = await axios.get(process.env.NEXT_APP_URL + `api/get/checkAnswer?answer=${encodeURIComponent(fwa)}&date=${date}`);
         resDataArr.push(res.data);
       } catch (error) {
         console.error(`Error fetching data for '${fwa}':`, error);
