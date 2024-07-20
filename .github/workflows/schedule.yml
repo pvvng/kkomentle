@@ -1,9 +1,9 @@
-name: Schedule Job
+name: Run Scheduled Task
 
 on:
   schedule:
-    # - cron: '0 0 * * *' # 매일 자정에 실행
-    - cron: '41 * * * *' # 매 시간 33분마다 실행
+    - cron: '55 * * * *' # 매 시간 33분마다 실행
+  workflow_dispatch: # 수동 트리거를 허용
 
 jobs:
   run-scheduled-task:
@@ -16,12 +16,15 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v2
         with:
-          node-version: '20.12.0' # 프로젝트에 사용중인 Node.js 버전
+          node-version: '20.12.0'
 
       - name: Install dependencies
         run: npm install
 
-      - name: Run scheduled function
+      - name: Compile TypeScript
+        run: npx tsc netlify/functions/updateWord.ts
+
+      - name: Run scheduled task
+        run: node netlify/functions/updateWord.js
         env:
           MY_SECRET: ${{ secrets.MY_SECRET }}
-        run: node scripts/scheduled-task.js
