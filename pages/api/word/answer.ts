@@ -29,10 +29,13 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
         const dayDiff = Math.floor((todayTimestamp - startDateTimestamp) / (1000 * 60 * 60 * 24));
 
         const wordIndex = dayDiff % words.length;
+        const yesterdayWord = words[wordIndex - 1];
         const todayWord = words[wordIndex];
+        const tomarrowWord = words[wordIndex + 1];
+
         console.log(`Today's word: ${todayWord}`);
 
-        res.status(200).json({ word: todayWord, index : wordIndex });
+        res.status(200).json({ word: todayWord, index : wordIndex, tomarrow : tomarrowWord, yesterday : yesterdayWord });
     } catch (error) {
         console.error('Error reading word:', error);
         res.status(500).json({ error: 'Internal Server Error' });

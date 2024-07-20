@@ -1,6 +1,7 @@
-import { useEffect, useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 import axios from 'axios';
 import rankSimilarity, { SimilarityType } from '@/util/functions/rankSimilarity';
+import moment from 'moment';
 
 interface UseInputContainerProps {
     initialResult?: SimilarityType | null; // 초기 결과 설정 (선택적)
@@ -11,6 +12,8 @@ interface UseInputContainerProps {
  * result(state) = 사용자 입력한 value의 값, 유사도, (유사도 순위)
  * */
 export default function useQueryAnswerChecker({ initialResult = null }: UseInputContainerProps){
+
+    const formatteTodaydDate = moment().format('YYYY-MM-DD');
 
     const inputRef = useRef<HTMLInputElement>(null);
     // 결과 상태 설정
@@ -28,7 +31,7 @@ export default function useQueryAnswerChecker({ initialResult = null }: UseInput
                     let found = false; 
     
                     // rankSimilarityArr 배열을 순회하며 조건을 검사하고 처리
-                    for (const rs of rankSimilarity()) {
+                    for (const rs of await rankSimilarity()) {
                         if (inputValue === rs.query) {
                             setResult(rs); // 결과 설정
                             found = true;
@@ -37,7 +40,7 @@ export default function useQueryAnswerChecker({ initialResult = null }: UseInput
                     }
     
                     if (!found) {
-                        let res = await axios.get(`/api/get/checkAnswer?answer=${inputValue}`);
+                        let res = await axios.get(`/api/get/checkAnswer?answer=${inputValue}&date=${formatteTodaydDate}`);
                         setResult(res.data); // 결과 설정
                     }
     

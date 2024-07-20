@@ -1,0 +1,10 @@
+[build]
+    command = "npm run build"
+    publish = "out"
+
+[functions]
+    directory = "netlify/functions"
+
+[[functions]]
+    schedule = "0 0 * * *"
+    path = "/.netlify/functions/updateWord"

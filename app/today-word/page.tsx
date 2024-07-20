@@ -2,7 +2,7 @@ import rankSimilarity from "@/util/functions/rankSimilarity";
 
 export default async function TodayWord (){
 
-    const topKSimArr = rankSimilarity()
+    const topKSimArr = await rankSimilarity()
     const filterdArr = topKSimArr.filter(
         item => typeof item?.rank === 'number' && item?.rank <= 1000
     );
