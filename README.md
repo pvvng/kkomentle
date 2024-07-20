@@ -1,36 +1,8 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+[0.1 버전](https://kkodle-kkodle.netlify.app/)
 
-## Getting Started
-
-First, run the development server:
-
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
-
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+#### 개선사항
+1. input 검열 조건 조금 더 빡빡하게, 영어 안되게, 한글 초성, 숫자 거르기
+2. 왠지 모르겠는데 배포 이후에 Network 속도가 느려짐. 원인 찾아서 해결하기
+  - 유사도 순위를 정답과 비교할 때, db에 저장된 유사도 순위를 찾고 => 없으면 직접 유사도 산출하기 방식으로 하는데 첫번째 과정이 1.3초가량 걸리고 두번째 과정이 0.5초 가량 걸린다.
+  - 속도 개선 시킬 수 있는 다른 좋은 방법이 있을까?
+3. 사용자의 순위 저장해서 데이터 입수하기
