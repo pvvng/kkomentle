@@ -11,11 +11,11 @@ export const handler = async (req: Request) => {
   try {
 
     // 오늘의 단어 선별하는 API
-    let selectTodayAnswer = await axios(`${process.env.NEXT_APP_URL}/api/word/answer`);  
+    let selectTodayAnswer = await axios(`${process.env.NEXT_PUBLIC_APP_URL}/api/word/answer`);  
     // 내일의 단어 db에 업데이트하는 문장
     let updateTomarrowAnswer = await insertAnswer(selectTodayAnswer.data.tomarrow, 'tomarrow');
     // db 유사어 업데이트
-    const saveSimilarWords = await axios.post(`${process.env.NEXT_APP_URL}/api/word/similar`);
+    const saveSimilarWords = await axios.post(`${process.env.NEXT_PUBLIC_APP_URL}/api/word/similar`);
 
     return {
       statusCode: 200,

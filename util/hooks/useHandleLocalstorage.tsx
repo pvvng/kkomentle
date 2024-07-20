@@ -64,7 +64,7 @@ export function useHandleLocalstorage(result : SimilarityType | null){
 
     useEffect(() => {
         // 기본 값 정의
-        let guessedWord :SimilarityType = { query : 'undefiend' ,similarity : -1, rank : -1 };
+        let guessedWord :SimilarityType = { query : 'undefiend', similarity : -1, rank : -1 };
 
         if(result){
             result.rank === undefined
