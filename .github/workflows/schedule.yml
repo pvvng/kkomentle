@@ -3,7 +3,7 @@ name: Schedule Job
 on:
   schedule:
     # - cron: '0 0 * * *' # 매일 자정에 실행
-    - cron: '33 * * * *' # 매 시간 33분마다 실행
+    - cron: '41 * * * *' # 매 시간 33분마다 실행
 
 jobs:
   run-scheduled-task:
