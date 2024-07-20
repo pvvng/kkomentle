@@ -1,19 +1,17 @@
-name: Daily Netlify Function Trigger
+# name: Daily Netlify Function Trigger
 
-on:
-  schedule:
-    - cron: '0 0 * * *'  # 매일 자정 UTC 기준으로 실행
+# on:
+#   schedule:
+#     - cron: '0 0 * * *'  # 매일 자정 UTC 기준으로 실행
 
-jobs:
-  invoke-function:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Trigger Netlify Function
-        run: |
-          curl -X POST "https://kkodle-kkodle.netlify.app/.netlify/functions/my-cron-job" \
-               -H "Authorization: Bearer ${{ secrets.NETLIFY_AUTH_TOKEN }}"
-
-
+# jobs:
+#   invoke-function:
+#     runs-on: ubuntu-latest
+#     steps:
+#       - name: Trigger Netlify Function
+#         run: |
+#           curl -X POST "https://kkodle-kkodle.netlify.app/.netlify/functions/my-cron-job" \
+#                -H "Authorization: Bearer ${{ secrets.NETLIFY_AUTH_TOKEN }}"
 name: Schedule Job
 
 on:
