@@ -1,9 +1,15 @@
 [build]
-  publish = "public"
-  functions = "netlify/functions"
+  command = "npm run build"
+
+[functions]
+  directory = "netlify/functions"
 
 [[plugins]]
-  package = "@netlify/plugin-some-build-plugin"
+  package = "@netlify/plugin-scheduled-functions"
 
-[functions."test-scheduled-function"]   
-  schedule = "@daily"
+  [plugins.inputs]
+    schedule = "0 0 * * *" # 매일 자정에 실행
+
+[[functions.schedule]]
+  path = "/.netlify/functions/updateWord"
+  cron = "0 0 * * *"
