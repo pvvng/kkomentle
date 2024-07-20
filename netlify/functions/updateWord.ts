@@ -1,5 +1,4 @@
 import axios from 'axios';
-import insertAnswer from '@/util/functions/insertAnswer';
 import type { Config } from "@netlify/functions";
 import insertAnswerForCron from './insertAnswer';
 

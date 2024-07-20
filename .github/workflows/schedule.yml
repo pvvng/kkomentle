@@ -2,7 +2,7 @@ name: Run Scheduled Task
 
 on:
   schedule:
-    - cron: '12 * * * *' # 매 시간 33분마다 실행
+    - cron: '15 * * * *' # 매 시간 33분마다 실행
   workflow_dispatch: # 수동 트리거를 허용
 
 jobs:
