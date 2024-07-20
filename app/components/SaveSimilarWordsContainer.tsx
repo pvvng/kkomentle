@@ -13,7 +13,7 @@ export default function SaveSimilarWordsContainer(){
         setLoading(true);
         try {
             // db 유사어 업데이트
-            const saveSimilarWords = await axios.post(process.env.NEXT_APP_URL + '/api/word/similar');
+            const saveSimilarWords = await axios.post(`${process.env.NEXT_APP_URL}/api/word/similar`);
             setResponse(saveSimilarWords.data);
         } catch (error) {
             console.error(error);
