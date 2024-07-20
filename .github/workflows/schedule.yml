@@ -2,7 +2,7 @@ name: Run Scheduled Task
 
 on:
   schedule:
-    - cron: '15 * * * *' # 매 시간 33분마다 실행
+    - cron: '19 * * * *' # 매 시간 33분마다 실행
   workflow_dispatch: # 수동 트리거를 허용
 
 jobs:
@@ -25,6 +25,6 @@ jobs:
         run: npx tsc
 
       - name: Run scheduled task
-        run: node dist/netlify/functions/updateWord.js
+        run: node dist/netlify/functions/updateWord.ts
         env:
           MY_SECRET: ${{ secrets.MY_SECRET }}
