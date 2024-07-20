@@ -14,7 +14,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   
-  let darkmode = cookies().get('mode');
+  let darkmode = cookies().get('mode') as {[ket :string] :string} | undefined;
+
+  if(darkmode === undefined){
+    darkmode = {mode : 'darkmode', value : 'light'};
+  }
 
   return (
     <html lang="en">
@@ -23,9 +27,10 @@ export default function RootLayout({
         <link rel='manifest' href='/manifest.json' />
       </head>
         <body className={
-          darkmode !== undefined && darkmode.value === 'dark' 
-            ? 'dark-mode-container'
-            : ''
+          darkmode !== undefined &&
+          darkmode.value === 'dark' 
+          ? 'dark-mode-container'
+          : ''
         }>
           {children}
         </body>

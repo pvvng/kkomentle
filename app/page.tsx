@@ -19,6 +19,10 @@ export default async function Home() {
   // 다크모드 쿠키 불러오기
   let darkmode = cookies().get('mode') as {[ket :string] :string};
 
+  if(darkmode === undefined){
+    darkmode = {mode : 'darkmode', value : 'light'};
+  }
+
   // 오늘의 단어 선별하는 API
   let selectTodayAnswer = await axios(process.env.NEXT_APP_URL + 'api/word/answer');  
   
