@@ -21,7 +21,7 @@ export default async function insertAnswer(todayAnswer :string, type :string) {
   if(!findDateResult){
     try {
       let embedding = await getEmbedding(todayAnswer);
-      let res = await axios.post(process.env.NEXT_APP_URL + 'api/post/answer', {
+      let res = await axios.post(process.env.NEXT_APP_URL + '/api/post/answer', {
         answer: todayAnswer,
         embedding: embedding,
         date: formatteddate,
