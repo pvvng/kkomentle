@@ -1,10 +1,6 @@
 [build]
-  publish = "public"
+  command = "npm run build"
   functions = "netlify/functions"
 
 [[plugins]]
   package = "@netlify/plugin-scheduled-functions"
-
-[[functions]]
-  name = "updateWord"
-  schedule = "0 0 * * *"
