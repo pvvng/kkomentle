@@ -4,10 +4,9 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build && tsc",
+    "build": "next build",
     "start": "next start",
-    "lint": "next lint",
-    "tsc": "tsc"
+    "lint": "next lint"
   },
   "dependencies": {
     "@netlify/functions": "^2.8.1",
