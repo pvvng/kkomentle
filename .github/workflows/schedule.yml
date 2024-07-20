@@ -1,0 +1,42 @@
+name: Daily Netlify Function Trigger
+
+on:
+  schedule:
+    - cron: '0 0 * * *'  # 매일 자정 UTC 기준으로 실행
+
+jobs:
+  invoke-function:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Trigger Netlify Function
+        run: |
+          curl -X POST "https://kkodle-kkodle.netlify.app/.netlify/functions/my-cron-job" \
+               -H "Authorization: Bearer ${{ secrets.NETLIFY_AUTH_TOKEN }}"
+
+
+name: Schedule Job
+
+on:
+  schedule:
+    - cron: '0 0 * * *' # 매일 자정에 실행
+
+jobs:
+  run-scheduled-task:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '20.12.0' # 프로젝트에 사용중인 Node.js 버전
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run scheduled function
+        env:
+          MY_SECRET: ${{ secrets.MY_SECRET }}
+        run: node scripts/scheduled-task.js
