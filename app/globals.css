@@ -1,0 +1,237 @@
+* {
+  box-sizing: border-box;
+}
+
+@font-face {
+  font-family: 'Ownglyph_eunbyul21-Rg';
+  src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/2405-2@1.0/Ownglyph_eunbyul21-Rg.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+}
+
+body{
+  margin : 0;
+  padding : 0;
+  font-family: 'Ownglyph_eunbyul21-Rg', sans-serif !important;
+}
+
+div {
+  display: block;
+  unicode-bidi: isolate;
+}
+
+.dark-mode-container {
+  background-color: #111111;
+  color : white;
+}
+
+.dark-mode-clear-box{
+  background-color: #333344;
+  color : rgb(255, 255, 255);
+  border : 1px solid black;
+}
+
+.light-mode-clear-box{
+  background : #eeeeff;
+  color : black;
+  border : 1px solid black;
+}
+
+.dark-mode-setting-box{
+  background: #333333;
+}
+
+.dark-mode-input-and-btn{
+  background: #333333;
+  color : white;
+  border : 1px solid white;
+}
+
+.setting-title{
+  font-weight: 600;
+  @media screen and (max-width : 470px) {
+    font-size: 14px;
+  }
+  @media screen and (max-width : 380px) {
+    font-size: 12px;
+  }
+}
+
+.input-label-wrapper {
+  display: flex;
+  align-items: center; 
+  margin-bottom: 10px;
+}
+
+.input-label-wrapper input,
+.input-label-wrapper label {
+    display: inline-block;
+}
+
+.input-label-wrapper label {
+  margin-left: 8px; /* label과 input 사이의 간격 */
+  @media screen and (max-width : 470px) {
+    font-size: 12px;
+  }
+  @media screen and (max-width : 380px) {
+    font-size: 10px;
+  }
+}
+
+body .main-container{
+  margin: 0 auto;
+  max-width: 640px;
+  padding: 0 1em 1em;
+
+  @media screen and (max-width : 470px) {
+    font-size: 12px;
+  }
+  @media screen and (max-width : 380px) {
+    font-size: 10px;
+  }
+}
+
+.progress-bar {
+  @media screen and (max-width : 470px) {
+    font-size: 12px;
+  }
+  @media screen and (max-width : 380px) {
+    font-size: 10px;
+  }
+}
+
+.header-title {
+  font-size: 24px;
+  font-weight: bold;
+
+  @media screen and (max-width : 470px) {
+    font-size: 22px;
+  }
+  @media screen and (max-width : 430px) {
+    font-size: 18px;
+  }
+  @media screen and (max-width : 360px) {
+    font-size: 16px;
+  }
+  @media screen and (max-width : 320px) {
+    font-size: 14px;
+  }
+}
+
+.setting-emogi{
+  width: 24px;
+  height : 24px;
+
+  @media screen and (max-width : 470px) {
+    width: 20px;
+    height : 20px;
+  }
+  @media screen and (max-width : 380px) {
+    width: 16px;
+    height : 16px;
+  }
+  @media screen and (max-width : 470px) {
+    width: 22px;
+    height : 22px;
+  }
+  @media screen and (max-width : 430px) {
+    width: 18px;
+    height : 18px;
+  }
+  @media screen and (max-width : 360px) {
+    width: 16px;
+    height : 16px;
+  }
+  @media screen and (max-width : 320px) {
+    width: 14px;
+    height : 14px;
+  }
+}
+
+@keyframes drop {
+  0% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(80px);
+  }
+  100% {
+    transform: translateY(0px);
+  }
+}
+
+.lava-lamp {
+  position: relative;
+  width: 100px;
+  height: 100px;
+  background: #000;
+  border-radius: 25px;
+  overflow: hidden;
+  margin: auto;
+}
+
+.bubble {
+  position: absolute;
+  top: 0;
+  width: 20px;
+  height: 20px;
+  background: linear-gradient(to bottom, #e64980, #ff8787);
+  border-radius: 50%;
+  left: 30px;
+  animation: drop 5s ease-in-out infinite;
+}
+
+.bubble1 {
+  position: absolute;
+  top: 0;
+  width: 20px;
+  height: 20px;
+  background: linear-gradient(to bottom, #82c91e, #3bc9db);
+  border-radius: 50%;
+  left: 10px;
+  animation: drop 3s ease-in-out infinite;
+}
+
+.bubble2 {
+  position: absolute;
+  top: 0;
+  width: 20px;
+  height: 20px;
+  background: linear-gradient(to bottom, #7950f2, #f783ac);
+  border-radius: 50%;
+  left: 70px;
+  animation: drop 4s ease-in-out infinite;
+}
+
+.bubble3 {
+  position: absolute;
+  top: 0;
+  width: 20px;
+  height: 20px;
+  background: linear-gradient(to bottom, #4481eb, #04befe);
+  border-radius: 50%;
+  left: 50px;
+  animation: drop 6s ease-in-out infinite;
+}
+
+.submit-btn { 
+  padding : 0;
+  font-weight: 600;
+  font-size: 12px;
+  
+  @media screen and (max-width : 470px) {
+      font-size: 10px;
+  }
+  @media screen and (max-width : 380px) {
+      font-size: 8px;
+      padding : 0;
+  }
+}
+
+@media only screen and (max-width: 640px) {
+    body, input, button {
+        font-size: 14px;
+    }
+    
+}
+/* !!!!!!!!!!!!!!!!!!!!!!!! */
