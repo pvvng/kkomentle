@@ -21,7 +21,7 @@ export default async function TodayWord (){
                             <tr key={tsa.rank}>
                                 <td>{i}</td>
                                 <td className="text-center">{tsa.query}</td>
-                                <td className="text-center">{(tsa.similarity * 100).toFixed(0)}</td>
+                                <td className="text-center">{(tsa.similarity * 100).toFixed(2)}</td>
                             </tr>
                         )
                     })
