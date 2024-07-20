@@ -11,7 +11,7 @@ export interface SimilarityType {
 /** 유사도 순으로 나열하고, 등급 매기는 함수 */
 export default async function rankSimilarity():  Promise<SimilarityType[]> {
 
-    let getTodaySimilar = await axios(`${process.env.NEXT_PUBLIC_APP_URL}/api/get/todaySimilar`);
+    let getTodaySimilar = await axios(`${process.env.NEXT_PUBLIC_APP_URL||'https://kkodle-kkodle.netlify.app'}/api/get/todaySimilar`);
 
     // SIMILARITY 배열을 복사하여 새로운 배열을 생성
     const sortedSimilarity: SimilarityType[] = [...getTodaySimilar.data].sort((a, b) => b.similarity - a.similarity);

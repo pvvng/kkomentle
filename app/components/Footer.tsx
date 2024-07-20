@@ -2,7 +2,7 @@ import axios from "axios"
 
 export default async function Footer(){
 
-    let res = await axios(`${process.env.NEXT_PUBLIC_APP_URL}/api/word/yesterdayWord`);
+    let res = await axios(`${process.env.NEXT_PUBLIC_APP_URL || 'https://kkodle-kkodle.netlify.app'}/api/word/yesterdayWord`);
 
     return(
         <>
