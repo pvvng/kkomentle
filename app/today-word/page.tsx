@@ -10,10 +10,10 @@ export default async function TodayWord (){
 
     return(
         <div className="p-2">
-            <p>
+            <p className="text-center">
                 <Link href='/'>메인 화면으로 돌아가기</Link>
             </p>
-            <table>
+            <table style={{margin : 'auto'}}>
                 <tbody>
                     <tr className="text-center w-100">
                         <th className="col-4">유사도 순위</th>

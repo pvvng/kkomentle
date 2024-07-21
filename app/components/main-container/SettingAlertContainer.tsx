@@ -2,6 +2,7 @@
 
 import { useRouter } from "next/navigation";
 import { useAlertBoxState, useSettingState } from "../../store"
+import { CSSProperties } from "react";
 
 const INPUT_LABEL_ARRAY = [
     { id: 'darkmode', content : '다크모드' },
@@ -18,17 +19,9 @@ export default function SettingAlertContainer({darkmode} : {darkmode : {[key :st
 
     return(
         <div 
-            style={{
-                width : '100vw', 
-                height : '100vh', 
-                zIndex : 10, 
-                background:'rgba(0,0,0,0.5)', 
-                position :'fixed',
-                top: 0,
-                left : 0,
-                padding : '60px',
-                overflow : 'hidden',
-                visibility : alert % 2 === 0? 'hidden' :'visible',
+            style={{ 
+                ...BACKGROUND_STYLE, 
+                visibility: alert % 2 === 0 ? 'hidden' : 'visible' 
             }} 
             onClick={(e) => {
                 // 검은 배경 클릭하면 alert Box 닫기
@@ -69,3 +62,16 @@ export default function SettingAlertContainer({darkmode} : {darkmode : {[key :st
         </div>
     )
 }
+
+/** alert box background style */
+const BACKGROUND_STYLE: CSSProperties = {
+    width: '100vw',
+    height: '100vh',
+    zIndex: 10,
+    background: 'rgba(0,0,0,0.5)',
+    position: 'fixed',
+    top: 0,
+    left: 0,
+    padding: '60px',
+    overflow: 'hidden',
+};

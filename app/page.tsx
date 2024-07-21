@@ -6,8 +6,7 @@ import Header from "./components/main-container/Header";
 import SettingAlertContainer from "./components/main-container/SettingAlertContainer";
 import { cookies } from "next/headers";
 import APP_URL from "./APP_URL";
-import SaveSimilarWordsContainer from "./components/SaveSimilarWordsContainer";
-import Image from "next/image";
+import Navbar from "./components/main-container/Navbar";
 
 export interface TodayIndexType {
   word : string;
@@ -38,12 +37,7 @@ export default async function Home() {
   return (
     <>
       {/* <SaveSimilarWordsContainer /> */}
-      <div className="text-center p-2">
-        <a href="https://github.com/pvvng/kkomentle" target="_blank">
-          <Image src='/꼬들꼬들마스코트.png' width="40" height="39" alt="꼬들꼬들" />
-        </a>
-      </div>
-      <hr className="mt-0" />
+      <Navbar />
       <SettingAlertContainer darkmode={darkmode} />  
       <div className="main-container">
         <Header />
