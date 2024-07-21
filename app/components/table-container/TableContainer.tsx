@@ -2,9 +2,9 @@
 
 import { SimilarityType } from "@/util/functions/rankSimilarity";
 import { useHandleLocalstorage } from "@/util/hooks/useHandleLocalstorage";
+import { useGuessesLocalstorage } from "@/app/store";
 import TableListContainer from "./TableListContainer";
-import { useGuessesLocalstorage } from "../store";
-import LoadingSpinner from "./LoadingSpinner";
+import LoadingSpinner from "../loading-container/LoadingSpinner";
 
 interface PropsType {
     result : SimilarityType | null,

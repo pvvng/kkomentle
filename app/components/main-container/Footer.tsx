@@ -1,5 +1,5 @@
 import axios from "axios"
-import APP_URL from "../APP_URL";
+import APP_URL from "@/app/APP_URL";
 
 export default async function Footer(){
 

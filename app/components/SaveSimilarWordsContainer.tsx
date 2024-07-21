@@ -2,10 +2,14 @@
 
 import axios from "axios";
 import { useState } from "react";
-import LoadingSpinner from "./LoadingSpinner";
+import LoadingSpinner from "./loading-container/LoadingSpinner";
 import APP_URL from "../APP_URL";
 
-/** 유사도 순위 파일 업데이트 하는 컴포넌트 */
+/** 
+ * 내일의 단어에 대한 유사도 순위 db에 업데이트 하는 컴포넌트 
+ * 
+ * 버튼을 클릭하여 실행.
+ * */
 export default function SaveSimilarWordsContainer(){
     const [loading, setLoading] = useState(false);
     const [response, setResponse] = useState(null);

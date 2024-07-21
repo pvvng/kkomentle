@@ -1,11 +1,11 @@
 'use client'
 
 import useQueryAnswerChecker from "@/util/hooks/useQueryAnswerChecker";
-import TableContainer from "./TableContainer";
-import ClearBoxContainer from "./ClearBoxContainer";
+import TableContainer from "../table-container/TableContainer";
+import ClearBoxContainer from "../hidden-container/ClearBoxContainer";
 import GaveUpButtonContainer from "./GaveUpButtoncontainer";
-import { useSettingState, useWinStateLocalstorage } from "../store";
-import { TodayIndexType } from "../page";
+import { useSettingState, useWinStateLocalstorage } from "../../store";
+import { TodayIndexType } from "../../page";
 import { useEffect } from "react";
 
 export default function InputContainer(props :TodayIndexType){

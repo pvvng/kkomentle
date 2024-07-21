@@ -1,10 +1,10 @@
 'use client'
 
 import Link from "next/link";
-import { useWinStateLocalstorage } from "../store";
-import { TodayIndexType } from "../page";
+import { useWinStateLocalstorage } from "@/app/store";
 import copyToClipboard from "@/util/functions/copyToClipboard";
 import useGetClipBoardText from "@/util/hooks/useGetClipBoardText";
+import { TodayIndexType } from "@/app/page";
 
 export default function ClearBoxContainer(props :TodayIndexType){
 

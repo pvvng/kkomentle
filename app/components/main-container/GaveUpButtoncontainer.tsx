@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from "react";
-import { useGuessesLocalstorage, useWinStateLocalstorage } from "../store"
+import { useGuessesLocalstorage, useWinStateLocalstorage } from "../../store"
 import axios from "axios";
 
 export default function GaveUpButtonContainer({darkmode} : {darkmode : {[key :string] :string}}){

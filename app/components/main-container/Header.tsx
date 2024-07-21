@@ -1,6 +1,6 @@
 'use client'
 
-import { useAlertBoxState } from "../store"
+import { useAlertBoxState } from "@/app/store";
 
 export default function Header(){
 

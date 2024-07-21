@@ -1,7 +1,7 @@
 'use client'
 
 import { useRouter } from "next/navigation";
-import { useAlertBoxState, useSettingState } from "../store"
+import { useAlertBoxState, useSettingState } from "../../store"
 
 const INPUT_LABEL_ARRAY = [
     { id: 'darkmode', content : '다크모드' },
