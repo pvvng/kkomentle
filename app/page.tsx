@@ -4,9 +4,9 @@ import getOneTenAndKSimilarlity from "@/util/functions/getOneTenAndK";
 import Footer from "./components/main-container/Footer";
 import Header from "./components/main-container/Header";
 import SettingAlertContainer from "./components/main-container/SettingAlertContainer";
-import { cookies } from "next/headers";
-import APP_URL from "./APP_URL";
 import Navbar from "./components/main-container/Navbar";
+import APP_URL from "./APP_URL";
+import { cookies } from "next/headers";
 
 export interface TodayIndexType {
   word : string;
@@ -31,7 +31,7 @@ export default async function Home() {
   // 유사어 중에서 1, 10, 1000번째 순서를 가진 단어 불러오기
   let oneTenAndKSimilarityArr = await getOneTenAndKSimilarlity();
 
-  // 정답과 오늘이 기준 날짜로부터 몇번째 정답인지 담긴 객체
+  // 정답과 오늘이 기준 날짜로부터 몇번째 정답인지 담긴 객체 + 다크모드 여부
   let todayIndex :TodayIndexType = {...selectTodayAnswer.data, darkmode : darkmode};
 
   return (

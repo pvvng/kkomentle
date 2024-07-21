@@ -12,7 +12,13 @@ export default async function Navbar(){
             <div className="text-center p-2">
                 <div className="w-100 row" style={{maxWidth:'640px', margin : 'auto', justifyContent : 'center', alignItems : 'center'}}>
                 <a className="col-6 text-start" href="https://github.com/pvvng/kkomentle" target="_blank">
-                    <Image src='/꼬들꼬들마스코트.png' width="50" height="48" alt="꼬들꼬들" />
+                    <Image 
+                        src='/꼬들꼬들마스코트.png' 
+                        alt="꼬들꼬들" 
+                        width="50" 
+                        height="48" 
+                        priority
+                    />
                 </a>
                 <div className="col-6 text-end">
                     {

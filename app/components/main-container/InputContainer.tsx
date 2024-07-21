@@ -21,6 +21,7 @@ export default function InputContainer(props :TodayIndexType){
         }
     };
 
+    // cookie로 다크모드 여부를 확인하지 못했을 때
     if(props.darkmode === undefined){
         document.cookie = 'mode=light; max-age=' + (3600 * 24 * 400);
     }
