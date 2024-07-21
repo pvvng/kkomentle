@@ -1,0 +1,7 @@
+[functions]
+directory = "netlify/functions"
+
+[[edge_functions]]
+path = "/scheduled-task"
+function = "updateWord"
+schedule = "33 * * * *"
