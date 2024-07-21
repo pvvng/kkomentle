@@ -1,7 +1,6 @@
 [functions]
-directory = "netlify/functions"
+  directory = "netlify/functions"
 
-[[edge_functions]]
-path = "/scheduled-task"
-function = "updateWord"
-schedule = "33 * * * *"
+[[functions]]
+name = "updateWord"
+schedule = "33 * * * *"  # 매 시간 33분에 실행
