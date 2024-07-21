@@ -3,6 +3,7 @@
 import axios from "axios";
 import { useState } from "react";
 import LoadingSpinner from "./LoadingSpinner";
+import APP_URL from "../APP_URL";
 
 /** 유사도 순위 파일 업데이트 하는 컴포넌트 */
 export default function SaveSimilarWordsContainer(){
@@ -13,7 +14,7 @@ export default function SaveSimilarWordsContainer(){
         setLoading(true);
         try {
             // db 유사어 업데이트
-            const saveSimilarWords = await axios.post(`${process.env.NEXT_PUBLIC_APP_URL || 'https://kkodle-kkodle.netlify.app'}/api/word/similar`);
+            const saveSimilarWords = await axios.post(`${APP_URL}/api/word/similar`);
             setResponse(saveSimilarWords.data);
         } catch (error) {
             console.error(error);
