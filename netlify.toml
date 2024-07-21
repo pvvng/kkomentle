@@ -1,2 +1,2 @@
 [functions.updateWord]
-    schedule = "@hourly"
+    schedule = "@daily"
