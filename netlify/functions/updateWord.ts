@@ -1,13 +1,13 @@
 import axios from 'axios';
-import type { Config, Handler } from "@netlify/functions";
 import insertAnswer from '@/util/functions/insertAnswer';
+import type { Handler } from "@netlify/functions";
 
 /**  Nelify function 
  * 
  * 1. 매일 자정 실행되어 db에 오늘의 단어를 업데이트 
  * 2. db 유사도를 삭제/업데이트/추가 하는 함수 
  * */
-export const handler :Handler = async (event) => {
+export const handler :Handler = async (event, context) => {
   try {
 
     // 오늘의 단어 선별하는 API
@@ -29,7 +29,3 @@ export const handler :Handler = async (event) => {
     };
   }
 };
-
-export const config: Config = {
-  schedule: "@daily"
-}

@@ -1,6 +1,2 @@
-[functions]
-  directory = "netlify/functions"
-
-[[functions]]
-name = "updateWord"
-schedule = "33 * * * *"  # 매 시간 33분에 실행
+[functions.updateWord]
+    schedule = "@hourly"
