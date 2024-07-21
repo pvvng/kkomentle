@@ -7,9 +7,6 @@ import { NextApiRequest, NextApiResponse } from "next";
 /** db의 오늘의 정답과 사용자가 입력한 쿼리의 코사인 유사도를 비교하는 함수 */
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
 
-    console.log(req.query.answer);
-
-
     let formattedDate = Array.isArray(req.query.date) ? req.query.date[0] : req.query.date || '';
 
     if (req.method === "GET") {
