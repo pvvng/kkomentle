@@ -1,3 +1,4 @@
+import APP_URL from "@/app/APP_URL";
 import { FREQUENT_WORDS_ARR } from "@/data/frequent";
 import axios from "axios";
 
@@ -8,7 +9,7 @@ export default async function detectSimilarWords(date : string) {
 
     for (let fwa of FREQUENT_WORDS_ARR) {
       try {
-        let res = await axios.get(`${process.env.NEXT_PUBLIC_APP_URL||'https://kkodle-kkodle.netlify.app'}/api/get/checkAnswer?answer=${encodeURIComponent(fwa)}&date=${date}`);
+        let res = await axios.get(`${APP_URL}/api/get/checkAnswer?answer=${encodeURIComponent(fwa)}&date=${date}`);
         resDataArr.push(res.data);
       } catch (error) {
         console.error(`Error fetching data for '${fwa}':`, error);

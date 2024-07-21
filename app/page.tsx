@@ -5,6 +5,8 @@ import Footer from "./components/Footer";
 import Header from "./components/Header";
 import SettingAlertContainer from "./components/SettingAlertContainer";
 import { cookies } from "next/headers";
+import APP_URL from "./APP_URL";
+import SaveSimilarWordsContainer from "./components/SaveSimilarWordsContainer";
 
 export interface TodayIndexType {
   word : string;
@@ -24,7 +26,7 @@ export default async function Home() {
   }
 
   // 오늘의 단어 선별하는 API
-  let selectTodayAnswer = await axios(`${process.env.NEXT_PUBLIC_APP_URL || 'https://kkodle-kkodle.netlify.app'}/api/word/answer`);  
+  let selectTodayAnswer = await axios(`${APP_URL}/api/word/answer`);  
   
   // 유사어 중에서 1, 10, 1000번째 순서를 가진 단어 불러오기
   let oneTenAndKSimilarityArr = await getOneTenAndKSimilarlity();
@@ -36,7 +38,7 @@ export default async function Home() {
     <>
       {/* <SaveSimilarWordsContainer /> */}
       <div className="text-center p-2">
-        <a href="https://github.com/pvvng/kkomentle">
+        <a href="https://github.com/pvvng/kkomentle" target="_blank">
           <img src='/꼬들꼬들마스코트.png' width="40px" height="auto" alt="꼬들꼬들" />
         </a>
       </div>

@@ -2,6 +2,8 @@ import { useRef, useState } from 'react';
 import axios from 'axios';
 import rankSimilarity, { SimilarityType } from '@/util/functions/rankSimilarity';
 import moment from 'moment';
+import isValidKoreanCombination from '../functions/isValidKoreanCombination';
+import { useQuery } from '@tanstack/react-query';
 
 interface UseInputContainerProps {
     initialResult?: SimilarityType | null; // 초기 결과 설정 (선택적)
@@ -19,23 +21,46 @@ export default function useQueryAnswerChecker({ initialResult = null }: UseInput
     // 결과 상태 설정
     const [result, setResult] = useState<SimilarityType | null>(initialResult);
 
+    // react-query를 이용해서 db에 있는 rankSimilarity 데이터를 불러오고 이를 캐싱함
+    // 이를 통해 매번 input 값을 입력할 때마다 새롭게 rankSimilarity 데이터를 불러오는 것을 해소함
+    // 결과적으로 db 비용 절약 및 속도 개선에 이점을 얻을 수 있음
+    const { data :rankSimilarityArr, isLoading, isError } = useQuery<SimilarityType[], Error>({
+        queryKey : ['rankSimilarity'],
+        queryFn : rankSimilarity,
+        gcTime : 1000 * 60 * 60 * 24, // 1일
+        staleTime : 1000 * 60 * 60, // 1시간
+    })
+
     const handleClick = async () => {
 
         if (inputRef.current !== null) {
             const inputValue = inputRef.current.value;
             if(inputValue.trim() === ''){
                 alert('문자를 입력해야 해요.');
+            }else if(!isValidKoreanCombination(inputValue)){
+                alert('유효하지 않은 단어에요.');
             }else{
                 try {
+                    // 로딩 중일 경우 대기
+                    if (isLoading) {
+                        alert('데이터를 불러오는 중입니다. 잠시만 기다려주세요.');
+                        return;
+                    }else if (isError){
+                        alert('데이터를 불러오는 중 에러가 발생했습니다.');
+                        return;
+                    }
+
                     // 결과를 찾았는지 여부 확인을 위한 변수
                     let found = false; 
     
                     // rankSimilarityArr 배열을 순회하며 조건을 검사하고 처리
-                    for (const rs of await rankSimilarity()) {
-                        if (inputValue === rs.query) {
-                            setResult(rs); // 결과 설정
-                            found = true;
-                            break; // 반복 중단
+                    if (rankSimilarityArr) {
+                        for (const rs of rankSimilarityArr) {
+                            if (inputValue === rs.query) {
+                                setResult(rs); // 결과 설정
+                                found = true;
+                                break; // 반복 중단
+                            }
                         }
                     }
     
@@ -57,4 +82,3 @@ export default function useQueryAnswerChecker({ initialResult = null }: UseInput
 
     return { inputRef, result, handleClick };
 };
-

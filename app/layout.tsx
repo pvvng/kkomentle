@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { cookies } from "next/headers";
+import ReactQueryProvider from "@/util/provider/ReactQueryProvider";
 
 export const metadata: Metadata = {
   title: "꼬들꼬들",
@@ -32,7 +33,9 @@ export default function RootLayout({
           ? 'dark-mode-container'
           : ''
         }>
-          {children}
+          <ReactQueryProvider>
+            {children}
+          </ReactQueryProvider>
         </body>
     </html>
   );

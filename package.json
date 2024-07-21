@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@netlify/functions": "^2.8.1",
+    "@tanstack/react-query": "^5.51.11",
     "@types/aws-lambda": "^8.10.141",
     "axios": "^1.7.2",
     "bootstrap": "^5.3.3",

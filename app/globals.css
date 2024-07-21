@@ -50,10 +50,10 @@ div {
 .setting-title{
   font-weight: 600;
   @media screen and (max-width : 470px) {
-    font-size: 14px;
+    font-size: 16px;
   }
   @media screen and (max-width : 380px) {
-    font-size: 12px;
+    font-size: 14px;
   }
 }
 

@@ -11,24 +11,31 @@ export interface JsonSimilarityType extends SimilarityType {
 /** localstorage에 기본 값을 세팅하거나, 사용자가 입력한 값을 넣는 커스텀 훅*/
 export function useHandleLocalstorage(result : SimilarityType | null){
     
+    // zustand store
     const { winState ,setWinState, loadWinState } = useWinStateLocalstorage();
     const { guesses, setGuessesState, loadGuessesState } = useGuessesLocalstorage();
     const { today, setTodayDateState, loadTodayDateState } = useTodayDateLocalstorage();
     const { playtime, setPlayTimeState, loadPlayTimeState } = usePlayTimeLocalstorage();
 
+    // 현재 시간 암호화
     const nowDate = new Date();
     const nowTime = (nowDate.getHours() * 60) + nowDate.getMinutes();
 
+    // 현재 사용자가 입력한 값의 데이터
     let [nowInputData, setNowInputData] = useState<JsonSimilarityType|null>(null);
 
     /** 정답을 맞췄을 때 playtime을 얻는 함수 */
     function getPlayTime(
+        /** 새롭게 등록되는 추측 단어 객체 */
         guessedWord :SimilarityType, 
+        /** 기존 localhost에 등록된 추측 단어 객체 어레이 */
         guesses :JsonSimilarityType[] | null,
     ){
         let endTime = guessedWord.time || 0;
-    
-        let startTime = guesses?.filter(item => item.index === 1)[0]?.time ?? 0;
+
+        // 만약 guesses의 length 가 0일 경우에는 starttime이 undfiend가 되어 0이 될것이다.
+        // 이를 방지하기 위해 startTime이 undefiend 일 경우 endtime과 동일하게 만들어버린다.
+        let startTime = guesses?.filter(item => item.index === 1)[0]?.time || endTime;
 
         let playtime = endTime - startTime;
 
@@ -89,32 +96,36 @@ export function useHandleLocalstorage(result : SimilarityType | null){
         if(guessedWord.query !== undefined && guessedWord.rank !== -1){
             // 추측한 단어가 정답일 때 winState 변경 
             if(guessedWord.rank === 0){
-                setWinState(1);
-                getPlayTime(guessedWord, guesses);
+                if(winState !== 0){
+                    setWinState(1);
+                    getPlayTime(guessedWord, guesses);
+                }
             }
 
             if(guesses){
                 // 이미 추측한 단어면 등록 x
                 let exist = false;
-                let parsedGuesses :JsonSimilarityType[] = guesses;
-                parsedGuesses.map(pg => {
+                let sortedGuesses :JsonSimilarityType[] = guesses;
+                sortedGuesses.map(pg => {
                     if (pg.query === guessedWord.query){
                         exist = true;
                     }
                     // 만약 어레이에 정답 객체가 있으면 winState 변경
                     if(pg.rank === 0){
-                        setWinState(1);
-                        getPlayTime(pg, guesses);
+                        if(winState !== 0){
+                            setWinState(1);
+                            getPlayTime(pg, guesses);
+                        }
                     }
                 })
                 // 이전에 추측하지 않은 단어만 localstorage에 등록
                 if(!exist){
-                    parsedGuesses.push({...guessedWord, index : parsedGuesses.length + 1});
+                    sortedGuesses.push({...guessedWord, index : sortedGuesses.length + 1});
                 }
                 // 유사도 높은 순대로 정렬
-                parsedGuesses = parsedGuesses.sort((a, b) => b.similarity - a.similarity);
+                sortedGuesses = sortedGuesses.sort((a, b) => b.similarity - a.similarity);
                 // store & localstorage에 등록
-                setGuessesState(parsedGuesses);
+                setGuessesState(sortedGuesses);
             }
         }
 

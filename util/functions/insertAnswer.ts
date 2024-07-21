@@ -2,6 +2,7 @@ import getEmbedding from "@/util/functions/getEmbedding";
 import axios from "axios";
 import moment from "moment";
 import { connectDB } from "../database";
+import APP_URL from "@/app/APP_URL";
 
 /** db에 오늘의 단어 추가 하는 함수 */
 export default async function insertAnswer(todayAnswer :string, type :string) {
@@ -21,7 +22,7 @@ export default async function insertAnswer(todayAnswer :string, type :string) {
   if(!findDateResult){
     try {
       let embedding = await getEmbedding(todayAnswer);
-      let res = await axios.post(`${process.env.NEXT_PUBLIC_APP_URL||'https://kkodle-kkodle.netlify.app'}/api/post/answer`, {
+      let res = await axios.post(`${APP_URL}/api/post/answer`, {
         answer: todayAnswer,
         embedding: embedding,
         date: formatteddate,
