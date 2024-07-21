@@ -9,11 +9,11 @@ export default async function TodayWord (){
     );
 
     return(
-        <>
-            <p className="text-center">
+        <div className="p-2">
+            <p>
                 <Link href='/'>메인 화면으로 돌아가기</Link>
             </p>
-            <table style={{margin : 'auto'}}>
+            <table>
                 <tbody>
                     <tr className="text-center w-100">
                         <th className="col-4">유사도 순위</th>
@@ -33,6 +33,6 @@ export default async function TodayWord (){
                     }
                 </tbody>
             </table>
-        </>
+        </div>
     )
 }
