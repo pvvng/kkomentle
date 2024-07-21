@@ -1,10 +1,14 @@
 import { connectDB } from "@/util/database";
 import getEmbedding from "@/util/functions/getEmbedding";
+import isValidKoreanCombination from "@/util/functions/isValidKoreanCombination";
 import cosineSimilarity from "cosine-similarity";
 import { NextApiRequest, NextApiResponse } from "next";
 
 /** db의 오늘의 정답과 사용자가 입력한 쿼리의 코사인 유사도를 비교하는 함수 */
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
+
+    console.log(req.query.answer);
+
 
     let formattedDate = Array.isArray(req.query.date) ? req.query.date[0] : req.query.date || '';
 
@@ -12,6 +16,12 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         try {
             // 사용자의 쿼리가 문자열 배열인 경우 첫 번째 요소를 문자열로 추출
             const answer = Array.isArray(req.query.answer) ? req.query.answer[0] : req.query.answer || '';
+            // 사용자 쿼리 예외 처리
+            if(answer.trim() === ''){
+                return res.status(400).json('문자를 입력해야 해요.');
+            }else if(!isValidKoreanCombination(answer)){
+                return res.status(400).json('유효하지 않은 단어에요.');
+            }
             // db에서 오늘의 정답 임베딩 불러오기
             const db = (await connectDB).db('kkomentle');
             const findDateResultPromise = db.collection('answer').findOne({ date: formattedDate });

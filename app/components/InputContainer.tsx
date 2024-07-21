@@ -26,7 +26,6 @@ export default function InputContainer(props :TodayIndexType){
     }
     
     useEffect(() => {
-
         if (props.darkmode !== undefined && props.darkmode.value === 'dark'){
             setSettingState({ darkmode : true });
         }

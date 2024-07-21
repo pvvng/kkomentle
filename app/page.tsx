@@ -38,7 +38,7 @@ export default async function Home() {
     <>
       {/* <SaveSimilarWordsContainer /> */}
       <div className="text-center p-2">
-        <a href="https://github.com/pvvng/kkomentle">
+        <a href="https://github.com/pvvng/kkomentle" target="_blank">
           <img src='/꼬들꼬들마스코트.png' width="40px" height="auto" alt="꼬들꼬들" />
         </a>
       </div>
