@@ -6,6 +6,7 @@ import Header from "./components/Header";
 import SettingAlertContainer from "./components/SettingAlertContainer";
 import { cookies } from "next/headers";
 import APP_URL from "./APP_URL";
+import SaveSimilarWordsContainer from "./components/SaveSimilarWordsContainer";
 
 export interface TodayIndexType {
   word : string;
