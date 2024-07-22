@@ -1,9 +1,9 @@
 import { useRef, useState } from 'react';
 import axios from 'axios';
 import rankSimilarity, { SimilarityType } from '@/util/functions/rankSimilarity';
-import moment from 'moment';
 import isValidKoreanCombination from '../functions/isValidKoreanCombination';
 import { useQuery } from '@tanstack/react-query';
+import moment from "moment-timezone";
 
 interface UseInputContainerProps {
     initialResult?: SimilarityType | null; // 초기 결과 설정 (선택적)
@@ -15,7 +15,10 @@ interface UseInputContainerProps {
  * */
 export default function useQueryAnswerChecker({ initialResult = null }: UseInputContainerProps){
 
-    const formatteTodaydDate = moment().format('YYYY-MM-DD');
+    // 디바이스 시간을 한국시로 포맷
+    const userNowDate = new Date();
+    const koreanNowDate = moment(userNowDate).tz("Asia/Seoul");
+    const formattedTodayDate = koreanNowDate.format('YYYY-MM-DD');
 
     const inputRef = useRef<HTMLInputElement>(null);
     // 결과 상태 설정
@@ -65,7 +68,7 @@ export default function useQueryAnswerChecker({ initialResult = null }: UseInput
                     }
     
                     if (!found) {
-                        let res = await axios.get(`/api/get/checkAnswer?answer=${inputValue}&date=${formatteTodaydDate}`);
+                        let res = await axios.get(`/api/get/checkAnswer?answer=${inputValue}&date=${formattedTodayDate}`);
                         setResult(res.data); // 결과 설정
                     }
     

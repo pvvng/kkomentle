@@ -14,7 +14,7 @@ export const handler :Handler = async (event, context) => {
     // 오늘의 단어 선별하는 API
     let selectTodayAnswer = await axios(`${APP_URL}/api/word/answer`);  
     // 내일의 단어 db에 업데이트하는 문장
-    let updateTomarrowAnswer = await insertAnswer(selectTodayAnswer.data.tomarrow, 'tomarrow');
+    let updateTomarrowAnswer = await insertAnswer(selectTodayAnswer.data.tomarrow);
     // db 유사어 업데이트
     const saveSimilarWords = await axios.post(`${APP_URL}/api/word/similar`);
 

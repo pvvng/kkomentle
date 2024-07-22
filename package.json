@@ -17,6 +17,7 @@
     "cosine-similarity": "^1.0.1",
     "mathjs": "^13.0.2",
     "moment": "^2.30.1",
+    "moment-timezone": "^0.5.45",
     "mongodb": "^6.8.0",
     "next": "14.2.4",
     "next-auth": "^4.24.7",

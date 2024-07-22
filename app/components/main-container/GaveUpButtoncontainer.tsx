@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from "react";
+import moment from "moment-timezone";
 import { useGuessesLocalstorage, useWinStateLocalstorage } from "../../store"
 import axios from "axios";
 
@@ -11,8 +11,11 @@ export default function GaveUpButtonContainer({darkmode} : {darkmode : {[key :st
 
     // 만약 포기 버튼 누르면 오늘의 정답을 guesses localstorage에 추가하는 함수
     async function appendTodayAnswer(){
-        const nowDate = new Date();
-        const nowTime = (nowDate.getHours() * 60) + nowDate.getMinutes();
+
+        const userNowDate = new Date();
+        const koreanNowDate = moment(userNowDate).tz("Asia/Seoul");
+        const nowTime = (koreanNowDate.hours() * 60) + koreanNowDate.minutes();
+        
         let selectTodayAnswer = await axios(`/api/word/answer`); 
         let todayWord :string = selectTodayAnswer.data.word;
         if(winState === -1 && guesses !== null){

@@ -1,6 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 import { NextApiRequest, NextApiResponse } from "next";
+import moment from 'moment-timezone';
 
 /** 어제의 정답 단어를 리턴하는 API */
 export default function handler(req :NextApiRequest, res :NextApiResponse){
@@ -16,15 +17,14 @@ export default function handler(req :NextApiRequest, res :NextApiResponse){
             throw new Error('No words found in the file');
         }
 
-        // 기준 날짜 설정 /[년, 월 + 1, 일 - 1]로 설정됨
-        // ex. 2024,7,11 => 2024-08-09
-        // 설정된 기준시는 2024-07-10T15:00:00.000Z
-        const startDate = new Date(2024, 6, 11);
-        const today = new Date();
+        // 한국 표준시 기준 날짜 설정
+        // 기준 날짜는 7월 11일
+        const startDate = moment.tz("2024-07-11", "Asia/Seoul").startOf('day');
+        const today = moment.tz("Asia/Seoul").startOf('day');
         
         // 타임스탬프로 변환
-        const startDateTimestamp = startDate.getTime();
-        const todayTimestamp = today.getTime();
+        const startDateTimestamp = startDate.valueOf();
+        const todayTimestamp = today.valueOf();
 
         // 일 단위 차이를 계산
         const dayDiff = Math.floor((todayTimestamp - startDateTimestamp) / (1000 * 60 * 60 * 24));

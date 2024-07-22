@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { SimilarityType } from "../functions/rankSimilarity";
 import { useGuessesLocalstorage, usePlayTimeLocalstorage, useTodayDateLocalstorage, useWinStateLocalstorage } from '@/app/store'
-import moment from "moment";
+import moment from "moment-timezone";
 
 // localstorage에 저장하는 추측 값 어레이의 타입
 export interface JsonSimilarityType extends SimilarityType {
@@ -10,16 +10,18 @@ export interface JsonSimilarityType extends SimilarityType {
 
 /** localstorage에 기본 값을 세팅하거나, 사용자가 입력한 값을 넣는 커스텀 훅*/
 export function useHandleLocalstorage(result : SimilarityType | null){
-    
+
     // zustand store
     const { winState ,setWinState, loadWinState } = useWinStateLocalstorage();
     const { guesses, setGuessesState, loadGuessesState } = useGuessesLocalstorage();
     const { today, setTodayDateState, loadTodayDateState } = useTodayDateLocalstorage();
     const { playtime, setPlayTimeState, loadPlayTimeState } = usePlayTimeLocalstorage();
 
+    // 사용자 디바이스의 시간을 한국시로 포맷하기
     // 현재 시간 암호화
-    const nowDate = new Date();
-    const nowTime = (nowDate.getHours() * 60) + nowDate.getMinutes();
+    const userNowDate = new Date();
+    const koreanNowDate = moment(userNowDate).tz("Asia/Seoul");
+    const nowTime = (koreanNowDate.hours() * 60) + koreanNowDate.minutes();
 
     // 현재 사용자가 입력한 값의 데이터
     let [nowInputData, setNowInputData] = useState<JsonSimilarityType|null>(null);
@@ -58,8 +60,8 @@ export function useHandleLocalstorage(result : SimilarityType | null){
     }, []);
 
     useEffect(() => {
-        // 오늘 날짜 확인
-        const now = moment().format('YYYY-MM-DD');
+        // 한국시로 현재 시간 포맷
+        const now = koreanNowDate.format('YYYY-MM-DD');
         // 날짜 변경시 초기화
         if(today && today !== now){
             setGuessesState([]);
