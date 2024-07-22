@@ -20,6 +20,17 @@ div {
   unicode-bidi: isolate;
 }
 
+.sign-btn{
+  font-size: 16px;
+  
+  @media screen and (max-width : 470px) {
+      font-size: 14px;
+  }
+  @media screen and (max-width : 380px) {
+      font-size: 12px;
+  }
+}
+
 .dark-mode-container {
   background-color: #111111;
   color : white;

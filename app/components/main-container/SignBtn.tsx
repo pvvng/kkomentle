@@ -35,8 +35,8 @@ export function SignInBtn ({darkmode} : {darkmode : {[ket :string] :string}}){
     return <button 
     className={
         darkmode.value === 'dark'?
-        "border-1 rounded-1 p-2 submit-btn dark-mode-input-and-btn":
-        "border-1 rounded-1 p-2 submit-btn"
+        "border-1 rounded-1 pt-1 pb-1 sign-btn dark-mode-input-and-btn":
+        "border-1 rounded-1 pt-1 pb-1 sign-btn"
     } 
     onClick={() => {
         signIn();
@@ -48,8 +48,8 @@ export function SignOutBtn ({darkmode} : {darkmode : {[ket :string] :string}}){
     return <button 
     className={
         darkmode.value === 'dark'?
-        "border-1 rounded-1 p-2 submit-btn dark-mode-input-and-btn":
-        "border-1 rounded-1 p-2 submit-btn"
+        "border-1 rounded-1 pt-1 pb-1 sign-btn dark-mode-input-and-btn":
+        "border-1 rounded-1 pt-1 pb-1 sign-btn"
     } 
     onClick={() => {
         signOut();

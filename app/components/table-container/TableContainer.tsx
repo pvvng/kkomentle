@@ -19,7 +19,7 @@ export default function TableContainer({result, darkmode} :PropsType){
     let filteredStoredGuessesArr = guesses?.filter(items => items.query !== nowInputData?.query);
 
     if(!guesses) return (
-        <LoadingSpinner darkmode={darkmode} />
+        <LoadingSpinner />
     )
 
     return(

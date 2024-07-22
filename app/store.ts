@@ -164,29 +164,14 @@ export const usePlayTimeLocalstorage = create<PlayTimeStoreType>((set) => ({
     }
 }));
 
+// 기본 다크모드 설정
+const DEFAULT_MODE = { mode: 'light' };
 
-// const DEFAULT_USERDATA = {
-//     name : random(),
-//     email : string,
-
-// }
-
-// interface UserDataType {
-//     setting : ;
-//     setSettingState: (checkedVale : SettingObjType) => void;
-// }
-
-// export const useUserData = create<UserDataType>((set) => ({
-//     setting : DEFAULT_USERDATA,
-//     setSettingState : (checkedVale) => {
-//         set((state) => {
-//             const newSetting = {
-//                 ...state.setting, 
-//                 ...checkedVale
-//             };
-
-//             return { setting: newSetting };
-//         });
-//     },
-// }))
-
+// Zustand 스토어 생성
+export const useNowMode = create<{
+    nowMode: { mode: string };
+    setNowMode: (mode: { mode: string }) => void;
+}>((set) => ({
+    nowMode: DEFAULT_MODE,
+    setNowMode: (mode) => set({ nowMode: mode }),
+}));

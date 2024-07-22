@@ -1,11 +1,12 @@
 'use client'
 
 import moment from "moment-timezone";
-import { useGuessesLocalstorage, useWinStateLocalstorage } from "../../store"
+import { useGuessesLocalstorage, useNowMode, useSettingState, useWinStateLocalstorage } from "../../store"
 import axios from "axios";
 
-export default function GaveUpButtonContainer({darkmode} : {darkmode : {[key :string] :string}}){
+export default function GaveUpButtonContainer(){
 
+    const { nowMode } = useNowMode();
     const { winState, setWinState } = useWinStateLocalstorage();
     const { guesses, setGuessesState } = useGuessesLocalstorage();
 
@@ -37,7 +38,7 @@ export default function GaveUpButtonContainer({darkmode} : {darkmode : {[key :st
             <div className="col-3 p-0 text-center">
                 <button 
                     className={
-                        darkmode.value === 'dark'? 
+                        nowMode.mode === 'dark'? 
                         "rounded-1 border-1 pt-1 pb-1 w-100 h-100 dark-mode-input-and-btn":
                         "rounded-1 border-1 pt-1 pb-1 w-100 h-100"
                     } 
