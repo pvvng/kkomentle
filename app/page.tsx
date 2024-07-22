@@ -8,6 +8,7 @@ import Navbar from "./components/main-container/Navbar";
 import APP_URL from "./APP_URL";
 import { cookies } from "next/headers";
 import insertAnswer from "@/util/functions/insertAnswer";
+import SaveSimilarWordsContainer from "./components/SaveSimilarWordsContainer";
 
 export interface TodayIndexType {
   word : string;
@@ -35,15 +36,10 @@ export default async function Home() {
   // 정답과 오늘이 기준 날짜로부터 몇번째 정답인지 담긴 객체 + 다크모드 여부
   let todayIndex :TodayIndexType = {...selectTodayAnswer.data, darkmode : darkmode};
 
-  // 내일의 단어 db에 업데이트하는 문장
-  let updateTomarrowAnswer = await insertAnswer(selectTodayAnswer.data.tomarrow);
-  // db 유사어 업데이트
-  const saveSimilarWords = await axios.post(`${APP_URL}/api/word/similar`);
-
   return (
     <>
-      {/* <SaveSimilarWordsContainer /> */}
       <Navbar />
+      {/* <SaveSimilarWordsContainer /> */}
       <SettingAlertContainer darkmode={darkmode} />  
       <div className="main-container">
         <Header />
