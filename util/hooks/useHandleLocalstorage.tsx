@@ -2,10 +2,11 @@ import { useEffect, useState } from "react";
 import { SimilarityType } from "../functions/rankSimilarity";
 import { useGuessesLocalstorage, usePlayTimeLocalstorage, useTodayDateLocalstorage, useWinStateLocalstorage } from '@/app/store'
 import moment from "moment-timezone";
+import axios from "axios";
 
 // localstorage에 저장하는 추측 값 어레이의 타입
 export interface JsonSimilarityType extends SimilarityType {
-    index : number;
+    index ?: number;
 }
 
 /** localstorage에 기본 값을 세팅하거나, 사용자가 입력한 값을 넣는 커스텀 훅*/
@@ -27,9 +28,9 @@ export function useHandleLocalstorage(result : SimilarityType | null){
     let [nowInputData, setNowInputData] = useState<JsonSimilarityType|null>(null);
 
     /** 정답을 맞췄을 때 playtime을 얻는 함수 */
-    function getPlayTime(
+    async function getPlayTime(
         /** 새롭게 등록되는 추측 단어 객체 */
-        guessedWord :SimilarityType, 
+        guessedWord :JsonSimilarityType, 
         /** 기존 localhost에 등록된 추측 단어 객체 어레이 */
         guesses :JsonSimilarityType[] | null,
     ){
@@ -41,7 +42,19 @@ export function useHandleLocalstorage(result : SimilarityType | null){
 
         let playtime = endTime - startTime;
 
-        setPlayTimeState(playtime);
+        let guessesLength = guesses?.length || 0;
+        let formattedDate = koreanNowDate.format('YYYY-MM-DD');
+
+        if(guessedWord !== undefined && guessesLength >= 0){
+            const putter = {
+                guessedWord : guessedWord.query,
+                date : formattedDate,
+                playtime : playtime,
+                try : guessesLength + 1
+            }
+            // db에 클리어 정보 업데이트
+            let postPlayTime = await axios.post('/api/post/tryCount', putter);
+        }  
     }
 
     useEffect(() => {
@@ -98,7 +111,7 @@ export function useHandleLocalstorage(result : SimilarityType | null){
         if(guessedWord.query !== undefined && guessedWord.rank !== -1){
             // 추측한 단어가 정답일 때 winState 변경 
             if(guessedWord.rank === 0){
-                if(winState !== 0){
+                if(winState === -1){
                     setWinState(1);
                     getPlayTime(guessedWord, guesses);
                 }
@@ -114,7 +127,7 @@ export function useHandleLocalstorage(result : SimilarityType | null){
                     }
                     // 만약 어레이에 정답 객체가 있으면 winState 변경
                     if(pg.rank === 0){
-                        if(winState !== 0){
+                        if(winState === -1){
                             setWinState(1);
                             getPlayTime(pg, guesses);
                         }

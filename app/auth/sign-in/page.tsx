@@ -9,8 +9,7 @@ const BACKGROUND_STYE = {
     placeItems: 'center',
 }
 
-export default function LoginPage() {
-
+export default async function LoginPage() {
     return (
         <div style={{...BACKGROUND_STYE, backgroundSize:'contain', backgroundPosition:'center center', backgroundRepeat:'no-repeat'}}>
             <div className="text-center">

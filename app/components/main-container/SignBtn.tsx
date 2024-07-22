@@ -31,15 +31,27 @@ export function KakaoSignInBtn (){
 }
 
 // 로그인 페이지로 이동하는 버튼
-export function SignInBtn (){
-    return <button className="border-1 rounded-1 p-2 submit-btn" onClick={() => {
+export function SignInBtn ({darkmode} : {darkmode : {[ket :string] :string}}){
+    return <button 
+    className={
+        darkmode.value === 'dark'?
+        "border-1 rounded-1 pt-1 pb-1 sign-btn dark-mode-input-and-btn":
+        "border-1 rounded-1 pt-1 pb-1 sign-btn"
+    } 
+    onClick={() => {
         signIn();
     }}>로그인</button>
 }
 
 // 로그 아웃 버튼
-export function SignOutBtn (){
-    return <button className="border-1 rounded-1 p-2 submit-btn" onClick={() => {
+export function SignOutBtn ({darkmode} : {darkmode : {[ket :string] :string}}){
+    return <button 
+    className={
+        darkmode.value === 'dark'?
+        "border-1 rounded-1 pt-1 pb-1 sign-btn dark-mode-input-and-btn":
+        "border-1 rounded-1 pt-1 pb-1 sign-btn"
+    } 
+    onClick={() => {
         signOut();
     }}>로그아웃</button>
 }

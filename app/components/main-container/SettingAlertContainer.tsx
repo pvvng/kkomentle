@@ -1,7 +1,7 @@
 'use client'
 
 import { useRouter } from "next/navigation";
-import { useAlertBoxState, useSettingState } from "../../store"
+import { useAlertBoxState, useNowMode, useSettingState } from "../../store"
 import { CSSProperties } from "react";
 
 const INPUT_LABEL_ARRAY = [
@@ -11,10 +11,11 @@ const INPUT_LABEL_ARRAY = [
     { id: 'sim', content : '결과 공유 텍스트에 최대 유사도 표시하기' },
 ]
 
-export default function SettingAlertContainer({darkmode} : {darkmode : {[key :string] :string}}){
+export default function SettingAlertContainer(){
 
     const { alert, setAlertState } = useAlertBoxState();
     const { setting, setSettingState } = useSettingState();
+    const { nowMode } = useNowMode();
     const router = useRouter();
 
     return(
@@ -31,7 +32,7 @@ export default function SettingAlertContainer({darkmode} : {darkmode : {[key :st
             }}
         >
             <div 
-                className={darkmode.value === 'dark' ? "w-100 rounded p-3 dark-mode-setting-box" : "w-100 rounded p-3 bg-white"}
+                className={nowMode.mode === 'dark' ? "w-100 rounded p-3 dark-mode-setting-box" : "w-100 rounded p-3 bg-white"}
                 style={{maxWidth : '640px', margin : 'auto'}}
             >
                 <div onClick={() => {
