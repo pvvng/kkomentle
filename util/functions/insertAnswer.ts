@@ -8,9 +8,10 @@ import APP_URL from "@/app/APP_URL";
 export default async function insertAnswer(todayAnswer :string) {
 
   // 디바이스 시간을 한국시로 포맷, 날짜 +1일 시키기
+  // add, substract으로 날짜 객체 조작할 때는 복사본 사용하기
   const userNowDate = new Date();
   const koreanNowDate = moment(userNowDate).tz("Asia/Seoul");
-  const formatteddate = koreanNowDate.add(1, 'days').format('YYYY-MM-DD');
+  const formatteddate = moment(koreanNowDate).add(1, 'days').format('YYYY-MM-DD');
 
   // db에서 오늘 날짜에 맞는 정답 데이터 받아오기
   const db = (await connectDB).db('kkomentle');
