@@ -7,6 +7,7 @@ import GaveUpButtonContainer from "./GaveUpButtoncontainer";
 import { useSettingState, useWinStateLocalstorage } from "../../store";
 import { TodayIndexType } from "../../page";
 import { useEffect } from "react";
+import { random } from "mathjs";
 
 export default function InputContainer(props :TodayIndexType){
 
@@ -30,7 +31,7 @@ export default function InputContainer(props :TodayIndexType){
         if (props.darkmode !== undefined && props.darkmode.value === 'dark'){
             setSettingState({ darkmode : true });
         }
-    },[])
+    },[]);
 
     return(
         <div className="row w-100" style={{margin : 'auto'}}>

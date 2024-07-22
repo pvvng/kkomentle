@@ -1,4 +1,5 @@
 import { JsonSimilarityType } from "@/util/hooks/useHandleLocalstorage";
+import { random } from "mathjs";
 import moment from "moment-timezone";
 import { create } from "zustand";
 
@@ -162,4 +163,30 @@ export const usePlayTimeLocalstorage = create<PlayTimeStoreType>((set) => ({
         set({ playtime : parsedPlayTime })
     }
 }));
+
+
+// const DEFAULT_USERDATA = {
+//     name : random(),
+//     email : string,
+
+// }
+
+// interface UserDataType {
+//     setting : ;
+//     setSettingState: (checkedVale : SettingObjType) => void;
+// }
+
+// export const useUserData = create<UserDataType>((set) => ({
+//     setting : DEFAULT_USERDATA,
+//     setSettingState : (checkedVale) => {
+//         set((state) => {
+//             const newSetting = {
+//                 ...state.setting, 
+//                 ...checkedVale
+//             };
+
+//             return { setting: newSetting };
+//         });
+//     },
+// }))
 

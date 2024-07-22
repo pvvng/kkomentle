@@ -7,8 +7,8 @@ import SettingAlertContainer from "./components/main-container/SettingAlertConta
 import Navbar from "./components/main-container/Navbar";
 import APP_URL from "./APP_URL";
 import { cookies } from "next/headers";
-import insertAnswer from "@/util/functions/insertAnswer";
-import SaveSimilarWordsContainer from "./components/SaveSimilarWordsContainer";
+import { getServerUserData } from "@/util/functions/getServerUserData";
+import { random } from "mathjs";
 
 export interface TodayIndexType {
   word : string;
@@ -16,6 +16,7 @@ export interface TodayIndexType {
   tomarrow : string;
   index : number;
   darkmode: {[key :string] :string};
+  userdata : {[key :string] :string};
 }
 
 export default async function Home() {
@@ -33,8 +34,12 @@ export default async function Home() {
   // 유사어 중에서 1, 10, 1000번째 순서를 가진 단어 불러오기
   let oneTenAndKSimilarityArr = await getOneTenAndKSimilarlity();
 
+  const userdata = await getServerUserData();
+
+  console.log(userdata)
+
   // 정답과 오늘이 기준 날짜로부터 몇번째 정답인지 담긴 객체 + 다크모드 여부
-  let todayIndex :TodayIndexType = {...selectTodayAnswer.data, darkmode : darkmode};
+  let todayIndex :TodayIndexType = {...selectTodayAnswer.data, darkmode : darkmode, userdata : userdata};
 
   return (
     <>

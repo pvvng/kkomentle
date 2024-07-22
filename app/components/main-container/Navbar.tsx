@@ -3,6 +3,7 @@ import { SignInBtn, SignOutBtn } from "./SignBtn";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/pages/api/auth/[...nextauth]";
 import { cookies } from "next/headers";
+import { getServerUserData } from "@/util/functions/getServerUserData";
 
 export default async function Navbar(){
     // 다크모드 쿠키 불러오기
@@ -14,8 +15,8 @@ export default async function Navbar(){
     }
 
     // 로그인 테스트
-    let session = await getServerSession(authOptions);
-    console.log(session)
+    const userdata = await getServerUserData();
+
     return(
         <>
             <div className="text-center p-2">
@@ -31,7 +32,7 @@ export default async function Navbar(){
                 </a>
                 <div className="col-6 text-end">
                     {
-                        !session?
+                        !userdata?
                         <SignInBtn darkmode = {darkmode} />:
                         <SignOutBtn darkmode = {darkmode} />
                     }
