@@ -6,9 +6,8 @@ import getOneTenAndKSimilarlity from "@/util/functions/getOneTenAndK";
 import { useQuery } from "@tanstack/react-query";
 import LoadingSpinner from "../loading-container/LoadingSpinner";
 import { useEffect } from "react";
-import { useNowMode, useSettingState } from "@/app/store";
+import { useNowMode } from "@/app/store";
 import { useRouter } from "next/navigation";
-import { cookies } from "next/headers";
 
 export interface TodayIndexType {
     word : string;
@@ -30,9 +29,8 @@ interface PropsType {
 
 export default function MainContainer({darkmode, userdata} : PropsType){
 
-    const { setSettingState } = useSettingState();
     const router = useRouter();
-    const { nowMode, setNowMode } = useNowMode();
+    const { setNowMode } = useNowMode();
     
     useEffect(() => {
         // cookie로 다크모드 여부를 확인하지 못했을 때
