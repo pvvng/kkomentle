@@ -1,5 +1,5 @@
 import { JsonSimilarityType } from "@/util/hooks/useHandleLocalstorage";
-import moment from "moment";
+import moment from "moment-timezone";
 import { create } from "zustand";
 
 interface WinStateStoreType {
@@ -64,7 +64,9 @@ interface TodayDateStoreType {
     setTodayDateState: (nowToday: string) => void;
     loadTodayDateState: () => void;
 }
-const NOW = moment().format('YYYY-MM-DD');
+
+const userNowDate = new Date();
+const NOW = moment(userNowDate ).tz("Asia/Seoul").format('YYYY-MM-DD');
 const DEFAULT_TODAY :string|null = null;
 
 /** 오늘의 날짜를 저장하는 store */

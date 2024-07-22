@@ -10,9 +10,9 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     const userNowDate = new Date();
     const koreanNowDate = moment(userNowDate).tz("Asia/Seoul");
     // 어제, 오늘, 내일의 날짜 포맷
-    const formattedYesterdayDate = koreanNowDate.subtract(1, 'days').format('YYYY-MM-DD');
-    // const formattedTodayDate = moment().format('YYYY-MM-DD');
-    const formattedTomorrowDate = koreanNowDate.add(1, 'days').format('YYYY-MM-DD');
+    // add substract로 날짜 객체 조작할 때는 복사본을 이용해서 조작하기
+    const formattedYesterdayDate = moment(koreanNowDate).subtract(1, 'days').format('YYYY-MM-DD');
+    const formattedTomorrowDate = moment(koreanNowDate).add(1, 'days').format('YYYY-MM-DD');
 
     const db = (await connectDB).db('kkomentle');
     const similarityCollection = db.collection('similarity');
