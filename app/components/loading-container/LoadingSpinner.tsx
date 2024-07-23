@@ -5,6 +5,7 @@ import { useNowMode } from "@/app/store"
 export default function LoadingSpinner(){
 
     const { nowMode } = useNowMode();
+    console.log(nowMode);
 
     return(
         <>

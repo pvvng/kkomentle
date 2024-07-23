@@ -5,12 +5,13 @@ import Navbar from "./components/main-container/Navbar";
 import { cookies } from "next/headers";
 import { getServerUserData } from "@/util/functions/getServerUserData";
 import MainContainer from "./components/main-container/MainContainer";
+import SaveSimilarWordsContainer from "./components/SaveSimilarWordsContainer";
 
 export default async function Home() {
 
   // 다크모드 쿠키 불러오기
-  let darkmode = cookies().get('mode') as {[ket :string] :string};
-
+  let darkmode = cookies().get('mode') as {[key :string] :string};
+  // 유저 데이터 불러오기
   const userdata = await getServerUserData();
 
   return (

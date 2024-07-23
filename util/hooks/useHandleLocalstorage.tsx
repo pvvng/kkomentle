@@ -42,6 +42,9 @@ export function useHandleLocalstorage(result : SimilarityType | null){
 
         let playtime = endTime - startTime;
 
+        // playtime store에 playtime 계산한 업데이트
+        setPlayTimeState(playtime);
+
         let guessesLength = guesses?.length || 0;
         let formattedDate = koreanNowDate.format('YYYY-MM-DD');
 

@@ -5,8 +5,7 @@ import APP_URL from '@/app/APP_URL';
 
 /**  Nelify function 
  * 
- * 1. 매일 자정 실행되어 db에 오늘의 단어를 업데이트 
- * 2. db 유사도를 삭제/업데이트/추가 하는 함수 
+ * 매일 자정 실행되어 db에 내일의 단어를 업데이트 
  * */
 export const handler :Handler = async (event, context) => {
   try {
@@ -16,7 +15,7 @@ export const handler :Handler = async (event, context) => {
     // 내일의 단어 db에 업데이트하는 문장
     let updateTomarrowAnswer = await insertAnswer(selectTodayAnswer.data.tomarrow);
     // db 유사어 업데이트
-    const saveSimilarWords = await axios.post(`${APP_URL}/api/word/similar`);
+    // const saveSimilarWords = await axios.post(`${APP_URL}/api/word/similar`);
 
     return {
       statusCode: 200,

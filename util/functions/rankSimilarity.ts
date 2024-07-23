@@ -9,10 +9,12 @@ export interface SimilarityType {
     time ?: number;
 }
 
-/** 유사도 순으로 나열하고, 등급 매기는 함수 */
+/** 유사도 순으로 나열하고, 등급 매기는 함수 (클라이언트 컴포넌트에서 사용) */
 export default async function rankSimilarity():  Promise<SimilarityType[]> {
 
-    let getTodaySimilar = await axios('/api/get/todaySimilar');
+    console.log(APP_URL)
+
+    let getTodaySimilar = await axios(`${APP_URL}/api/get/todaySimilar`);
 
     // SIMILARITY 배열을 복사하여 새로운 배열을 생성
     const sortedSimilarity: SimilarityType[] = [...getTodaySimilar.data].sort((a, b) => b.similarity - a.similarity);
