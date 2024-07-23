@@ -6,7 +6,7 @@ import axios from "axios"
 export default function Footer(){
 
     const {data, isError} = useQuery({
-        queryKey : ['test'],
+        queryKey : ['yesterdayWord'],
         queryFn : fetchYesterdayWord,
     })
 
