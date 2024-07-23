@@ -12,8 +12,6 @@ export interface SimilarityType {
 /** 유사도 순으로 나열하고, 등급 매기는 함수 (클라이언트 컴포넌트에서 사용) */
 export default async function rankSimilarity():  Promise<SimilarityType[]> {
 
-    console.log(APP_URL)
-
     let getTodaySimilar = await axios(`${APP_URL}/api/get/todaySimilar`);
 
     // SIMILARITY 배열을 복사하여 새로운 배열을 생성

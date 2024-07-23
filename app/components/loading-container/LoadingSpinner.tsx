@@ -5,15 +5,11 @@ import { useNowMode } from "@/app/store"
 export default function LoadingSpinner(){
 
     const { nowMode } = useNowMode();
-    console.log(nowMode);
 
     return(
         <>
             <div className="mt-3" style={{margin : 'auto'}}>
-                <div 
-                    className="lava-lamp" 
-                    style={{ background : nowMode.mode === 'dark' ? '#111111' : 'white'}}
-                >
+                <div className="lava-lamp">
                     <div className="bubble"></div>
                     <div className="bubble1"></div>
                     <div className="bubble2"></div>

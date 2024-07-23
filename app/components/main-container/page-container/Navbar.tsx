@@ -1,7 +1,5 @@
 import Image from "next/image";
 import { SignInBtn, SignOutBtn } from "./SignBtn";
-import { getServerSession } from "next-auth";
-import { authOptions } from "@/pages/api/auth/[...nextauth]";
 import { cookies } from "next/headers";
 import { getServerUserData } from "@/util/functions/getServerUserData";
 

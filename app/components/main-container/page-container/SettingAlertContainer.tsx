@@ -1,7 +1,7 @@
 'use client'
 
 import { useRouter } from "next/navigation";
-import { useAlertBoxState, useNowMode, useSettingState } from "../../store"
+import { useAlertBoxState, useNowMode, useSettingState } from "@/app/store";
 import { CSSProperties } from "react";
 
 const INPUT_LABEL_ARRAY = [

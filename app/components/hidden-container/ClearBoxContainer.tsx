@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useNowMode, useWinStateLocalstorage } from "@/app/store";
 import copyToClipboard from "@/util/functions/copyToClipboard";
 import useGetClipBoardText from "@/util/hooks/useGetClipBoardText";
-import { TodayIndexType } from "../main-container/MainContainer";
+import { TodayIndexType } from "../main-container/page-container/MainContainer";
 
 export default function ClearBoxContainer(props :TodayIndexType){
 

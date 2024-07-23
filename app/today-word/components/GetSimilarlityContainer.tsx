@@ -3,9 +3,9 @@
 import rankSimilarity, { SimilarityType } from "@/util/functions/rankSimilarity";
 import { useQuery } from "@tanstack/react-query";
 import Link from "next/link";
-import LoadingSpinner from "../components/loading-container/LoadingSpinner";
+import LoadingSpinner from "@/app/components/loading-container/LoadingSpinner";
 import { useEffect } from "react";
-import { useNowMode, useSettingState } from "../store";
+import { useNowMode, useSettingState } from "@/app/store";
 import { useRouter } from "next/navigation";
 
 export default function GetSimilarlityContainer({darkmode} : {darkmode : {[key :string] :string}}){

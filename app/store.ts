@@ -1,5 +1,5 @@
+import { UserDataType } from "@/util/functions/getServerUserData";
 import { JsonSimilarityType } from "@/util/hooks/useHandleLocalstorage";
-import { random } from "mathjs";
 import moment from "moment-timezone";
 import { create } from "zustand";
 
@@ -164,14 +164,29 @@ export const usePlayTimeLocalstorage = create<PlayTimeStoreType>((set) => ({
     }
 }));
 
-// 기본 다크모드 설정
+/** 기본 다크모드 설정 */
 const DEFAULT_MODE = { mode: 'light' };
 
-// Zustand 스토어 생성
+/** Zustand 스토어 생성 */
 export const useNowMode = create<{
     nowMode: { mode: string };
     setNowMode: (mode: { mode: string }) => void;
 }>((set) => ({
     nowMode: DEFAULT_MODE,
     setNowMode: (mode) => set({ nowMode: mode }),
+}));
+
+/** 기본 userdata 값 설정 */
+const DEFAULT_USERDATA = undefined;
+
+/** userdata store type */
+interface UserDataStoreType {
+    nowUserData: UserDataType | undefined;
+    setNowUserData: (userdata: (UserDataType | undefined)) => void;
+}
+
+/** zustand store */
+export const useUserData = create<UserDataStoreType>((set) => ({
+    nowUserData: DEFAULT_USERDATA,
+    setNowUserData: (userdata) => set({ nowUserData : userdata }),
 }));

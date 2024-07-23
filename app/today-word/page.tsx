@@ -1,6 +1,5 @@
 import { cookies } from "next/headers";
-import GetSimilarlityContainer from "./GetSimilarlityContainer";
-
+import GetSimilarlityContainer from "./components/GetSimilarlityContainer";
 
 export default async function TodayWord (){
 

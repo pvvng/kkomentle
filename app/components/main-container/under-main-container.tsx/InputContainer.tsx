@@ -2,10 +2,10 @@
 
 import useQueryAnswerChecker from "@/util/hooks/useQueryAnswerChecker";
 import TableContainer from "../table-container/TableContainer";
-import ClearBoxContainer from "../hidden-container/ClearBoxContainer";
+import ClearBoxContainer from "../../hidden-container/ClearBoxContainer";
 import GaveUpButtonContainer from "./GaveUpButtoncontainer";
-import { useNowMode, useWinStateLocalstorage } from "../../store";
-import { TodayIndexType } from "./MainContainer";
+import { useNowMode, useWinStateLocalstorage } from "../../../store";
+import { TodayIndexType } from "../page-container/MainContainer";
 
 export default function InputContainer(props :TodayIndexType){
 
@@ -56,7 +56,7 @@ export default function InputContainer(props :TodayIndexType){
                 winState !== -1 &&
                 <ClearBoxContainer {...props} />
             }
-            <TableContainer result={result} darkmode={props.darkmode} />
+            <TableContainer result={result} />
             {
                 winState === -1 &&
                 <GaveUpButtonContainer />

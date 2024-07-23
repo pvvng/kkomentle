@@ -1,8 +1,8 @@
 'use client'
 
 import moment from "moment-timezone";
-import { useGuessesLocalstorage, useNowMode, useSettingState, useWinStateLocalstorage } from "../../store"
 import axios from "axios";
+import { useGuessesLocalstorage, useNowMode, useWinStateLocalstorage } from "@/app/store";
 
 export default function GaveUpButtonContainer(){
 

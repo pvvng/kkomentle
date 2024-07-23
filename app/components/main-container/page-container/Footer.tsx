@@ -2,11 +2,8 @@
 
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios"
-import { useState } from "react";
 
 export default function Footer(){
-
-    const [QAState, setQAState] = useState(0);
 
     const {data, isError} = useQuery({
         queryKey : ['test'],

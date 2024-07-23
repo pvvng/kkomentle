@@ -1,18 +1,18 @@
-import Footer from "./components/main-container/Footer";
-import Header from "./components/main-container/Header";
-import SettingAlertContainer from "./components/main-container/SettingAlertContainer";
-import Navbar from "./components/main-container/Navbar";
-import { cookies } from "next/headers";
-import { getServerUserData } from "@/util/functions/getServerUserData";
-import MainContainer from "./components/main-container/MainContainer";
+import Footer from "./components/main-container/page-container/Footer";
+import Header from "./components/main-container/under-main-container.tsx/Header";
+import SettingAlertContainer from "./components/main-container/page-container/SettingAlertContainer";
+import Navbar from "./components/main-container/page-container/Navbar";
+import MainContainer from "./components/main-container/page-container/MainContainer";
 import SaveSimilarWordsContainer from "./components/SaveSimilarWordsContainer";
+import { cookies } from "next/headers";
+import { getServerUserData, UserDataType } from "@/util/functions/getServerUserData";
 
 export default async function Home() {
 
   // 다크모드 쿠키 불러오기
   let darkmode = cookies().get('mode') as {[key :string] :string};
   // 유저 데이터 불러오기
-  const userdata = await getServerUserData();
+  const userdata :UserDataType|undefined = await getServerUserData();
 
   return (
     <>

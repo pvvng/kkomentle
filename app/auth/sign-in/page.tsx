@@ -1,4 +1,4 @@
-import { KakaoSignInBtn } from "@/app/components/main-container/SignBtn";
+import { KakaoSignInBtn } from "@/app/components/main-container/page-container/SignBtn";
 
 const BACKGROUND_STYE = {
     // backgroundColor: 'white', 

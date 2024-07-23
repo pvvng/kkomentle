@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { SimilarityType } from "../functions/rankSimilarity";
-import { useGuessesLocalstorage, usePlayTimeLocalstorage, useTodayDateLocalstorage, useWinStateLocalstorage } from '@/app/store'
+import { useGuessesLocalstorage, usePlayTimeLocalstorage, useTodayDateLocalstorage, useUserData, useWinStateLocalstorage } from '@/app/store'
 import moment from "moment-timezone";
 import axios from "axios";
 
@@ -17,6 +17,7 @@ export function useHandleLocalstorage(result : SimilarityType | null){
     const { guesses, setGuessesState, loadGuessesState } = useGuessesLocalstorage();
     const { today, setTodayDateState, loadTodayDateState } = useTodayDateLocalstorage();
     const { playtime, setPlayTimeState, loadPlayTimeState } = usePlayTimeLocalstorage();
+    const { nowUserData } = useUserData();
 
     // 사용자 디바이스의 시간을 한국시로 포맷하기
     // 현재 시간 암호화
@@ -53,7 +54,9 @@ export function useHandleLocalstorage(result : SimilarityType | null){
                 guessedWord : guessedWord.query,
                 date : formattedDate,
                 playtime : playtime,
-                try : guessesLength + 1
+                try : guessesLength + 1,
+                isLogin : nowUserData === undefined ? 
+                undefined : nowUserData.email
             }
             // db에 클리어 정보 업데이트
             let postPlayTime = await axios.post('/api/post/tryCount', putter);
