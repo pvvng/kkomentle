@@ -1,19 +1,20 @@
 'use client'
 
 import Link from "next/link";
-import { useWinStateLocalstorage } from "@/app/store";
+import { useNowMode, useWinStateLocalstorage } from "@/app/store";
 import copyToClipboard from "@/util/functions/copyToClipboard";
 import useGetClipBoardText from "@/util/hooks/useGetClipBoardText";
-import { TodayIndexType } from "@/app/page";
+import { TodayIndexType } from "../main-container/page-container/MainContainer";
 
 export default function ClearBoxContainer(props :TodayIndexType){
 
     const { winState } = useWinStateLocalstorage();
+    const { nowMode } = useNowMode();
     const { WIN_TEXT, LOSE_TEXT, indexGuesses, hours, minutes } = useGetClipBoardText(props.index);
     
     return(
         <div className={
-            props.darkmode.value === 'dark' ? 
+            nowMode.mode === 'dark'? 
             "p-3 mt-3 dark-mode-clear-box":
             "p-3 mt-3 light-mode-clear-box"
         }>

@@ -57,7 +57,7 @@ export default function useGetClipBoardText (index :number){
         guesses?.map(psg => {
             if(psg.rank === 0){
                 // 정답 단어 몇번만에 맞췄는지 기재
-                setIndexGuesses(psg.index);
+                setIndexGuesses(psg.index || 0);
             }
         });
     },[guesses]);

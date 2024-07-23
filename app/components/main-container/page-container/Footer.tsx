@@ -1,9 +1,24 @@
+'use client'
+
+import { useQuery } from "@tanstack/react-query";
 import axios from "axios"
-import APP_URL from "@/app/APP_URL";
 
-export default async function Footer(){
+export default function Footer(){
 
-    let res = await axios(`${APP_URL}/api/word/yesterdayWord`);
+    const {data, isError} = useQuery({
+        queryKey : ['test'],
+        queryFn : fetchYesterdayWord,
+    })
+
+    async function fetchYesterdayWord() {
+        try {
+            let res = await axios('/api/word/yesterdayWord');
+            return res.data;
+        } catch (error) {
+            console.error('Error fetching yesterday\'s word:', error);
+            return error;  
+        }
+    }
 
     return(
         <>
@@ -74,7 +89,16 @@ export default async function Footer(){
             <p><b>Q. 어제의 정답은 무엇인가요?</b></p>
             <p className="float-start">A.</p>
             <ul className="mx-4">
-                <li className="mb-1">어제의 정답 단어는 &quot;<b>{res.data.yesterday}</b>&quot;입니다.</li>
+                <li className="mb-1">
+                    어제의 정답 단어는 &quot;
+                    {
+                        data !== undefined?
+                        <b>{data.yesterday}</b>:
+                        isError ? <b>에러 발생</b>:
+                        <b>???</b>
+                    }
+                    &quot;입니다.
+                </li>
             </ul>
             <div style={{clear : 'both'}}></div>
             <hr/>

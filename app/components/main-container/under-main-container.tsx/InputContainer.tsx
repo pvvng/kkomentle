@@ -2,17 +2,16 @@
 
 import useQueryAnswerChecker from "@/util/hooks/useQueryAnswerChecker";
 import TableContainer from "../table-container/TableContainer";
-import ClearBoxContainer from "../hidden-container/ClearBoxContainer";
+import ClearBoxContainer from "../../hidden-container/ClearBoxContainer";
 import GaveUpButtonContainer from "./GaveUpButtoncontainer";
-import { useSettingState, useWinStateLocalstorage } from "../../store";
-import { TodayIndexType } from "../../page";
-import { useEffect } from "react";
+import { useNowMode, useWinStateLocalstorage } from "../../../store";
+import { TodayIndexType } from "../page-container/MainContainer";
 
 export default function InputContainer(props :TodayIndexType){
 
     const { inputRef, result, handleClick } = useQueryAnswerChecker({ initialResult: null });
     const { winState } = useWinStateLocalstorage();
-    const { setSettingState } = useSettingState();
+    const { nowMode } = useNowMode();
 
     const handleKeyPress = (e :React.KeyboardEvent<HTMLInputElement>) => {
         // Enter 키 누를 때 버튼 클릭과 동일한 동작을 함
@@ -21,16 +20,6 @@ export default function InputContainer(props :TodayIndexType){
         }
     };
 
-    if(props.darkmode === undefined){
-        document.cookie = 'mode=light; max-age=' + (3600 * 24 * 400);
-    }
-    
-    useEffect(() => {
-        if (props.darkmode !== undefined && props.darkmode.value === 'dark'){
-            setSettingState({ darkmode : true });
-        }
-    },[])
-
     return(
         <div className="row w-100" style={{margin : 'auto'}}>
             <input 
@@ -38,7 +27,7 @@ export default function InputContainer(props :TodayIndexType){
                 onKeyDown={(e) => handleKeyPress(e)}
                 maxLength={5}
                 className={
-                    props.darkmode.value === 'dark'? 
+                    nowMode.mode === 'dark'? 
                     "col-sm-10 col-9 border-1 rounded-start-1 p-2 dark-mode-input-and-btn":
                     "col-sm-10 col-9 border-1 rounded-start-1 p-2"
                 }
@@ -51,11 +40,10 @@ export default function InputContainer(props :TodayIndexType){
             />
             <button 
                 className = {
-                    props.darkmode.value === 'dark'? 
-                    "col-sm-2 col-3 border-1 rounded-end-1 p-2 submit-btn dark-mode-input-and-btn":
-                    "col-sm-2 col-3 border-1 rounded-end-1 p-2 submit-btn"
+                    nowMode.mode === 'dark'? 
+                    "col-sm-2 col-3 border-1 rounded-end-1 pt-1 pb-1 dark-mode-input-and-btn":
+                    "col-sm-2 col-3 border-1 rounded-end-1 pt-1 pb-1"
                 }
-                type="submit"
                 onClick={ async () => { 
                     await handleClick();
                 }}
@@ -66,12 +54,12 @@ export default function InputContainer(props :TodayIndexType){
                 winState === null?
                 null:
                 winState !== -1 &&
-                <ClearBoxContainer {...props} darkmode = {props.darkmode} />
+                <ClearBoxContainer {...props} />
             }
-            <TableContainer result={result} darkmode={props.darkmode} />
+            <TableContainer result={result} />
             {
                 winState === -1 &&
-                <GaveUpButtonContainer darkmode={props.darkmode} />
+                <GaveUpButtonContainer />
             }
         </div>
     )

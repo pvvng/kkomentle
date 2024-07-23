@@ -20,6 +20,17 @@ div {
   unicode-bidi: isolate;
 }
 
+.sign-btn{
+  font-size: 16px;
+  
+  @media screen and (max-width : 470px) {
+      font-size: 14px;
+  }
+  @media screen and (max-width : 380px) {
+      font-size: 12px;
+  }
+}
+
 .dark-mode-container {
   background-color: #111111;
   color : white;
@@ -84,10 +95,10 @@ body .main-container{
   padding: 0 1em 1em;
 
   @media screen and (max-width : 470px) {
-    font-size: 12px;
+    font-size: 14px;
   }
   @media screen and (max-width : 380px) {
-    font-size: 10px;
+    font-size: 12px;
   }
 }
 
@@ -108,13 +119,13 @@ body .main-container{
     font-size: 22px;
   }
   @media screen and (max-width : 430px) {
-    font-size: 18px;
+    font-size: 20px;
   }
   @media screen and (max-width : 360px) {
-    font-size: 16px;
+    font-size: 18px;
   }
   @media screen and (max-width : 320px) {
-    font-size: 14px;
+    font-size: 16px;
   }
 }
 
@@ -164,7 +175,6 @@ body .main-container{
   position: relative;
   width: 100px;
   height: 100px;
-  background: #000;
   border-radius: 25px;
   overflow: hidden;
   margin: auto;
@@ -215,23 +225,19 @@ body .main-container{
 }
 
 .submit-btn { 
-  padding : 0;
-  font-weight: 600;
-  font-size: 12px;
+  font-size: 16px;
   
   @media screen and (max-width : 470px) {
-      font-size: 10px;
+      font-size: 14px;
   }
   @media screen and (max-width : 380px) {
-      font-size: 8px;
-      padding : 0;
+      font-size: 12px;
   }
 }
 
 @media only screen and (max-width: 640px) {
     body, input, button {
-        font-size: 14px;
+        font-size: 16px;
     }
-    
 }
 /* !!!!!!!!!!!!!!!!!!!!!!!! */

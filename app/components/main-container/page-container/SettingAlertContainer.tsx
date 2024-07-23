@@ -1,7 +1,8 @@
 'use client'
 
 import { useRouter } from "next/navigation";
-import { useAlertBoxState, useSettingState } from "../../store"
+import { useAlertBoxState, useNowMode, useSettingState } from "@/app/store";
+import { CSSProperties } from "react";
 
 const INPUT_LABEL_ARRAY = [
     { id: 'darkmode', content : '다크모드' },
@@ -10,25 +11,18 @@ const INPUT_LABEL_ARRAY = [
     { id: 'sim', content : '결과 공유 텍스트에 최대 유사도 표시하기' },
 ]
 
-export default function SettingAlertContainer({darkmode} : {darkmode : {[key :string] :string}}){
+export default function SettingAlertContainer(){
 
     const { alert, setAlertState } = useAlertBoxState();
     const { setting, setSettingState } = useSettingState();
+    const { nowMode } = useNowMode();
     const router = useRouter();
 
     return(
         <div 
-            style={{
-                width : '100vw', 
-                height : '100vh', 
-                zIndex : 10, 
-                background:'rgba(0,0,0,0.5)', 
-                position :'fixed',
-                top: 0,
-                left : 0,
-                padding : '60px',
-                overflow : 'hidden',
-                visibility : alert % 2 === 0? 'hidden' :'visible',
+            style={{ 
+                ...BACKGROUND_STYLE, 
+                visibility: alert % 2 === 0 ? 'hidden' : 'visible' 
             }} 
             onClick={(e) => {
                 // 검은 배경 클릭하면 alert Box 닫기
@@ -38,7 +32,7 @@ export default function SettingAlertContainer({darkmode} : {darkmode : {[key :st
             }}
         >
             <div 
-                className={darkmode.value === 'dark' ? "w-100 rounded p-3 dark-mode-setting-box" : "w-100 rounded p-3 bg-white"}
+                className={nowMode.mode === 'dark' ? "w-100 rounded p-3 dark-mode-setting-box" : "w-100 rounded p-3 bg-white"}
                 style={{maxWidth : '640px', margin : 'auto'}}
             >
                 <div onClick={() => {
@@ -69,3 +63,16 @@ export default function SettingAlertContainer({darkmode} : {darkmode : {[key :st
         </div>
     )
 }
+
+/** alert box background style */
+const BACKGROUND_STYLE: CSSProperties = {
+    width: '100vw',
+    height: '100vh',
+    zIndex: 10,
+    background: 'rgba(0,0,0,0.5)',
+    position: 'fixed',
+    top: 0,
+    left: 0,
+    padding: '60px',
+    overflow: 'hidden',
+};

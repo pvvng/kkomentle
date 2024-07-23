@@ -1,15 +1,18 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import detectSimilarWords from '@/util/functions/detectSimilarWords';
 import { connectDB } from '@/util/database';
-import moment from 'moment';
+import moment from 'moment-timezone';
 
 /** 오늘의 정답과 유사어의 단어 유사도 비교해서 db에 저장하는 API */
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-    
+
+    // 디바이스 시간을 한국시로 포맷
+    const userNowDate = new Date();
+    const koreanNowDate = moment(userNowDate).tz("Asia/Seoul");
     // 어제, 오늘, 내일의 날짜 포맷
-    const formattedYesterdayDate = moment().subtract(1, 'days').format('YYYY-MM-DD');
-    // const formattedTodayDate = moment().format('YYYY-MM-DD');
-    const formattedTomorrowDate = moment().add(1, 'days').format('YYYY-MM-DD');
+    // add substract로 날짜 객체 조작할 때는 복사본을 이용해서 조작하기
+    const formattedYesterdayDate = moment(koreanNowDate).subtract(1, 'days').format('YYYY-MM-DD');
+    const formattedTomorrowDate = moment(koreanNowDate).add(1, 'days').format('YYYY-MM-DD');
 
     const db = (await connectDB).db('kkomentle');
     const similarityCollection = db.collection('similarity');

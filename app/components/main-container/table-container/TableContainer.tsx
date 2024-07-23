@@ -4,14 +4,13 @@ import { SimilarityType } from "@/util/functions/rankSimilarity";
 import { useHandleLocalstorage } from "@/util/hooks/useHandleLocalstorage";
 import { useGuessesLocalstorage } from "@/app/store";
 import TableListContainer from "./TableListContainer";
-import LoadingSpinner from "../loading-container/LoadingSpinner";
+import LoadingSpinner from "../../loading-container/LoadingSpinner";
 
 interface PropsType {
     result : SimilarityType | null,
-    darkmode : {[key :string] :string}
 }
 
-export default function TableContainer({result, darkmode} :PropsType){
+export default function TableContainer({result} :PropsType){
 
     let { nowInputData } = useHandleLocalstorage(result);
     const { guesses } = useGuessesLocalstorage();
@@ -19,7 +18,7 @@ export default function TableContainer({result, darkmode} :PropsType){
     let filteredStoredGuessesArr = guesses?.filter(items => items.query !== nowInputData?.query);
 
     if(!guesses) return (
-        <LoadingSpinner darkmode={darkmode} />
+        <LoadingSpinner />
     )
 
     return(

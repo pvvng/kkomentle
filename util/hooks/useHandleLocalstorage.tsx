@@ -1,33 +1,37 @@
 import { useEffect, useState } from "react";
 import { SimilarityType } from "../functions/rankSimilarity";
-import { useGuessesLocalstorage, usePlayTimeLocalstorage, useTodayDateLocalstorage, useWinStateLocalstorage } from '@/app/store'
-import moment from "moment";
+import { useGuessesLocalstorage, usePlayTimeLocalstorage, useTodayDateLocalstorage, useUserData, useWinStateLocalstorage } from '@/app/store'
+import moment from "moment-timezone";
+import axios from "axios";
 
 // localstorage에 저장하는 추측 값 어레이의 타입
 export interface JsonSimilarityType extends SimilarityType {
-    index : number;
+    index ?: number;
 }
 
 /** localstorage에 기본 값을 세팅하거나, 사용자가 입력한 값을 넣는 커스텀 훅*/
 export function useHandleLocalstorage(result : SimilarityType | null){
-    
+
     // zustand store
     const { winState ,setWinState, loadWinState } = useWinStateLocalstorage();
     const { guesses, setGuessesState, loadGuessesState } = useGuessesLocalstorage();
     const { today, setTodayDateState, loadTodayDateState } = useTodayDateLocalstorage();
     const { playtime, setPlayTimeState, loadPlayTimeState } = usePlayTimeLocalstorage();
+    const { nowUserData } = useUserData();
 
+    // 사용자 디바이스의 시간을 한국시로 포맷하기
     // 현재 시간 암호화
-    const nowDate = new Date();
-    const nowTime = (nowDate.getHours() * 60) + nowDate.getMinutes();
+    const userNowDate = new Date();
+    const koreanNowDate = moment(userNowDate).tz("Asia/Seoul");
+    const nowTime = (koreanNowDate.hours() * 60) + koreanNowDate.minutes();
 
     // 현재 사용자가 입력한 값의 데이터
     let [nowInputData, setNowInputData] = useState<JsonSimilarityType|null>(null);
 
     /** 정답을 맞췄을 때 playtime을 얻는 함수 */
-    function getPlayTime(
+    async function getPlayTime(
         /** 새롭게 등록되는 추측 단어 객체 */
-        guessedWord :SimilarityType, 
+        guessedWord :JsonSimilarityType, 
         /** 기존 localhost에 등록된 추측 단어 객체 어레이 */
         guesses :JsonSimilarityType[] | null,
     ){
@@ -39,7 +43,24 @@ export function useHandleLocalstorage(result : SimilarityType | null){
 
         let playtime = endTime - startTime;
 
+        // playtime store에 playtime 계산한 업데이트
         setPlayTimeState(playtime);
+
+        let guessesLength = guesses?.length || 0;
+        let formattedDate = koreanNowDate.format('YYYY-MM-DD');
+
+        if(guessedWord !== undefined && guessesLength >= 0){
+            const putter = {
+                guessedWord : guessedWord.query,
+                date : formattedDate,
+                playtime : playtime,
+                try : guessesLength + 1,
+                isLogin : nowUserData === undefined ? 
+                undefined : nowUserData.email
+            }
+            // db에 클리어 정보 업데이트
+            let postPlayTime = await axios.post('/api/post/tryCount', putter);
+        }  
     }
 
     useEffect(() => {
@@ -58,8 +79,8 @@ export function useHandleLocalstorage(result : SimilarityType | null){
     }, []);
 
     useEffect(() => {
-        // 오늘 날짜 확인
-        const now = moment().format('YYYY-MM-DD');
+        // 한국시로 현재 시간 포맷
+        const now = koreanNowDate.format('YYYY-MM-DD');
         // 날짜 변경시 초기화
         if(today && today !== now){
             setGuessesState([]);
@@ -96,7 +117,7 @@ export function useHandleLocalstorage(result : SimilarityType | null){
         if(guessedWord.query !== undefined && guessedWord.rank !== -1){
             // 추측한 단어가 정답일 때 winState 변경 
             if(guessedWord.rank === 0){
-                if(winState !== 0){
+                if(winState === -1){
                     setWinState(1);
                     getPlayTime(guessedWord, guesses);
                 }
@@ -112,7 +133,7 @@ export function useHandleLocalstorage(result : SimilarityType | null){
                     }
                     // 만약 어레이에 정답 객체가 있으면 winState 변경
                     if(pg.rank === 0){
-                        if(winState !== 0){
+                        if(winState === -1){
                             setWinState(1);
                             getPlayTime(pg, guesses);
                         }
