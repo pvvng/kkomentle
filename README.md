@@ -30,7 +30,13 @@
    - starttime이 정의되지 않아서 생긴 문제이다. starttime이 undfiend일 경우 기본값인 0이 되도록 설정했는데, endtime(시작시간)-starttime(0)을 해버리니 playtime이 시작시간이 되었다.
    - starttime의 기본값을 endtime과 동일하게 설정하여 오류를 해결하였다.
 
-#### **7. 쿠키에 저장한 darkmode 데이터를 불러올 때 시간이 1초 가량 걸린다.**
+#### ~7. 쿠키에 저장한 darkmode 데이터를 불러올 때 시간이 1초 가량 걸린다.~
+  - 메인 페이지 (page.tsx)에 Promise가 많아서 refresh 될 때 페이지를 다시 불러오는 데 시간이 오래 걸리는 것이 원인이었다. Promise 함수를 client component 인 MainContainer에서 동작하도록 설정한다.
+  - 1. page.tsx에서 쿠키를 받아온다. mainContainer에게 props로 쿠키의 값을 받아온다.
+    2. MainContainer(client component)에서 zustand store에 쿠키의 값을 저장한다.
+    3. 만약 mainContainer에서 받은 쿠키 props가 undefined면 쿠키를 추가한다.
+    4. router.refresh() 해서 pages.tsx가 업데이트 된 쿠키를 받아오도록 설정한다.
+    5. 이런 과정을 통해 모든 컴포넌트에서 통일된 쿠키를 사용 가능하다.
 #### ~8. 카카오 로그인 구현.~
 #### **9. 웹, PWA 처음 실행할 때, 흰 화면이 1~3초 정도 지속된다.**
 #### **10. 모바일에서 input 클릭 시 자동 확대되는 문제.**
