@@ -6,7 +6,7 @@ import getOneTenAndKSimilarlity from "@/util/functions/getOneTenAndK";
 import { useQuery } from "@tanstack/react-query";
 import LoadingSpinner from "../loading-container/LoadingSpinner";
 import { useEffect } from "react";
-import { useNowMode } from "@/app/store";
+import { useNowMode, useSettingState } from "@/app/store";
 import { useRouter } from "next/navigation";
 
 export interface TodayIndexType {
@@ -31,6 +31,7 @@ export default function MainContainer({darkmode, userdata} : PropsType){
 
     const router = useRouter();
     const { setNowMode } = useNowMode();
+    const { setSettingState }  = useSettingState();
     
     useEffect(() => {
         // cookie로 다크모드 여부를 확인하지 못했을 때
@@ -42,6 +43,11 @@ export default function MainContainer({darkmode, userdata} : PropsType){
         if(darkmode !== undefined){
             const cookieMode = darkmode.value;
             setNowMode({ mode: cookieMode });
+            if(cookieMode === 'dark'){
+                setSettingState({ darkmode : true });
+            }else{
+                setSettingState({ darkmode : false });
+            }
         }
     },[darkmode])
 
@@ -69,7 +75,7 @@ export default function MainContainer({darkmode, userdata} : PropsType){
         <>
             <p className="m-0 mt-sm-4 mb-sm-4 mt-1 mb-3">
                 {
-                    todayIndex !== undefined ?
+                    todayIndex !== undefined?
                     todayIndex.index:
                     '???'
                 }
