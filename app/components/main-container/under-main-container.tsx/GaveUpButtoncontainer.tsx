@@ -1,37 +1,12 @@
 'use client'
 
-import moment from "moment-timezone";
-import axios from "axios";
-import { useGuessesLocalstorage, useNowMode, useWinStateLocalstorage } from "@/app/store";
+import { useNowMode, useWinStateLocalstorage } from "@/app/store";
+import useAppendTodayAnswer from "@/util/hooks/useAppendTodayAnswer";
 
 export default function GaveUpButtonContainer(){
 
     const { nowMode } = useNowMode();
-    const { winState, setWinState } = useWinStateLocalstorage();
-    const { guesses, setGuessesState } = useGuessesLocalstorage();
-
-    // 만약 포기 버튼 누르면 오늘의 정답을 guesses localstorage에 추가하는 함수
-    async function appendTodayAnswer(){
-
-        const userNowDate = new Date();
-        const koreanNowDate = moment(userNowDate).tz("Asia/Seoul");
-        const nowTime = (koreanNowDate.hours() * 60) + koreanNowDate.minutes();
-        
-        let selectTodayAnswer = await axios(`/api/word/answer`); 
-        let todayWord :string = selectTodayAnswer.data.word;
-        if(winState === -1 && guesses !== null){
-            let temp = [...guesses];
-            const tempTodayWord = {
-                query : todayWord,
-                similarity : 100,
-                rank : 0,
-                time : nowTime,
-                index : guesses.length + 1,
-            }
-            temp.push(tempTodayWord);
-            setGuessesState(temp);
-        }
-    }
+    const appendTodayAnswer = useAppendTodayAnswer();
 
     return(
         <div className="w-100 row" style={{margin : 'auto', marginTop : '60px', height : '40px'}}>
@@ -44,10 +19,8 @@ export default function GaveUpButtonContainer(){
                     } 
                     onClick={() => {
                         const isGave = confirm('정말로 포기하시겠습니까?');
-                        if(isGave){
-                            setWinState(0);
-                            appendTodayAnswer();
-                        }}}
+                        if(isGave){appendTodayAnswer(0);
+                    }}}
                     >포기하기</button>
             </div>
             <a 

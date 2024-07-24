@@ -4,6 +4,7 @@ import axios from "axios";
 import { useState } from "react";
 import LoadingSpinner from "./loading-container/LoadingSpinner";
 import APP_URL from "../APP_URL";
+import insertAnswer from "@/util/functions/insertAnswer";
 
 /** 
  * 내일의 단어에 대한 유사도 순위 db에 업데이트 하는 컴포넌트 

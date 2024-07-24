@@ -3,6 +3,7 @@ import { SimilarityType } from "../functions/rankSimilarity";
 import { useGuessesLocalstorage, usePlayTimeLocalstorage, useTodayDateLocalstorage, useUserData, useWinStateLocalstorage } from '@/app/store'
 import moment from "moment-timezone";
 import axios from "axios";
+import useAppendTodayAnswer from "./useAppendTodayAnswer";
 
 // localstorage에 저장하는 추측 값 어레이의 타입
 export interface JsonSimilarityType extends SimilarityType {
@@ -18,6 +19,11 @@ export function useHandleLocalstorage(result : SimilarityType | null){
     const { today, setTodayDateState, loadTodayDateState } = useTodayDateLocalstorage();
     const { playtime, setPlayTimeState, loadPlayTimeState } = usePlayTimeLocalstorage();
     const { nowUserData } = useUserData();
+
+    // 특수 상황일때, 정답을 localstoreage guesses에 추가하기 위한 커스텀 훅
+    // 특수 상황 : 사용자의 db에 저장된 isWin이 1일 경우 
+    // 다른 디바이스에서 이미 정답을 맞혔을 경우 이미 정답을 안 상태이기 때문에 이를 막기 위해서 사용한다 
+    const appendTodayAnswer = useAppendTodayAnswer();
 
     // 사용자 디바이스의 시간을 한국시로 포맷하기
     // 현재 시간 암호화
@@ -55,8 +61,8 @@ export function useHandleLocalstorage(result : SimilarityType | null){
                 date : formattedDate,
                 playtime : playtime,
                 try : guessesLength + 1,
-                isLogin : nowUserData === undefined ? 
-                undefined : nowUserData.email
+                isLogin : 
+                nowUserData === undefined ? undefined : nowUserData.email
             }
             // db에 클리어 정보 업데이트
             let postPlayTime = await axios.post('/api/post/tryCount', putter);
@@ -89,6 +95,16 @@ export function useHandleLocalstorage(result : SimilarityType | null){
             setPlayTimeState(0);
         }
     }, [today])
+
+    useEffect(() => {
+        // 사용자가 로그인 한 상태 & 사용자의 db에 저장된 winstate가 1일 경우 
+        // store winstate 1로 변경 & 오늘의 정답 추가하기
+        if(nowUserData?.isWin === 1){
+            if(winState !== 1){
+                appendTodayAnswer(1);
+            }
+        }
+    },[winState])
 
     useEffect(() => {
         // 기본 값 정의
