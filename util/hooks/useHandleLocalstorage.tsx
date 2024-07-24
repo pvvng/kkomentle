@@ -104,6 +104,13 @@ export function useHandleLocalstorage(result : SimilarityType | null){
                 appendTodayAnswer(1);
             }
         }
+        // 사용자가 로그인 한 상태 & 사용자의 db에 저장된 winstate가 0일 경우 
+        // store winstate 0으로 변경 & 오늘의 정답 추가하기
+        if(nowUserData?.isWin === 0){
+            if(winState !== 1){
+                appendTodayAnswer(0);
+            }
+        }
     },[winState])
 
     useEffect(() => {
