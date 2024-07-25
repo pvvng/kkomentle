@@ -1,4 +1,4 @@
-import { useGuessesLocalstorage, useWinStateLocalstorage } from "@/app/store";
+import { useGuessesLocalstorage, useUserData, useWinStateLocalstorage } from "@/app/store";
 import axios from "axios";
 import moment from "moment-timezone";
 
@@ -10,6 +10,7 @@ export default function useAppendTodayAnswer(){
 
     const { winState, setWinState } = useWinStateLocalstorage();
     const { guesses, setGuessesState } = useGuessesLocalstorage();
+    const { nowUserData } = useUserData();
 
     // 오늘의 정답을 guesses localstorage에 추가하는 함수
     // 인자 : 변경할 정답 상태 (0 : 포기 , 1 : 정답)
@@ -29,7 +30,7 @@ export default function useAppendTodayAnswer(){
                 similarity : 100,
                 rank : 0,
                 time : nowTime,
-                index : guesses.length + 1,
+                index : nowUserData?.todayTry,
             }
             temp.push(tempTodayWord);
             setGuessesState(temp);

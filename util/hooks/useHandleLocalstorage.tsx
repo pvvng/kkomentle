@@ -20,6 +20,7 @@ export function useHandleLocalstorage(result : SimilarityType | null){
     const { playtime, setPlayTimeState, loadPlayTimeState } = usePlayTimeLocalstorage();
     const { nowUserData } = useUserData();
 
+
     // 특수 상황일때, 정답을 localstoreage guesses에 추가하기 위한 커스텀 훅
     // 특수 상황 : 사용자의 db에 저장된 isWin이 1일 경우 
     // 다른 디바이스에서 이미 정답을 맞혔을 경우 이미 정답을 안 상태이기 때문에 이를 막기 위해서 사용한다 

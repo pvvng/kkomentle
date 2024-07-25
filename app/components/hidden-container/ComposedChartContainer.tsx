@@ -16,9 +16,9 @@ const data = [
   { index : 7, name: '2024-07-07', answer: '더위', tryCount: 34, time: 43, avgTryCount : 30, avgTime : 14 },
 ];
 
-export default function AreaChartContainer() {
+export default function ComposedChartContainer() {
 
-  axios('/api/get/count');
+  // axios('/api/get/count');
 
   return (
     <ResponsiveContainer width="100%" height={300}>
@@ -37,8 +37,8 @@ export default function AreaChartContainer() {
         <Tooltip content={<CustomTooltip />} />
         <Bar type="monotone" dataKey="avgTryCount" stackId="a" fill="#009966" opacity={0.8} />
         <Bar type="monotone" dataKey="avgTime" stackId="a" fill="#66CC99" opacity={0.8} />
-        <Area type="monotone" dataKey="tryCount" stackId="data" stroke="#99CCFF" fill="#99CCFF" opacity={0.8} />
-        <Area type="monotone" dataKey="time" stackId="data" stroke="#6699FF" fill="#6699FF" opacity={0.8} />
+        <Area type="monotone" dataKey="tryCount" stackId="data" stroke="#0033CC" fill="#0033CC" opacity={0.8} />
+        <Area type="monotone" dataKey="time" stackId="data" stroke="#3366CC" fill="#3366CC" opacity={0.8} />
       </ComposedChart>
     </ResponsiveContainer>
   );
@@ -61,8 +61,8 @@ const CustomTooltip = (props: TooltipProps<any, any>) => {
       }}>
         <p className='fw-bold m-0'>날짜: {name}</p>
         <p className='m-0'>정답: {answer}</p>
-        <p className='m-0' style={{color : '#6699FF'}}>걸린 시간: {time}분</p>
-        <p className='m-0' style={{color : '#99CCFF'}}>시도 횟수: {tryCount}회</p>
+        <p className='m-0' style={{color : '#3366CC'}}>걸린 시간: {time}분</p>
+        <p className='m-0' style={{color : '#0033CC'}}>시도 횟수: {tryCount}회</p>
         <p className='m-0' style={{color : '#66CC99'}}>평균 걸린 시간: {avgTime}분</p>
         <p className='m-0' style={{color : '#009966'}}>평균 시도 횟수: {avgTryCount}회</p>
       </div>

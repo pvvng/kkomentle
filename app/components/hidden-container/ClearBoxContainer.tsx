@@ -6,8 +6,7 @@ import copyToClipboard from "@/util/functions/copyToClipboard";
 import useGetClipBoardText from "@/util/hooks/useGetClipBoardText";
 import { TodayIndexType } from "../main-container/page-container/MainContainer";
 import { useEffect, useState } from "react";
-import AreaChartContainer from "./BubbleChart";
-import ScatterChartContainer from "./ScatterChartContainer";
+import ComposedChartContainer from "./ComposedChartContainer";
 
 export default function ClearBoxContainer(props :TodayIndexType){
 
@@ -63,7 +62,7 @@ export default function ClearBoxContainer(props :TodayIndexType){
                     <img src="꼬들꼬들마스코트.png" width = "20px"/>
                     나의 플레이 데이터
                 </p>
-                <AreaChartContainer />
+                <ComposedChartContainer />
                 {/* <ScatterChartContainer/> */}
             </div>
         </div>
