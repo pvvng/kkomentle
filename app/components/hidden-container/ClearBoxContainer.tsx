@@ -7,6 +7,7 @@ import useGetClipBoardText from "@/util/hooks/useGetClipBoardText";
 import { TodayIndexType } from "../main-container/page-container/MainContainer";
 import { useEffect, useState } from "react";
 import AreaChartContainer from "./BubbleChart";
+import ScatterChartContainer from "./ScatterChartContainer";
 
 export default function ClearBoxContainer(props :TodayIndexType){
 
@@ -41,8 +42,12 @@ export default function ClearBoxContainer(props :TodayIndexType){
                 }}
             >기록 복사하기</button>
             <p className="m-0 mt-3 mb-3">{props.index + 1}번째 꼬들꼬들은 오늘 밤 자정(한국 시간 기준)에 열립니다.</p>
-            <div className="fw-bold">
-                <p className="m-0 mb-1 fst-italic">나의 플레이 기록</p>
+            <hr/>
+            <div className="fw-bold mb-2">
+                <p className="m-0 mb-1 fst-italic">
+                    <img src="꼬들꼬들마스코트.png" width = "20px"/>
+                    오늘의 플레이 기록
+                </p>
                 {
                     winState?
                     <>
@@ -52,7 +57,15 @@ export default function ClearBoxContainer(props :TodayIndexType){
                     null
                 }
             </div>
-            {/* <AreaChartContainer /> */}
+            <hr/>
+            <div className="fw-bold">
+                <p className="m-0 mb-1 fst-italic">
+                    <img src="꼬들꼬들마스코트.png" width = "20px"/>
+                    나의 플레이 데이터
+                </p>
+                <AreaChartContainer />
+                {/* <ScatterChartContainer/> */}
+            </div>
         </div>
     )
 }

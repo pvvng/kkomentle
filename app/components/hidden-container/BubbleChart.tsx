@@ -1,56 +1,73 @@
 'use client';
 
+import axios from 'axios';
 import React from 'react';
-import { AreaChart, Area, CartesianGrid, Tooltip, ResponsiveContainer, TooltipProps } from 'recharts';
+import { ComposedChart, Area, CartesianGrid, Tooltip, ResponsiveContainer, TooltipProps, YAxis, XAxis, Line, Legend, Bar } from 'recharts';
 
 // 데이터 정의
+// date : 날짜, name : 정답, try: 시도횟수, time : 걸린 시간
 const data = [
-  { name: 'Page A', uv: 4000, pv: 2400, amt: 2400 },
-  { name: 'Page B', uv: 3000, pv: 1398, amt: 2210 },
-  { name: 'Page C', uv: 2000, pv: 9800, amt: 2290 },
-  { name: 'Page D', uv: 2780, pv: 3908, amt: 2000 },
-  { name: 'Page E', uv: 1890, pv: 4800, amt: 2181 },
-  { name: 'Page F', uv: 2390, pv: 3800, amt: 2500 },
-  { name: 'Page G', uv: 3490, pv: 4300, amt: 2100 },
+  { index : 1, name: '2024-07-01', answer: '안녕', tryCount: 40, time: 24, avgTryCount : 20, avgTime : 12 },
+  { index : 2, name: '2024-07-02', answer: '바보', tryCount: 30, time: 139, avgTryCount : 12, avgTime : 15 },
+  { index : 3, name: '2024-07-03', answer: '메롱', tryCount: 20, time: 98, avgTryCount : 30, avgTime : 21 },
+  { index : 4, name: '2024-07-04', answer: '뿡', tryCount: 27, time: 39, avgTryCount : 24, avgTime : 18 },
+  { index : 5, name: '2024-07-05', answer: '웃음', tryCount: 18, time: 48, avgTryCount : 52, avgTime : 24 },
+  { index : 6, name: '2024-07-06', answer: '비', tryCount: 23, time: 14, avgTryCount : 22, avgTime : 30 },
+  { index : 7, name: '2024-07-07', answer: '더위', tryCount: 34, time: 43, avgTryCount : 30, avgTime : 14 },
 ];
 
 export default function AreaChartContainer() {
+
+  axios('/api/get/count');
+
   return (
-    <ResponsiveContainer width="100%" height={400}>
-      <AreaChart data={data}>
+    <ResponsiveContainer width="100%" height={300}>
+      <ComposedChart  
+        margin={{
+          top: 10,
+          right: 0,
+          left: -30,
+          bottom: 0,
+        }}
+        data={data}
+      >
         <CartesianGrid strokeDasharray="3 3" />
+        <XAxis dataKey="index" />
+        <YAxis />
         <Tooltip content={<CustomTooltip />} />
-        <Area type="monotone" dataKey="uv" stackId="data" stroke="#99CCFF" fill="#99CCFF" />
-        <Area type="monotone" dataKey="pv" stackId="data" stroke="#6699FF" fill="#6699FF" />
-        <Area type="monotone" dataKey="amt" stackId="data" stroke="#3366FF" fill="#3366FF" />
-      </AreaChart>
+        <Bar type="monotone" dataKey="avgTryCount" stackId="a" fill="#009966" opacity={0.8} />
+        <Bar type="monotone" dataKey="avgTime" stackId="a" fill="#66CC99" opacity={0.8} />
+        <Area type="monotone" dataKey="tryCount" stackId="data" stroke="#99CCFF" fill="#99CCFF" opacity={0.8} />
+        <Area type="monotone" dataKey="time" stackId="data" stroke="#6699FF" fill="#6699FF" opacity={0.8} />
+      </ComposedChart>
     </ResponsiveContainer>
   );
+}
 
-};
+const CustomTooltip = (props: TooltipProps<any, any>) => {
+  const { payload, active } = props;
 
-const CustomTooltip = (props :TooltipProps<any, any>) => {
-    const { payload, active } = props;
-  
-    if (active && payload && payload.length) {
-      return (
-        <div style={{
-            color : 'black',
-            backgroundColor: '#fff',
-            border: '1px solid #ccc',
-            padding: '10px',
-            borderRadius: '4px',
-            boxShadow: '0 2px 6px rgba(0, 0, 0, 0.2)',
-        }}>
-          <p className='fw-bold m-0'>테스트</p>
-          {payload.map((entry, index) => (
-            <p key={index} style={{ margin: '5px 0', color: entry.stroke }}>
-              {entry.name}: {entry.value}
-            </p>
-          ))}
-        </div>
-      );
-    }
-  
-    return null;
+  if (active && payload && payload.length) {
+    const data = payload[0].payload;
+    const { name, answer, tryCount, time, avgTryCount, avgTime } = data;
+    return (
+      <div style={{
+        color: 'black',
+        backgroundColor: '#fff',
+        border: '1px solid #ccc',
+        padding: '10px',
+        borderRadius: '4px',
+        boxShadow: '0 2px 6px rgba(0, 0, 0, 0.2)',
+      }}>
+        <p className='fw-bold m-0'>날짜: {name}</p>
+        <p className='m-0'>정답: {answer}</p>
+        <p className='m-0' style={{color : '#6699FF'}}>걸린 시간: {time}분</p>
+        <p className='m-0' style={{color : '#99CCFF'}}>시도 횟수: {tryCount}회</p>
+        <p className='m-0' style={{color : '#66CC99'}}>평균 걸린 시간: {avgTime}분</p>
+        <p className='m-0' style={{color : '#009966'}}>평균 시도 횟수: {avgTryCount}회</p>
+      </div>
+    );
+  }
+
+  return null;
 };
