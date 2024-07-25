@@ -52,8 +52,7 @@ export default function ClearBoxContainer(props :TodayIndexType){
                     null
                 }
             </div>
-            {/* <p className="m-0">123123</p> */}
-            <AreaChartContainer />
+            {/* <AreaChartContainer /> */}
         </div>
     )
 }
