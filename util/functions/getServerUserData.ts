@@ -2,16 +2,28 @@ import { authOptions } from "@/pages/api/auth/[...nextauth]";
 import { getServerSession } from "next-auth";
 import { connectDB } from "../database";
 import { ObjectId } from "mongodb";
+import moment from "moment-timezone";
 
 export interface UserDataType {
-  name: string | null | undefined;
-  email: string | null | undefined;
+  name: string;
+  email: string;
+  _id?: ObjectId;
+  topTime?: number;
+  topIndex?: number;
+  today?: string;
+  isWin?: number;
+  todayTry?: number;
 }
 
-export async function getServerUserData(){
+export async function getServerUserData(): Promise<UserDataType | undefined> {
+  // 오늘의 날짜 포맷
+  const userNowDate = new Date();
+  const koreanNowDate = moment(userNowDate).tz("Asia/Seoul");
+  const formattedTodayDate = koreanNowDate.format('YYYY-MM-DD');
+
   // 로그인 정보 불러오기
   let session = await getServerSession(authOptions);
-  
+
   // 로그인하지 않은 상태면 undefined 반환
   if (!session) {
     return undefined;
@@ -21,8 +33,17 @@ export async function getServerUserData(){
   const tempUserdata = { ...session.user };
   delete tempUserdata.image;
 
+  // 이메일과 이름이 유효한지 확인
+  if (!tempUserdata.email) {
+    throw new Error("User email is missing");
+  }
+
+  if (!tempUserdata.name) {
+    tempUserdata.name = "Unknown";
+  }
+
   // 필요한 필드만 남기기
-  const userdata = {
+  const userdata: UserDataType = {
     name: tempUserdata.name,
     email: tempUserdata.email,
   };
@@ -35,21 +56,70 @@ export async function getServerUserData(){
   // 만약 db에 존재하지 않는 유저라면 db에 추가하기
   if (!resultGetUserData) {
     try {
-      const resultPostUserData = await db.collection('userdata')
-        .insertOne({
-          _id: new ObjectId(),
-          ...userdata,
-          topTime: 0,
-          topIndex: 0,
-        });
+      const newUser: UserDataType = {
+        _id: new ObjectId(),
+        ...userdata,
+        topTime: -1,
+        topIndex: -1,
+        today: formattedTodayDate,
+        isWin: -1,
+        todayTry: -1,
+      };
+      await db.collection('userdata').insertOne(newUser);
       console.log('회원가입 성공!');
-      return userdata;
+      return newUser;
     } catch (error) {
       // 에러처리
       console.log('회원가입 중 에러가 발생했습니다 : ', error);
       return undefined;
     }
+  } else {
+    // 오늘 날짜가 다르면 업데이트
+    if (resultGetUserData.today !== formattedTodayDate) {
+      try {
+        await db.collection('userdata').updateOne(
+          { email: userdata.email },
+          {
+            $set: {
+              today: formattedTodayDate,
+              isWin: -1,
+              todayTry: -1,
+            }
+          }
+        );
+        console.log('사용자 정보 업데이트 완료');
+        
+        // 업데이트된 사용자 데이터 반환
+        const updatedUserData = await db.collection('userdata').findOne({ email: userdata.email });
+        
+        if (updatedUserData) {
+          return {
+            _id: updatedUserData._id,
+            name: updatedUserData.name ?? "Unknown",
+            email: updatedUserData.email,
+            topTime: updatedUserData.topTime,
+            topIndex: updatedUserData.topIndex,
+            today: updatedUserData.today,
+            isWin: updatedUserData.isWin,
+            todayTry: updatedUserData.todayTry,
+          };
+        }
+      } catch (error) {
+        // 에러처리
+        console.log('사용자 데이터 업데이트 중 에러가 발생했습니다 : ', error);
+        return undefined;
+      }
+    } else {
+      return {
+        _id: resultGetUserData._id,
+        name: resultGetUserData.name ?? "Unknown",
+        email: resultGetUserData.email,
+        topTime: resultGetUserData.topTime,
+        topIndex: resultGetUserData.topIndex,
+        today: resultGetUserData.today,
+        isWin: resultGetUserData.isWin,
+        todayTry: resultGetUserData.todayTry,
+      };
+    }
   }
-
-  return userdata;
 }

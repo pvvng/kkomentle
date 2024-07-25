@@ -12,7 +12,7 @@ export default function Footer(){
 
     async function fetchYesterdayWord() {
         try {
-            let res = await axios('/api/word/yesterdayWord');
+            let res = await axios('/api/word/answer');
             return res.data;
         } catch (error) {
             console.error('Error fetching yesterday\'s word:', error);

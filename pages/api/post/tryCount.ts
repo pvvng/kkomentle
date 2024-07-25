@@ -1,4 +1,5 @@
 import { connectDB } from "@/util/database";
+import { UserDataType } from "@/util/functions/getServerUserData";
 import { ObjectId } from "mongodb";
 import { NextApiRequest, NextApiResponse } from "next";
 
@@ -8,13 +9,6 @@ interface BodyType {
     playtime: number;
     try: number;
     isLogin: string | undefined;
-}
-
-interface DBUserDataType {
-    email: string;
-    name: string;
-    topTime: number;
-    topIndex: number;
 }
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
@@ -30,24 +24,34 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         if (typeof putter.isLogin === 'string') {
             const userdataCollection = db.collection('userdata');
             
-            let userData: DBUserDataType | null = null;
+            let userData: UserDataType | null = null;
             try {
                 // 로그인 한 경우라면 userdata 불러오기
-                userData = await userdataCollection.findOne({ email: putter.isLogin }) as DBUserDataType | null;
+                userData = await userdataCollection.findOne({ email: putter.isLogin }) as UserDataType | null;
             } catch (error) {
                 console.error('Error finding user data:', error);
                 return res.status(500).json({ error: 'User data lookup failed' });
             }
 
             if (userData) {
-                const updatedFields: Partial<DBUserDataType> = {};
+                const updatedFields: Partial<UserDataType> = {};
 
+                // 저장된 winstate 업데이트하기
+                if (userData.isWin === -1){
+                    updatedFields.isWin = 1
+                }
+
+                // 저장된 todayTry 업데이트하기
+                if (userData.todayTry === -1){
+                    updatedFields.todayTry = putter.try
+                }
+                
                 // userdata에 저장된 값이 -1 일 경우 무조건 업데이트
-                if (userData.topTime === -1 || userData.topTime > putter.playtime) {
+                if (userData.topTime === -1 || userData.topTime || -1 > putter.playtime) {
                     updatedFields.topTime = putter.playtime;
                 }
                 // userdata에 저장된 값이 -1 일 경우 무조건 업데이트
-                if (userData.topIndex === -1 || userData.topIndex > putter.try) {
+                if (userData.topIndex === -1 || userData.topIndex || -1 > putter.try) {
                     updatedFields.topIndex = putter.try;
                 }
 

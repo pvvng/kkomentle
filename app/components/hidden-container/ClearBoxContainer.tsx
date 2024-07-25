@@ -1,17 +1,22 @@
 'use client'
 
 import Link from "next/link";
-import { useNowMode, useWinStateLocalstorage } from "@/app/store";
+import { useNowMode, useUserData, useWinStateLocalstorage } from "@/app/store";
 import copyToClipboard from "@/util/functions/copyToClipboard";
 import useGetClipBoardText from "@/util/hooks/useGetClipBoardText";
 import { TodayIndexType } from "../main-container/page-container/MainContainer";
+import { useEffect, useState } from "react";
+import AreaChartContainer from "./BubbleChart";
 
 export default function ClearBoxContainer(props :TodayIndexType){
 
     const { winState } = useWinStateLocalstorage();
     const { nowMode } = useNowMode();
+    const { nowUserData } = useUserData();
     const { WIN_TEXT, LOSE_TEXT, indexGuesses, hours, minutes } = useGetClipBoardText(props.index);
     
+    const tryCount = (nowUserData && nowUserData.todayTry !== -1) ? nowUserData.todayTry : indexGuesses;
+
     return(
         <div className={
             nowMode.mode === 'dark'? 
@@ -20,8 +25,8 @@ export default function ClearBoxContainer(props :TodayIndexType){
         }>
             {
                 winState?
-                <strong className="mb-2">정답 단어를 맞혔습니다. {indexGuesses}번째 추측만에 정답을 맞혔네요!</strong>:
-                <strong>{indexGuesses}번째 추측에서 포기했습니다!</strong>
+                <strong className="mb-2">정답 단어를 맞혔습니다. {tryCount}번째 추측만에 정답을 맞혔네요!</strong>:
+                <strong>{tryCount}번째 추측에서 포기했습니다!</strong>
             }
             <p className="m-0 mt-2">오늘의 정답은 <strong>{props.word}</strong>였습니다.</p>
             <p className="m-0">정답 단어와 비슷한, <Link href="today-word">상위 1,000개의 단어</Link>를 확인해보세요.</p>
@@ -47,6 +52,7 @@ export default function ClearBoxContainer(props :TodayIndexType){
                     null
                 }
             </div>
+            {/* <AreaChartContainer /> */}
         </div>
     )
 }
