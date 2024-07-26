@@ -1,5 +1,6 @@
 import { UserDataType } from "@/util/functions/getServerUserData";
 import { JsonSimilarityType } from "@/util/hooks/useHandleLocalstorage";
+import axios from "axios";
 import moment from "moment-timezone";
 import { create } from "zustand";
 
@@ -46,6 +47,11 @@ export const useGuessesLocalstorage = create<GuessesStoreType>((set) => ({
     /** localstorage에 추측한 값들이 담긴 어레이 저장하기 */
     setGuessesState: (guessesState) => {
         localStorage.setItem('guesses', JSON.stringify(guessesState));
+
+        // 비동기적으로 서버에 추측값 전송
+        axios.post('/api/post/userGussess', { guessesArr : guessesState })
+        .catch(error => console.log(error));
+        
         set({ guesses: guessesState });
     },
     /** localstorage에서 사용자가 추측한 값들 꺼내오기 */
@@ -148,6 +154,9 @@ export const usePlayTimeLocalstorage = create<PlayTimeStoreType>((set) => ({
     /** 오늘 날짜 localstorage에 저장하기 */
     setPlayTimeState : (nowplaytime) => {
         localStorage.setItem('playtime', JSON.stringify(nowplaytime));
+        // 비동기적으로 서버에 추측값 전송
+        axios.post('/api/post/userPlayTime', { playtime : nowplaytime })
+        .catch(error => console.log(error));
         set({ playtime : nowplaytime })
     },
     /** localstorage에 저장된 날짜 불러오기 */

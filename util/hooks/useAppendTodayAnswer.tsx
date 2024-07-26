@@ -1,6 +1,7 @@
-import { useGuessesLocalstorage, useUserData, useWinStateLocalstorage } from "@/app/store";
+import { useGuessesLocalstorage, useWinStateLocalstorage } from "@/app/store";
 import axios from "axios";
 import moment from "moment-timezone";
+import useGetPlayTime from "./useGetPlaytime";
 
 /** 오늘의 정답을 guesses localstorge에 추가하기 위한 커스텀 훅
  * 
@@ -10,7 +11,7 @@ export default function useAppendTodayAnswer(){
 
     const { winState, setWinState } = useWinStateLocalstorage();
     const { guesses, setGuessesState } = useGuessesLocalstorage();
-    const { nowUserData } = useUserData();
+    const getPlayTime =  useGetPlayTime();
 
     // 오늘의 정답을 guesses localstorage에 추가하는 함수
     // 인자 : 변경할 정답 상태 (0 : 포기 , 1 : 정답)
@@ -19,7 +20,7 @@ export default function useAppendTodayAnswer(){
         const userNowDate = new Date();
         const koreanNowDate = moment(userNowDate).tz("Asia/Seoul");
         const nowTime = (koreanNowDate.hours() * 60) + koreanNowDate.minutes();
-        
+
         let selectTodayAnswer = await axios(`/api/word/answer`); 
         let todayWord :string = selectTodayAnswer.data.word;
 
@@ -30,11 +31,12 @@ export default function useAppendTodayAnswer(){
                 similarity : 100,
                 rank : 0,
                 time : nowTime,
-                index : nowUserData?.todayTry,
+                index : guesses.length + 1,
             }
             temp.push(tempTodayWord);
             setGuessesState(temp);
-            setWinState(type)
+            setWinState(type);
+            getPlayTime(tempTodayWord, guesses)
         }
     }
 
