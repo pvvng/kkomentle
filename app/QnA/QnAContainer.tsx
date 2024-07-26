@@ -2,8 +2,9 @@
 
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios"
+import Link from "next/link";
 
-export default function Footer(){
+export default function QnAContainer(){
 
     const {data, isError} = useQuery({
         queryKey : ['yesterdayWord'],
@@ -22,8 +23,18 @@ export default function Footer(){
 
     return(
         <>
+            <div 
+                className="mt-3 header-title" 
+                style={{ display: 'flex', flexDirection: 'column' }}
+            >
+                <div>
+                    <img src="꼬들꼬들마스코트.png" width = "50px" height="auto" alt="Logo"/>
+                    <b className="mx-2">질문과 답변</b>
+                </div>
+            </div>
+            <Link href="/" className="float-end">메인화면으로 돌아가기</Link>
+            <div style={{clear : 'both'}}></div>
             <hr/>
-            <p className="mt-3 mb-3 header-title"><b>질문과 답변</b></p>
             <p><b>Q. 꼬들꼬들은 무엇인가요?</b></p>
             <p className="float-start">A.</p>
             <ul className="mx-4">
@@ -94,7 +105,8 @@ export default function Footer(){
                     {
                         data !== undefined?
                         <b>{data.yesterday}</b>:
-                        isError ? <b>에러 발생</b>:
+                        isError ? 
+                        <b>에러 발생</b>:
                         <b>???</b>
                     }
                     &quot;입니다.

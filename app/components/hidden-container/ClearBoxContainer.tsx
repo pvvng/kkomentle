@@ -1,17 +1,19 @@
 'use client'
 
 import Link from "next/link";
-import { useNowMode, useWinStateLocalstorage } from "@/app/store";
+import { useNowMode, useUserData, useWinStateLocalstorage } from "@/app/store";
 import copyToClipboard from "@/util/functions/copyToClipboard";
 import useGetClipBoardText from "@/util/hooks/useGetClipBoardText";
 import { TodayIndexType } from "../main-container/page-container/MainContainer";
 import ComposedChartContainer from "./ComposedChartContainer";
+import { SignInBtn } from "../main-container/page-container/SignBtn";
 
 export default function ClearBoxContainer(props :TodayIndexType){
 
     const { winState } = useWinStateLocalstorage();
     const { nowMode } = useNowMode();
     const { WIN_TEXT, LOSE_TEXT, indexGuesses, hours, minutes } = useGetClipBoardText(props.index);
+    const { nowUserData } = useUserData();
 
     return(
         <div className={
@@ -40,7 +42,7 @@ export default function ClearBoxContainer(props :TodayIndexType){
             <hr/>
             <div className="fw-bold mb-2">
                 <p className="m-0 mb-1 fst-italic">
-                    <img src="꼬들꼬들마스코트.png" width = "20px"/>
+                    <img src="꼬들꼬들마스코트.png" width = "20px" height="auto" alt="Logo"/>
                     오늘의 플레이 기록
                 </p>
                 {
@@ -58,10 +60,14 @@ export default function ClearBoxContainer(props :TodayIndexType){
             <hr/>
             <div className="fw-bold">
                 <p className="m-0 mb-1 fst-italic">
-                    <img src="꼬들꼬들마스코트.png" width = "20px"/>
+                    <img src="꼬들꼬들마스코트.png" width = "20px" height="auto" alt="Logo"/>
                     나의 플레이 데이터
                 </p>
-                <ComposedChartContainer />
+                {
+                    nowUserData !== undefined?
+                    <ComposedChartContainer />:
+                    <><SignInBtn darkmode = {nowMode} /><span>{' '}하고 확인하기</span></>
+                }
                 {/* <ScatterChartContainer/> */}
             </div>
         </div>

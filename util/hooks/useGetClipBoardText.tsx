@@ -25,10 +25,11 @@ export default function useGetClipBoardText (index :number){
     const SETTING_TEXT_TRY = setting.try ? `${indexGuesses}번 시도했어요.\n` : '';
     const SETTING_TEXT_TIME = setting.time ? `${hours}시간 ${minutes}분이 걸렸어요.\n` : '' ;
 
-    function getSettingTextSim(index :number){
+    function getSettingTextSim(){
         // 정답을 바로 맞혀버리는 경우 index undefiend 에러가 발생한다.
         // 이를 방지하기 위해 index가 1(정답) 인데, 
         // guesses[1] === undefined인 경우 index를 0으로 설정
+        let index = 1;
         if(index === 1 && guesses && guesses.length > 0 && guesses[index] === undefined){
             index = 0;
         }
@@ -47,8 +48,8 @@ export default function useGetClipBoardText (index :number){
         return SETTING_TEXT_SIM;
     }
 
-    const LOSE_SETTING_TEXT = SETTING_TEXT_TRY + SETTING_TEXT_TIME +  getSettingTextSim(0);
-    const WIN_SETTING_TEXT = SETTING_TEXT_TRY + SETTING_TEXT_TIME +  getSettingTextSim(1);
+    const LOSE_SETTING_TEXT = SETTING_TEXT_TRY + SETTING_TEXT_TIME +  getSettingTextSim();
+    const WIN_SETTING_TEXT = SETTING_TEXT_TRY + SETTING_TEXT_TIME +  getSettingTextSim();
 
     const WIN_TEXT = `${index}번째 꼬맨틀을 풀었습니다!.\n${WIN_SETTING_TEXT}\n꼬들꼬들`;
     const LOSE_TEXT = `${index}번째 꼬맨틀을 시도하지 않고 바로 포기했어요.\n${LOSE_SETTING_TEXT}\n꼬들꼬들`;

@@ -2,6 +2,7 @@ import Image from "next/image";
 import { SignInBtn, SignOutBtn } from "./SignBtn";
 import { cookies } from "next/headers";
 import { getServerUserData } from "@/util/functions/getServerUserData";
+import Link from "next/link";
 
 export default async function Navbar(){
     // 다크모드 쿠키 불러오기

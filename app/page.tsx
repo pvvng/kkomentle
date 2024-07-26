@@ -1,4 +1,3 @@
-import Footer from "./components/main-container/page-container/Footer";
 import Header from "./components/main-container/under-main-container.tsx/Header";
 import SettingAlertContainer from "./components/main-container/page-container/SettingAlertContainer";
 import Navbar from "./components/main-container/page-container/Navbar";
@@ -6,6 +5,7 @@ import MainContainer from "./components/main-container/page-container/MainContai
 import SaveSimilarWordsContainer from "./components/SaveSimilarWordsContainer";
 import { cookies } from "next/headers";
 import { getServerUserData, UserDataType } from "@/util/functions/getServerUserData";
+import Link from "next/link";
 
 export default async function Home() {
 
@@ -22,7 +22,8 @@ export default async function Home() {
       <div className="main-container">
         <Header />
         <MainContainer darkmode={darkmode} userdata={userdata} />
-        <Footer />
+        <hr/>
+        <Link href="/QnA" className="mt-3 mb-3 header-title" style={{textDecoration : 'none'}}><b>질문과 답변</b></Link>
       </div>
     </>
   );

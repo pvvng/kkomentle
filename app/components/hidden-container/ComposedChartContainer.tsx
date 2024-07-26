@@ -69,7 +69,7 @@ const CustomTooltip = (props: TooltipProps<any, any>) => {
         <p className='m-0'>{date}</p>
         <hr className='m-0'/>
 
-        <p className='m-0'>정답: <span style={{color : '#FF3333'}}>{answer}</span></p>
+        <p className='m-0'><span style={{color : '#006699'}}>{answer}</span></p>
         <hr className='m-0'/>
 
         <p className='m-0'>나의 걸린 시간: <span style={{color : DataColor.time}}>{time}&nbsp;</span>분</p>
