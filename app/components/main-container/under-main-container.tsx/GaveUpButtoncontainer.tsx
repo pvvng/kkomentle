@@ -4,7 +4,6 @@ import { useGuessesLocalstorage, useNowMode, useUserData } from "@/app/store";
 import useAppendTodayAnswer from "@/util/hooks/useAppendTodayAnswer";
 import axios from "axios";
 import { ObjectId } from "mongodb";
-import { useEffect } from "react";
 
 export default function GaveUpButtonContainer(){
 

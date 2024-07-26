@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import { SimilarityType } from "../functions/rankSimilarity";
-import { useGuessesLocalstorage, usePlayTimeLocalstorage, useTodayDateLocalstorage, useUserData, useWinStateLocalstorage } from '@/app/store'
+import { useGuessesLocalstorage, usePlayTimeLocalstorage, useTodayDateLocalstorage, useWinStateLocalstorage } from '@/app/store'
 import moment from "moment-timezone";
-import axios from "axios";
-import useAppendTodayAnswer from "./useAppendTodayAnswer";
+import useGetPlayTime from "./useGetPlaytime";
+import useUpdateLocalStorageByDBdata from "./useUpdateLocalStorageByData";
 
 // localstorage에 저장하는 추측 값 어레이의 타입
 export interface JsonSimilarityType extends SimilarityType {
@@ -18,12 +18,10 @@ export function useHandleLocalstorage(result : SimilarityType | null){
     const { guesses, setGuessesState, loadGuessesState } = useGuessesLocalstorage();
     const { today, setTodayDateState, loadTodayDateState } = useTodayDateLocalstorage();
     const { playtime, setPlayTimeState, loadPlayTimeState } = usePlayTimeLocalstorage();
-    const { nowUserData } = useUserData();
 
-    // 특수 상황일때, 정답을 localstoreage guesses에 추가하기 위한 커스텀 훅
-    // 특수 상황 : 사용자의 db에 저장된 isWin이 1일 경우 
-    // 다른 디바이스에서 이미 정답을 맞혔을 경우 이미 정답을 안 상태이기 때문에 이를 막기 위해서 사용한다 
-    const appendTodayAnswer = useAppendTodayAnswer();
+    // 커스텀 훅
+    const getPlayTime = useGetPlayTime();
+    const updateLocalStorageByDBdata = useUpdateLocalStorageByDBdata();
 
     // 사용자 디바이스의 시간을 한국시로 포맷하기
     // 현재 시간 암호화
@@ -33,41 +31,6 @@ export function useHandleLocalstorage(result : SimilarityType | null){
 
     // 현재 사용자가 입력한 값의 데이터
     let [nowInputData, setNowInputData] = useState<JsonSimilarityType|null>(null);
-
-    /** 정답을 맞췄을 때 playtime을 얻는 함수 */
-    async function getPlayTime(
-        /** 새롭게 등록되는 추측 단어 객체 */
-        guessedWord :JsonSimilarityType, 
-        /** 기존 localhost에 등록된 추측 단어 객체 어레이 */
-        guesses :JsonSimilarityType[] | null,
-    ){
-        let endTime = guessedWord.time || 0;
-
-        // 만약 guesses의 length 가 0일 경우에는 starttime이 undfiend가 되어 0이 될것이다.
-        // 이를 방지하기 위해 startTime이 undefiend 일 경우 endtime과 동일하게 만들어버린다.
-        let startTime = guesses?.filter(item => item.index === 1)[0]?.time || endTime;
-
-        let playtime = endTime - startTime;
-
-        // playtime store에 playtime 계산한 업데이트
-        setPlayTimeState(playtime);
-
-        let guessesLength = guesses?.length || 0;
-        let formattedDate = koreanNowDate.format('YYYY-MM-DD');
-
-        if(guessedWord !== undefined && guessesLength >= 0){
-            const putter = {
-                guessedWord : guessedWord.query,
-                date : formattedDate,
-                playtime : playtime,
-                try : guessesLength + 1,
-                isLogin : 
-                nowUserData === undefined ? undefined : nowUserData.email
-            }
-            // db에 클리어 정보 업데이트
-            let postPlayTime = await axios.post('/api/post/tryCount', putter);
-        }  
-    }
 
     useEffect(() => {
         if(!guesses){
@@ -82,6 +45,8 @@ export function useHandleLocalstorage(result : SimilarityType | null){
         if(!playtime){
             loadPlayTimeState();
         }
+        // 유저가 로그인 한 상태이고, db에 데이터가 존재하면 그걸로 업데이트 시키기
+        updateLocalStorageByDBdata();
     }, []);
 
     useEffect(() => {
@@ -93,25 +58,12 @@ export function useHandleLocalstorage(result : SimilarityType | null){
             setTodayDateState(now);
             setWinState(-1);
             setPlayTimeState(0);
+            // 유저가 로그인 한 상태이고, db에 데이터가 존재하면 그걸로 업데이트 시키기
+            updateLocalStorageByDBdata();
+        }else{
+
         }
     }, [today])
-
-    useEffect(() => {
-        // 사용자가 로그인 한 상태 & 사용자의 db에 저장된 winstate가 1일 경우 
-        // store winstate 1로 변경 & 오늘의 정답 추가하기
-        if(nowUserData?.isWin === 1){
-            if(winState !== 1){
-                appendTodayAnswer(1);
-            }
-        }
-        // 사용자가 로그인 한 상태 & 사용자의 db에 저장된 winstate가 0일 경우 
-        // store winstate 0으로 변경 & 오늘의 정답 추가하기
-        if(nowUserData?.isWin === 0){
-            if(winState !== 1){
-                appendTodayAnswer(0);
-            }
-        }
-    },[winState])
 
     useEffect(() => {
         // 기본 값 정의
@@ -183,4 +135,3 @@ export function useHandleLocalstorage(result : SimilarityType | null){
 
     return { nowInputData }; 
 }
-

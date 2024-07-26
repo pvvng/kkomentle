@@ -3,6 +3,7 @@ import { getServerSession } from "next-auth";
 import { connectDB } from "../database";
 import { ObjectId } from "mongodb";
 import moment from "moment-timezone";
+import { JsonSimilarityType } from "../hooks/useHandleLocalstorage";
 
 export interface UserDataType {
   name: string;
@@ -13,6 +14,8 @@ export interface UserDataType {
   today?: string;
   isWin?: number;
   todayTry?: number;
+  todayPlayTime?: number;
+  todayGuesses ?: JsonSimilarityType[];
 }
 
 export async function getServerUserData(): Promise<UserDataType | undefined> {
@@ -64,6 +67,8 @@ export async function getServerUserData(): Promise<UserDataType | undefined> {
         today: formattedTodayDate,
         isWin: -1,
         todayTry: -1,
+        todayPlayTime : 0,
+        todayGuesses : [],
       };
       await db.collection('userdata').insertOne(newUser);
       console.log('회원가입 성공!');
@@ -84,6 +89,8 @@ export async function getServerUserData(): Promise<UserDataType | undefined> {
               today: formattedTodayDate,
               isWin: -1,
               todayTry: -1,
+              todayPlayTime: 0,
+              todayGuesses : [],
             }
           }
         );
@@ -102,6 +109,8 @@ export async function getServerUserData(): Promise<UserDataType | undefined> {
             today: updatedUserData.today,
             isWin: updatedUserData.isWin,
             todayTry: updatedUserData.todayTry,
+            todayPlayTime : updatedUserData.todayPlayTime,
+            todayGuesses : updatedUserData.todayGuesses,
           };
         }
       } catch (error) {
@@ -119,6 +128,8 @@ export async function getServerUserData(): Promise<UserDataType | undefined> {
         today: resultGetUserData.today,
         isWin: resultGetUserData.isWin,
         todayTry: resultGetUserData.todayTry,
+        todayPlayTime : resultGetUserData.todayPlayTime,
+        todayGuesses : resultGetUserData.todayGuesses,
       };
     }
   }
