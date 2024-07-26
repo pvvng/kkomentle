@@ -28,6 +28,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             return res.status(200).json('Unauthorized user');
         }
 
+        // 사용자 이메일 검증
         const userEmail = session.user?.email;
 
         if (!userEmail) {
