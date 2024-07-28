@@ -36,7 +36,7 @@ export default function useAppendTodayAnswer(){
             temp.push(tempTodayWord);
             setGuessesState(temp);
             setWinState(type);
-            getPlayTime(tempTodayWord, guesses)
+            getPlayTime(tempTodayWord, guesses);
         }
     }
 

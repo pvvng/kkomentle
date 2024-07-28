@@ -59,7 +59,7 @@ export default function InputContainer(props :TodayIndexType){
             <TableContainer result={result} />
             {
                 winState === -1 &&
-                <GaveUpButtonContainer />
+                <GaveUpButtonContainer tenQuery={props.tenQuery} />
             }
         </div>
     )

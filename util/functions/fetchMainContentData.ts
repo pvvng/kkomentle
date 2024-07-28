@@ -9,7 +9,7 @@ export default async function fetchMainContentData(darkmode : {[key :string] :st
     // 유사어 중에서 1, 10, 1000번째 순서를 가진 단어 불러오기
     let oneTenAndKSimilarityArr = await getOneTenAndKSimilarlity();
     // 정답과 오늘이 기준 날짜로부터 몇번째 정답인지 담긴 객체 + 다크모드 여부
-    let todayIndex :TodayIndexType = {...selectTodayAnswer.data, darkmode : darkmode};
+    let todayIndex :TodayIndexType = {...selectTodayAnswer.data, darkmode : darkmode, tenQuery : oneTenAndKSimilarityArr[1].query};
 
     return { oneTenAndKSimilarityArr, todayIndex };
 }

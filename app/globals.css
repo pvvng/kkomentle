@@ -234,6 +234,13 @@ body .main-container{
       font-size: 12px;
   }
 }
+.refresh-btn svg{
+  transition: all 1s;
+}
+
+.refresh-btn svg:hover{
+  transform: rotate(360deg);
+}
 
 @media only screen and (max-width: 640px) {
     body, input, button {

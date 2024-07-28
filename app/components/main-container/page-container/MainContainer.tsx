@@ -15,6 +15,7 @@ export interface TodayIndexType {
     tomarrow : string;
     index : number;
     darkmode : {[key :string] :string};
+    tenQuery : string;
 }
 
 interface PropsType {
