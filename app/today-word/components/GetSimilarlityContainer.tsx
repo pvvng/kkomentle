@@ -32,7 +32,7 @@ export default function GetSimilarlityContainer({darkmode} : {darkmode : {[key :
                 setSettingState({ darkmode : false });
             }
         }
-    },[darkmode])
+    },[darkmode, router, setNowMode, setSettingState])
 
     // react-query를 이용해서 db에 있는 rankSimilarity 데이터를 불러오고 이를 캐싱함
     // 이를 통해 매번 input 값을 입력할 때마다 새롭게 rankSimilarity 데이터를 불러오는 것을 해소함
@@ -63,7 +63,7 @@ export default function GetSimilarlityContainer({darkmode} : {darkmode : {[key :
             height: '100vh', // 전체 화면 높이를 사용
             textAlign: 'center' // 텍스트 중앙 정렬
         }}>
-            <img src="꼬들꼬들마스코트.png" width="100%"/>
+            <img src="꼬들꼬들마스코트.png" width="100%" height="auto" alt="LOGO" />
             <h1 className="text-center">접근 권한이 없는 페이지에요</h1>
         </div>
     )
