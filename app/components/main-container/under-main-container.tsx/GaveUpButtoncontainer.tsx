@@ -1,10 +1,9 @@
 'use client'
 
 import { useGuessesLocalstorage, useHintLocalstorage, useNowMode, useUserData } from "@/app/store";
+import { ObjectId } from "mongodb";
 import useAppendTodayAnswer from "@/util/hooks/useAppendTodayAnswer";
 import axios from "axios";
-import { ObjectId } from "mongodb";
-import { useRouter } from "next/navigation";
 
 export default function GaveUpButtonContainer({tenQuery} : {tenQuery :string}){
 
@@ -13,7 +12,6 @@ export default function GaveUpButtonContainer({tenQuery} : {tenQuery :string}){
     const  { guesses } = useGuessesLocalstorage();
     const appendTodayAnswer = useAppendTodayAnswer();
     const { isHintUsed, setHintState } = useHintLocalstorage();
-    const router = useRouter();
 
     // trycount 기본값 설정
     let guessesLength :number = 1;
@@ -35,8 +33,6 @@ export default function GaveUpButtonContainer({tenQuery} : {tenQuery :string}){
     };
 
     const handleUseHint = async () => {
-
-        console.log(isHintUsed)
 
         if(!isHintUsed){
             const isHintUsed = confirm('오늘의 힌트를 사용할까요?');
@@ -68,7 +64,7 @@ export default function GaveUpButtonContainer({tenQuery} : {tenQuery :string}){
                         "rounded-1 border-1 pt-1 pb-1 w-100 h-100"
                     } 
                     onClick={handleUseHint}
-                >{!nowUserData?.isHintUsed ? '힌트 사용' : '힌트 확인'}</button>
+                >{isHintUsed ? '힌트 사용' : '힌트 확인'}</button>
             </div>
             {/* <a 
                 href="https://newsjel.ly/archives/newsjelly-report/data-storytelling/14842?utm_source=semantle_ko&utm_medium=bottom_banner"
