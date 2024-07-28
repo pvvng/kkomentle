@@ -1,4 +1,5 @@
-import { useGuessesLocalstorage, usePlayTimeLocalstorage, useSettingState } from "@/app/store";
+import { useGuessesLocalstorage, usePlayTimeLocalstorage, useSettingState, useUserData } from "@/app/store";
+import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
 /** 클립보드에 적힐 텍스트 뱉는 커스텀 훅
@@ -10,12 +11,15 @@ import { useEffect, useState } from "react";
  * minutes : playtime의 분
  */
 export default function useGetClipBoardText (index :number){
+
+    const router = useRouter();
     // 정답을 몇번만에 맞췄는지 기록하는 상태    
     let [indexGuesses, setIndexGuesses] = useState(0);
 
     const { guesses } = useGuessesLocalstorage();
     const { setting } = useSettingState();
     const { playtime } = usePlayTimeLocalstorage();
+    const { nowUserData } = useUserData();
 
     // 몫을 시간으로 사용
     const hours = Math.floor((playtime || 1) / 60); 
@@ -62,6 +66,13 @@ export default function useGetClipBoardText (index :number){
             }
         });
     },[guesses]);
+
+    // 만약 로그인 했다면 db에 저장된 시도 횟수로 변경
+    useEffect(() => {
+        if(nowUserData !== undefined){
+            setIndexGuesses(nowUserData.todayTry || 0);
+        }
+    },[nowUserData])
 
     return { WIN_TEXT, LOSE_TEXT, indexGuesses, hours, minutes };
 }

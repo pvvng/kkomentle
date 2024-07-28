@@ -1,22 +1,26 @@
 'use client'
 
-import { useGuessesLocalstorage, useNowMode, useUserData } from "@/app/store";
+import { useGuessesLocalstorage, useHintLocalstorage, useNowMode, useUserData } from "@/app/store";
 import useAppendTodayAnswer from "@/util/hooks/useAppendTodayAnswer";
 import axios from "axios";
 import { ObjectId } from "mongodb";
+import { useRouter } from "next/navigation";
 
-export default function GaveUpButtonContainer(){
+export default function GaveUpButtonContainer({tenQuery} : {tenQuery :string}){
 
     const { nowMode } = useNowMode();
     const { nowUserData } = useUserData();
     const  { guesses } = useGuessesLocalstorage();
     const appendTodayAnswer = useAppendTodayAnswer();
+    const { isHintUsed, setHintState } = useHintLocalstorage();
+    const router = useRouter();
 
     // trycount 기본값 설정
     let guessesLength :number = 1;
     if(guesses){
         guessesLength = guesses.length + 1;
     }
+
     const handleGaveUp = async () => {
         const isGave = confirm('정말로 포기하시겠습니까?');
         if (isGave) {
@@ -30,9 +34,23 @@ export default function GaveUpButtonContainer(){
         }
     };
 
+    const handleUseHint = async () => {
+
+        console.log(isHintUsed)
+
+        if(!isHintUsed){
+            const isHintUsed = confirm('오늘의 힌트를 사용할까요?');
+            if(isHintUsed){
+                setHintState(true);
+            }
+        }else{
+            alert(`오늘의 정답 단어와 10번째로 유사한 단어는 "${tenQuery}"에요.`);
+        }
+    };
+
     return(
         <div className="w-100 row" style={{margin : 'auto', marginTop : '60px', height : '40px'}}>
-            <div className="col-3 p-0 text-center">
+            <div className="col-6 text-center">
                 <button 
                     className={
                         nowMode.mode === 'dark'? 
@@ -42,10 +60,20 @@ export default function GaveUpButtonContainer(){
                     onClick={handleGaveUp}
                 >포기하기</button>
             </div>
-            <a 
+            <div className="col-6 text-center">
+                <button 
+                    className={
+                        nowMode.mode === 'dark'? 
+                        "rounded-1 border-1 pt-1 pb-1 w-100 h-100 dark-mode-input-and-btn":
+                        "rounded-1 border-1 pt-1 pb-1 w-100 h-100"
+                    } 
+                    onClick={handleUseHint}
+                >{!nowUserData?.isHintUsed ? '힌트 사용' : '힌트 확인'}</button>
+            </div>
+            {/* <a 
                 href="https://newsjel.ly/archives/newsjelly-report/data-storytelling/14842?utm_source=semantle_ko&utm_medium=bottom_banner"
                 target="_blank"
-                className="col-9"
+                className="col-4"
             >
                 <div 
                     style={{
@@ -57,7 +85,7 @@ export default function GaveUpButtonContainer(){
                     }}
                 >
                 </div>
-            </a>
+            </a> */}
         </div>
     )
 }
