@@ -23,56 +23,71 @@ export default async function ProfileContainer(){
     // 로그인 테스트
     const userdata = await getServerUserData();
 
-    console.log(userdata)
-
     return (
-        <div className='main-profile-container' style={{
-            background : darkmode.value === 'dark' ? 'black' : 'white'
-        }}>
-            <div className='row'>
-                <h2 className='content-profile-title'>나의 프로필</h2>
-                <div className='badge-container'>
-                    <img src='/꼬들꼬들마스코트.png' width="100%" />
-                </div>
-                <h2 className='content-title text-center'>꼬들꼬들</h2>
-                <div className='user-container'>
-                    <label htmlFor='user-name'>name</label>
-                    <input id='user-name' className='w-100 profile-input-container' />
-                    <label htmlFor='user-email'>email</label>
-                    <input id='user-email' className='w-100 profile-input-container' disabled />
-                </div>
-                <div className='content-cotanier'>
-                    <hr/>
-                    <h2>뱃지</h2>
-                    {
-                        BADGE_ARR.map(ba => 
-                            <div className='locked-badges mb-2' key={ba.title}>
-                                <div 
-                                    className='row w-100' 
-                                    style={{
-                                        margin : 'auto', 
-                                        justifyContent : 'center', 
-                                        alignItems : 'center'
-                                    }}
-                                >
-                                    <div className='col-4 p-2'>
-                                        {ba.component}
-                                    </div>
-                                    <div className='col-8 p-2 text-center'>
-                                        <span className='fs-4'>{ba.title}</span>
+        <form action="/api/post/username" method="POST">
+            <div className='main-profile-container' style={{
+                background : darkmode.value === 'dark' ? 'black' : 'white'
+            }}>
+                <div className='row w-100' style={{margin : 'auto'}}>
+                    <div className='col-md-6'>
+                        <h2>나의 프로필</h2>
+                        <div className='badge-container'>
+                            <img src='/꼬들꼬들마스코트.png' width="100%" />
+                        </div>
+                        <div className='user-container'>
+                            <label htmlFor='user-name'>name</label>
+                            <input 
+                                name='name' 
+                                id='user-name' 
+                                className='w-100 profile-input-container' 
+                                defaultValue={userdata?.name} 
+                                pattern="^[가-힣a-zA-Z0-9]+$" 
+                                title="빈칸과 특수문자는 이름에 포함될 수 없어요." 
+                                required 
+                                autoComplete="off"
+                                autoCorrect="off"
+                                type="text"
+                            />
+                            <label htmlFor='user-email'>email</label>
+                            <input id='user-email' className='w-100 profile-input-container' disabled defaultValue={userdata?.email} />
+                            <input name="email" id='hidden-user-email' className='w-100 profile-input-container' defaultValue={userdata?.email} style={{display:'none'}} />
+                        </div>
+                    </div>
+
+                    <div className='col-md-6 mt-md-0 mt-3'>
+                        <h2>뱃지</h2>
+                        {
+                            BADGE_ARR.map(ba => 
+                                <div className='locked-badges mb-2' key={ba.title}>
+                                    <div 
+                                        className='row w-100' 
+                                        style={{
+                                            margin : 'auto', 
+                                            justifyContent : 'center', 
+                                            alignItems : 'center'
+                                        }}
+                                    >
+                                        <div className='col-3 p-2'>
+                                            {ba.component}
+                                        </div>
+                                        <div className='col-9 p-2 text-center'>
+                                            <span className='fs-4'>{ba.title}</span>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                        )
-                    }
+                            )
+                        }
+                    </div>
+                    <button 
+                        type='submit'
+                        className={
+                            darkmode.value === 'dark'? 
+                            'rounded-1 border-1 pt-1 pb-1 w-100 dark-mode-input-and-btn mt-3':
+                            'rounded-1 border-1 pt-1 pb-1 w-100 mt-3'
+                        }
+                    >수정</button>
                 </div>
-                <button className={
-                    darkmode.value === 'dark'? 
-                    'hidden-button rounded-1 border-1 pt-1 pb-1 w-100 dark-mode-input-and-btn':
-                    'hidden-button rounded-1 border-1 pt-1 pb-1 w-100'
-                }>수정</button>
             </div>
-
-        </div>
+        </form>
     )
 }

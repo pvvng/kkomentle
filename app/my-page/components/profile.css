@@ -6,80 +6,15 @@
     padding : 20px;
     border : 1px solid;
     border-radius: 20px;
-/* 
-    @media screen and (max-width : 400px) {
-        width : 240px;
-    }
-    @media screen and (max-width : 250px) {
-        width : 120px;
-    } */
 }
 
 .badge-container{
     width: 100%;
     margin: auto;
-    transition: all 1s;
-}
-
-.content-cotanier{
-    width: 100%;
-    transition: all 2s;
-    padding: 10px;
-    display: none;
-}
-
-.hidden-button{
-    display: none;
-    float: right;
-    transition: all 1s;
-}
-
-.content-title{
-    transition: all 1s;
-    display: block;
-}
-
-.content-profile-title{
-    display: none;
-}
-
-.profile-input-container{
-    border : none;
-}
-
-.profile-input-container:focus{
-    outline: none;
-}
-
-.main-profile-container:hover{
-    .badge-container{
-        width: 80%;
-    }
-    .content-cotanier{
-        display: block;
-    }
-    .content-title{
-        display: none;
-    }
-    .hidden-button{
-        display: block;
-    }
-    .content-profile-title{
-        display: block;
-    }
-    .profile-input-container{
-        border : 1px solid;
-        /* border-radius: 10px; */
-    }
-    .profile-input-container:focus{
-        outline: auto;
-    }
-    
 }
 
 .locked-badges{
     width: 100%;
-    /* padding : 2px; */
     border: 1px solid;
     border-radius: 10px;
     font-size: 16px;
