@@ -79,10 +79,13 @@ export default function MainContainer({darkmode, userdata} : PropsType){
                 } 
                 &nbsp;입니다.
             </p>
+
             {
                 todayIndex !== undefined ?
                 <InputContainer {...todayIndex} />:
-                <LoadingSpinner/>
+                <div className="mt-5 mb-5">
+                    <LoadingSpinner />
+                </div>
             }
         </>
 

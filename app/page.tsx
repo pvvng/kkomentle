@@ -5,8 +5,8 @@ import MainContainer from "./components/main-container/page-container/MainContai
 import SaveSimilarWordsContainer from "./components/SaveSimilarWordsContainer";
 import { cookies } from "next/headers";
 import { getServerUserData, UserDataType } from "@/util/functions/getServerUserData";
-import Link from "next/link";
-import ProfileContainer from "./Profile";
+import FooterContainer from "./components/main-container/page-container/Footer";
+
 
 export default async function Home() {
 
@@ -19,17 +19,12 @@ export default async function Home() {
     <>
       <Navbar />
       {/* <SaveSimilarWordsContainer /> */}
-      <ProfileContainer />
       <SettingAlertContainer />  
       <div className="main-container">
         <Header />
         <MainContainer darkmode={darkmode} userdata={userdata} />
         <hr/>
-        <div className="row w-100" style={{margin : 'auto'}}>
-          <Link href="/qna" className="col-4 text-center mt-3 mb-3 header-title" style={{textDecoration : 'none'}}><b>질문과 답변</b></Link>
-          <Link href="/ranking" className="col-4 text-center mt-3 mb-3 header-title" style={{textDecoration : 'none'}}><b>랭킹 확인하기</b></Link>
-          <Link href="/my-page" className="col-4 text-center mt-3 mb-3 header-title" style={{textDecoration : 'none'}}><b>마이페이지</b></Link>
-        </div>
+        <FooterContainer />
       </div>
     </>
   );
