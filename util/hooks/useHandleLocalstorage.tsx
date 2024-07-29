@@ -26,7 +26,7 @@ export function useHandleLocalstorage(result : SimilarityType | null){
     const getPlayTime = useGetPlayTime();
     const {
         updateLocalStorageByDBdata, 
-        updateDBDataByLocalstoreage
+        // updateDBDataByLocalstoreage
     } = useUpdateLocalStorageByDBdata();
 
     // 사용자 디바이스의 시간을 한국시로 포맷하기
@@ -75,9 +75,9 @@ export function useHandleLocalstorage(result : SimilarityType | null){
         }
     }, [today])
 
-    useEffect(() => {
-        updateDBDataByLocalstoreage();
-    },[winState, guesses])
+    // useEffect(() => {
+    //     updateDBDataByLocalstoreage();
+    // },[winState, guesses])
 
     useEffect(() => {
         // 기본 값 정의

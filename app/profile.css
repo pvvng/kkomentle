@@ -1,0 +1,70 @@
+.main-profile-container{
+    width: 360px;
+    background-color: white;
+    margin: auto;
+    position: relative;
+    padding : 20px;
+    border : 1px solid;
+    border-radius: 20px;
+
+    @media screen and (max-width : 400px) {
+        width : 240px;
+    }
+    @media screen and (max-width : 250px) {
+        width : 120px;
+    }
+}
+
+.badge-container{
+    width: 100%;
+    margin: auto;
+    transition: all 1s;
+}
+
+.content-cotanier{
+    width: 100%;
+    transition: all 2s;
+    padding: 10px;
+    display: none;
+}
+
+.hidden-button{
+    display: none;
+    float: right;
+    transition: all 1s;
+}
+
+.content-title{
+    transition: all 1s;
+    display: block;
+}
+
+.main-profile-container:hover{
+    .badge-container{
+        width: 80%;
+    }
+    .content-cotanier{
+        display: block;
+    }
+    .content-title{
+        display: none;
+    }
+    .hidden-button{
+        display: block;
+    }
+}
+
+
+.locked-badges{
+    width: 100%;
+    /* padding : 2px; */
+    border: 1px solid;
+    font-size: 16px;
+
+    @media screen and (max-width : 400px) {
+        font-size: 12px;
+    }
+    @media screen and (max-width : 250px) {
+        font-size: 10px;
+    }
+}
