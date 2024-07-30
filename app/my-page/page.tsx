@@ -6,7 +6,7 @@ export default async function MyPage(){
     return (
         <>
             <Navbar />
-            <div className="container-lg">
+            <div className="main-container">
                 <ProfileContainer  />
             </div>
         </>

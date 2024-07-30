@@ -1,18 +1,19 @@
 import Link from "next/link";
-import { faQuestion, faRankingStar, faUser } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faQuestion, faRankingStar, faUser } from '@fortawesome/free-solid-svg-icons';
 
 export default function FooterContainer(){
     return(
         <div className="row w-100" style={{margin : 'auto', justifyContent : 'center', alignItems : 'center'}}>
-            <Link href="/qna" className="col-4 text-center mt-3 mb-3" style={{textDecoration : 'none'}}>
-                <FontAwesomeIcon icon={faQuestion} style={{width : 24,}} />
+            <Link href="/qna" className="col-4 text-center" style={{textDecoration : 'none'}}>
+                <FontAwesomeIcon icon={faQuestion} className="footer-icons" />
             </Link>
-            <Link href="/ranking" className="col-4 text-center mt-3 mb-3" style={{textDecoration : 'none'}}>
-                <FontAwesomeIcon icon={faRankingStar} style={{width : 24}} />
+            <Link href="/ranking" className="col-4 text-center" style={{textDecoration : 'none'}}>
+                <FontAwesomeIcon icon={faRankingStar} className="footer-icons" />
             </Link>
-            <Link href="/my-page" className="col-4 text-center mt-3 mb-3" style={{textDecoration : 'none'}}>
-                <FontAwesomeIcon icon={faUser} style={{width : 24}} />
+            <Link href="/my-page" className="col-4 text-center" style={{textDecoration : 'none'}}>
+                <FontAwesomeIcon icon={faUser} className="footer-icons" />
             </Link>
         </div>
     )

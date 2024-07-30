@@ -83,7 +83,7 @@ export default function MainContainer({darkmode, userdata} : PropsType){
             {
                 todayIndex !== undefined ?
                 <InputContainer {...todayIndex} />:
-                <div className="mt-5 mb-5">
+                <div style={{minHeight : '500px'}}>
                     <LoadingSpinner />
                 </div>
             }
