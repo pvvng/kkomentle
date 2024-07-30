@@ -24,11 +24,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         if (updateResult.matchedCount === 0) {
             return res.status(404).json({ error: 'User not found' });
         }
-
-        if (updateResult.modifiedCount === 0) {
-            return res.status(500).json({ error: 'Failed to update user' });
-        }
-
+        
         res.redirect(302, '/my-page');
     } catch (error) {
         console.error('Error updating user name:', error);
