@@ -243,7 +243,6 @@ body .main-container{
 }
 
 .footer-icons{
-  color : #252525;
   transition: all 0.3s;
   text-decoration: none;
   width: 50px;
@@ -260,11 +259,11 @@ body .main-container{
 }
 
 .footer-icons:hover{
-  color : #0d6efd;
+  color : #063d8f;
 }
 
 .footer-icons:focus{
-  color : #0d6efd;
+  color : #063d8f;
 }
 
 .speech-bubble {
@@ -291,9 +290,11 @@ body .main-container{
 .speech-bubble {
   font-size: 14px;
   @media screen and (max-width : 470px) {
+    border-radius: 0px;
     font-size: 12px;
   }
   @media screen and (max-width : 380px) {
+    border-radius: 0px;
     font-size: 10px;
   }
 }
