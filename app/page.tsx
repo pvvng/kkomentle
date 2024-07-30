@@ -5,7 +5,8 @@ import MainContainer from "./components/main-container/page-container/MainContai
 import SaveSimilarWordsContainer from "./components/SaveSimilarWordsContainer";
 import { cookies } from "next/headers";
 import { getServerUserData, UserDataType } from "@/util/functions/getServerUserData";
-import Link from "next/link";
+import FooterContainer from "./components/main-container/page-container/Footer";
+
 
 export default async function Home() {
 
@@ -23,7 +24,7 @@ export default async function Home() {
         <Header />
         <MainContainer darkmode={darkmode} userdata={userdata} />
         <hr/>
-        <Link href="/QnA" className="mt-3 mb-3 header-title" style={{textDecoration : 'none'}}><b>질문과 답변</b></Link>
+        <FooterContainer />
       </div>
     </>
   );

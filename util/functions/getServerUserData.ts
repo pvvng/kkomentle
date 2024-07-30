@@ -6,9 +6,11 @@ import moment from "moment-timezone";
 import { JsonSimilarityType } from "../hooks/useHandleLocalstorage";
 
 export interface UserDataType {
+  _id?: ObjectId;
   name: string;
   email: string;
-  _id?: ObjectId;
+  image ?: string;
+  badge ?: boolean[],
   topTime?: number;
   topIndex?: number;
   today?: string;
@@ -62,6 +64,8 @@ export async function getServerUserData(): Promise<UserDataType | undefined> {
       const newUser: UserDataType = {
         _id: new ObjectId(),
         ...userdata,
+        image : '꼬들꼬들',
+        badge : [true, false, false, false, false],
         topTime: -1,
         topIndex: -1,
         today: formattedTodayDate,
@@ -104,6 +108,8 @@ export async function getServerUserData(): Promise<UserDataType | undefined> {
             _id: updatedUserData._id,
             name: updatedUserData.name ?? "Unknown",
             email: updatedUserData.email,
+            image: updatedUserData.image,
+            badge: updatedUserData.badge,
             topTime: updatedUserData.topTime,
             topIndex: updatedUserData.topIndex,
             today: updatedUserData.today,
@@ -123,6 +129,8 @@ export async function getServerUserData(): Promise<UserDataType | undefined> {
         _id: resultGetUserData._id,
         name: resultGetUserData.name ?? "Unknown",
         email: resultGetUserData.email,
+        image : resultGetUserData.image,
+        badge : resultGetUserData.badge,
         topTime: resultGetUserData.topTime,
         topIndex: resultGetUserData.topIndex,
         today: resultGetUserData.today,

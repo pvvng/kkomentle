@@ -22,8 +22,7 @@ export default function ComposedChartContainer() {
     queryKey : ['data'],
     queryFn : fetchGraphData
   })
-
-
+  
   if(data === undefined || isLoading) return <LoadingSpinner />
   if(isError) return <p className='text-center'>예상치 못한 에러가 발생했어요.</p>
 

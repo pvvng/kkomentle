@@ -7,7 +7,7 @@ export default async function getOneTenAndKSimilarlity(){
 
     let topRanking = await rankSimilarity();
     topRanking.map (tr => {
-        if (tr.rank === 1 || tr.rank === 11 || tr.rank === 1001){
+        if (tr.rank === 1 || tr.rank === 10 || tr.rank === 1000){
             tr = { ...tr,  }
             firstTenK.push({...tr, similarity : parseFloat((tr.similarity * 100).toFixed(2))});
         }

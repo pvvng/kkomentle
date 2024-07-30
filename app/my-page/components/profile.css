@@ -1,0 +1,29 @@
+.main-profile-container{
+    width: 100%;
+    background-color: white;
+    margin: auto;
+    position: relative;
+    padding : 20px;
+    border : 1px solid;
+    border-radius: 20px;
+}
+
+.badge-container{
+    width: 100%;
+    margin: auto;
+}
+
+.locked-badges{
+    width: 100%;
+    border: 1px solid;
+    border-radius: 10px;
+    font-size: 16px;
+    cursor: pointer;
+
+    @media screen and (max-width : 400px) {
+        font-size: 12px;
+    }
+    @media screen and (max-width : 250px) {
+        font-size: 10px;
+    }
+}
