@@ -7,7 +7,6 @@ import { cookies } from "next/headers";
 import { getServerUserData, UserDataType } from "@/util/functions/getServerUserData";
 import FooterContainer from "./components/main-container/page-container/Footer";
 
-
 export default async function Home() {
 
   // 다크모드 쿠키 불러오기

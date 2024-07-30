@@ -36,7 +36,7 @@ export default async function ProfileContainer(){
 
                     <div className='col-md-6 mt-md-0 mt-3'>
                         <h2>뱃지</h2>
-                        <RightBadgeArrContainer userEmail={userEmail} userBadgeStatus={userBadgeStatus} />
+                        <RightBadgeArrContainer userEmail={userEmail} userBadgeStatus={userBadgeStatus} userImageStatus={userImageStatus} />
                     </div>
                     <button 
                         type='submit'

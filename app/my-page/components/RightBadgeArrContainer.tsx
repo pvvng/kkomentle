@@ -7,10 +7,11 @@ import { useRouter } from "next/navigation";
 
 interface PropsType {
     userEmail : string|undefined;
-    userBadgeStatus: boolean[] | undefined
+    userBadgeStatus: boolean[] | undefined;
+    userImageStatus : string|undefined;
 }
 
-export default function RightBadgeArrContainer({userEmail, userBadgeStatus} : PropsType){
+export default function RightBadgeArrContainer({userEmail, userBadgeStatus, userImageStatus} : PropsType){
 
     const router = useRouter();
 
@@ -52,7 +53,13 @@ export default function RightBadgeArrContainer({userEmail, userBadgeStatus} : Pr
                         {ba.component}
                     </div>
                     <div className='col-9 p-2 text-center'>
-                        <span className='fs-4'>
+                        <span 
+                            className={
+                                userImageStatus !== undefined && 
+                                userImageStatus === ba.title ?
+                                'text-primary' : 'none' 
+                            } 
+                        >
                             {
                                 propsUserBadgeStatus[i]?
                                 ba.title:

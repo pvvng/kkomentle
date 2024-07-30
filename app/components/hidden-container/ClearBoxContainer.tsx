@@ -8,6 +8,7 @@ import { TodayIndexType } from "../main-container/page-container/MainContainer";
 import ComposedChartContainer from "./ComposedChartContainer";
 import { SignInBtn } from "../main-container/page-container/SignBtn";
 import { useRouter } from "next/navigation";
+import KakaoShare from "./KakaoShareBtn";
 
 export default function ClearBoxContainer(props :TodayIndexType){
 
@@ -58,6 +59,7 @@ export default function ClearBoxContainer(props :TodayIndexType){
                 }}
             >기록 복사하기</button>
             <p className="m-0 mt-3 mb-3">{props.index + 1}번째 꼬들꼬들은 오늘 밤 자정(한국 시간 기준)에 열립니다.</p>
+            <KakaoShare />
             <hr/>
             <div className="fw-bold mb-2">
                 <p className="m-0 mb-1 fst-italic">
@@ -87,7 +89,6 @@ export default function ClearBoxContainer(props :TodayIndexType){
                     <ComposedChartContainer />:
                     <><SignInBtn darkmode = {nowMode} /><span>{' '}하고 확인하기</span></>
                 }
-                {/* <ScatterChartContainer/> */}
             </div>
         </div>
     )
