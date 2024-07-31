@@ -4,6 +4,7 @@ import { authOptions } from "../auth/[...nextauth]";
 import { getServerSession } from "next-auth";
 import { JsonSimilarityType } from "@/util/hooks/useHandleLocalstorage";
 
+/** 사용자 데이터 전반적으로 변경하는 API */
 export default async function handler (req :NextApiRequest, res :NextApiResponse){
     try {
         // 허용된 메소드 확인

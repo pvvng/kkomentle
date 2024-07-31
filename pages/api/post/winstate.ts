@@ -2,6 +2,7 @@ import { connectDB } from "@/util/database";
 import { ObjectId } from "mongodb";
 import { NextApiRequest, NextApiResponse } from "next";
 
+/** user의 승리 상태와 시도 횟수 변경 API */
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
     // 요청 메소드가 POST가 아닌 경우 405 상태 코드 반환
     if (req.method !== 'POST') {

@@ -11,6 +11,7 @@ interface BodyType {
     isLogin: string | undefined;
 }
 
+/** 사용자의 승리 상태, 최대 기록 변경하는 API */
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
     try {
         if (req.method !== 'POST') {

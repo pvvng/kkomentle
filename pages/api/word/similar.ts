@@ -1,5 +1,5 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import detectSimilarWords from '@/util/functions/detectSimilarWords';
+import detectSimilarWords from "@/util/functions/detectSimilarWords";
 import { connectDB } from '@/util/database';
 import moment from 'moment-timezone';
 
@@ -22,9 +22,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     }
 
     try {
-        // 어제 기준 내일, 오늘 기준 오늘의 데이터 찾기
-        // const findTodayDate = await similarityCollection.findOne({ date: formattedTodayDate });
-
         // 1. 오늘 기준 어제의 데이터 삭제하기
         try {
             const deleteYesterdaySim = await similarityCollection.deleteOne({ date: formattedYesterdayDate });
@@ -33,18 +30,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             console.error('어제의 유사도 데이터 삭제 중 에러 발생:', deleteError);
             return res.status(500).json({ message: '어제의 유사도 데이터 삭제 중 에러 발생' });
         }
-
-        // // 2. 오늘의 데이터를 어제 기준 내일의 데이터로 업데이트 하기
-        // try {
-        //     const updateTodaySim = await similarityCollection.updateOne(
-        //         { date: formattedTodayDate },
-        //         { $set: { ...findTodayDate } }
-        //     );
-        //     console.log('오늘의 유사도 데이터 업데이트 완료:', updateTodaySim);
-        // } catch (updateTodayError) {
-        //     console.error('오늘의 유사도 데이터 업데이트 중 에러 발생:', updateTodayError);
-        //     return res.status(500).json({ message: '오늘의 유사도 데이터 업데이트 중 에러 발생' });
-        // }
 
         // 2. 오늘 기준 내일의 데이터를 오늘 기준 내일의 정답을 바탕으로 업데이트하기
         try {

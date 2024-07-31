@@ -4,14 +4,15 @@ import { useGuessesLocalstorage, useHintLocalstorage, useNowMode, useUserData } 
 import { ObjectId } from "mongodb";
 import useAppendTodayAnswer from "@/util/hooks/useAppendTodayAnswer";
 import axios from "axios";
+import handleMultipleConditions from "@/util/functions/handleMultipleConditionsBadge";
 
 export default function GaveUpButtonContainer({tenQuery} : {tenQuery :string}){
 
     const { nowMode } = useNowMode();
     const { nowUserData } = useUserData();
     const  { guesses } = useGuessesLocalstorage();
-    const appendTodayAnswer = useAppendTodayAnswer();
     const { isHintUsed, setHintState } = useHintLocalstorage();
+    const appendTodayAnswer = useAppendTodayAnswer();
 
     // trycount 기본값 설정
     let guessesLength :number = 1;
@@ -33,11 +34,13 @@ export default function GaveUpButtonContainer({tenQuery} : {tenQuery :string}){
     };
 
     const handleUseHint = async () => {
-
         if(!isHintUsed){
             const isHintUsed = confirm('오늘의 힌트를 사용할까요?');
             if(isHintUsed){
+                await handleMultipleConditions(nowUserData, 1);
+                // 힌트 상태 변경하기
                 setHintState(true);
+                alert(`오늘의 정답 단어와 10번째로 유사한 단어는 "${tenQuery}"에요.`);
             }
         }else{
             alert(`오늘의 정답 단어와 10번째로 유사한 단어는 "${tenQuery}"에요.`);
@@ -64,7 +67,7 @@ export default function GaveUpButtonContainer({tenQuery} : {tenQuery :string}){
                         "rounded-1 border-1 pt-1 pb-1 w-100 h-100"
                     } 
                     onClick={handleUseHint}
-                >{isHintUsed ? '힌트 사용' : '힌트 확인'}</button>
+                >{!isHintUsed ? '힌트 사용' : '힌트 다시 확인'}</button>
             </div>
             {/* <a 
                 href="https://newsjel.ly/archives/newsjelly-report/data-storytelling/14842?utm_source=semantle_ko&utm_medium=bottom_banner"

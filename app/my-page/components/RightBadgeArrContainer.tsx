@@ -1,9 +1,10 @@
 'use client'
 
 import { BadBoyBadge, DefaultBadge, GhostBadge, KingBadge, StarBadge } from "@/app/components/badge-container/badge-components"
-import axios from "axios";
 import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
 import { useRouter } from "next/navigation";
+import axios from "axios";
+import { useState } from "react";
 
 interface PropsType {
     userEmail : string|undefined;
@@ -23,11 +24,11 @@ export default function RightBadgeArrContainer({userEmail, userBadgeStatus, user
     }
 
     const BADGE_ARR = [
-        {component : <DefaultBadge />, title : '꼬들꼬들'},
-        {component : <StarBadge userBadgeStatus={propsUserBadgeStatus[1]} />, title : '별 꼬들꼬들'},
-        {component : <GhostBadge userBadgeStatus={propsUserBadgeStatus[2]} />, title : '유령 꼬들꼬들'},
-        {component : <BadBoyBadge userBadgeStatus={propsUserBadgeStatus[3]} />, title : '악동 꼬들꼬들'},
-        {component : <KingBadge userBadgeStatus={propsUserBadgeStatus[4]} />, title : '악마 꼬들꼬들'},
+        {component : <DefaultBadge />, title : '꼬들꼬들', des : '꼬들꼬들하게 생긴 녀석이에요.', get : '(꼬들꼬들에 회원가입하면 얻을 수 있어요.)'},
+        {component : <StarBadge userBadgeStatus={propsUserBadgeStatus[1]} />, title : '별 꼬들꼬들', des : '삐죽삐죽한게 제법 귀여운 녀석이에요.', get : '(최초로 힌트 사용 시 얻을 수 있어요.)'},
+        {component : <GhostBadge userBadgeStatus={propsUserBadgeStatus[2]} />, title : '유령 꼬들꼬들', des : '귀신같이 재빠른 녀석이에요.', get : '(최초로 정답을 맞히면 얻을 수 있어요.)'},
+        {component : <BadBoyBadge userBadgeStatus={propsUserBadgeStatus[3]} />, title : '악동 꼬들꼬들', des: '모르는 집 초인종을 누르고 도망가는게 취미에요.' , get : '(정답을 10분 안에 맞히면 얻을 수 있어요.)'},
+        {component : <KingBadge userBadgeStatus={propsUserBadgeStatus[4]} />, title : '악마 꼬들꼬들', des: '온 세상을 꼬들꼬들하게 만드려는 꿈이 있어요.' , get : '(정답을 3번 안에 맞히면 얻을 수 있어요.)'},
     ]
     
     return(
@@ -62,7 +63,10 @@ export default function RightBadgeArrContainer({userEmail, userBadgeStatus, user
                         >
                             {
                                 propsUserBadgeStatus[i]?
-                                ba.title:
+                                <span>
+                                    <p className="m-0 fw-bold">{ba.title}</p>
+                                    <p className="m-0 my-page-badge-des">{ba.des}</p>
+                                </span>:
                                 '???'
                             }
                         </span>

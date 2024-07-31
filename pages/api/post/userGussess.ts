@@ -4,6 +4,7 @@ import { getServerSession } from "next-auth";
 import { authOptions } from "../auth/[...nextauth]";
 import { JsonSimilarityType } from "@/util/hooks/useHandleLocalstorage";
 
+/** 사용자의 추측 배열 (todayGussees) 저장하는 API */
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
     try {
         // 허용된 메소드 확인
