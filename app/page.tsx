@@ -1,3 +1,5 @@
+export const dynamic = 'force-dynamic';
+
 import Header from "./components/main-container/under-main-container.tsx/Header";
 import SettingAlertContainer from "./components/main-container/page-container/SettingAlertContainer";
 import Navbar from "./components/main-container/page-container/Navbar";

@@ -1,4 +1,4 @@
-import { BadBoyBadge, DefaultBadge, GhostBadge, KingBadge, StarBadge } from "@/app/components/badge-container/badge-components";
+import { getImage } from "@/app/components/badge-container/getBadgeImageContainer";
 import { UserDataType } from "@/util/functions/getServerUserData";
 
 interface PropsType {
@@ -34,24 +34,4 @@ export default function LeftProfileContainer({userdata, userImageStatus} : Props
             </div>
         </>
     )
-}
-
-function getImage(image :string|undefined){
-
-    switch(image){
-        case undefined:
-            return <DefaultBadge />;
-        case '꼬들꼬들':
-            return <DefaultBadge />;
-        case '별 꼬들꼬들':
-            return <StarBadge userBadgeStatus={true} />;
-        case '유령 꼬들꼬들':
-            return <GhostBadge userBadgeStatus={true} />;
-        case '악동 꼬들꼬들':
-            return <BadBoyBadge userBadgeStatus={true} />;
-        case '악마 꼬들꼬들':
-            return <KingBadge userBadgeStatus={true} />;
-        default:
-            return <DefaultBadge />;
-    }
 }
