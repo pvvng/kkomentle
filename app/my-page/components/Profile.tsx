@@ -1,8 +1,8 @@
 import { cookies } from "next/headers";
 import './profile.css'
-import { UserDataType } from '@/util/functions/getServerUserData';
 import LeftProfileContainer from './LeftProfileContainer';
 import RightBadgeArrContainer from "./RightBadgeArrContainer";
+import { UserDataType } from "@/util/functions/getServerUserData";
 
 export default async function ProfileContainer({userdata} : {userdata : UserDataType | undefined}){
 

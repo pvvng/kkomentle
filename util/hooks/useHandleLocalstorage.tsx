@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
 import { SimilarityType } from "../functions/rankSimilarity";
-import { useGuessesLocalstorage, useHintLocalstorage, usePlayTimeLocalstorage, useTodayDateLocalstorage, useWinStateLocalstorage } from '@/app/store'
+import { useGuessesLocalstorage, useHintLocalstorage, usePlayTimeLocalstorage, useTodayDateLocalstorage, useUserData, useWinStateLocalstorage } from '@/app/store'
+import { useRouter } from "next/navigation";
 import moment from "moment-timezone";
 import useGetPlayTime from "./useGetPlaytime";
 import useUpdateLocalStorageByDBdata from "./useUpdateLocalStorageByData";
-import { useRouter } from "next/navigation";
+import handleMultipleConditions from "../functions/handleMultipleConditionsBadge";
 
 // localstorage에 저장하는 추측 값 어레이의 타입
 export interface JsonSimilarityType extends SimilarityType {
@@ -21,6 +22,7 @@ export function useHandleLocalstorage(result : SimilarityType | null){
     const { today, setTodayDateState, loadTodayDateState } = useTodayDateLocalstorage();
     const { playtime, setPlayTimeState, loadPlayTimeState } = usePlayTimeLocalstorage();
     const { isHintUsed, setHintState, loadHintState } = useHintLocalstorage();
+    const { nowUserData } = useUserData();
 
     // 커스텀 훅
     const getPlayTime = useGetPlayTime();
@@ -37,6 +39,34 @@ export function useHandleLocalstorage(result : SimilarityType | null){
 
     // 현재 사용자가 입력한 값의 데이터
     let [nowInputData, setNowInputData] = useState<JsonSimilarityType|null>(null);
+
+    /** 오늘의 정답을 맞힐 경우 실행되는 함수 */
+    async function ClearAnswer(guessedWord : (SimilarityType | JsonSimilarityType)){
+        if(winState === -1){
+            setWinState(1);
+            await getPlayTime(guessedWord, guesses);
+            // 최초로 클리어시 유령 꼬들꼬들 뱃지 획득
+            handleMultipleConditions(nowUserData, 2);
+            router.refresh();
+        }
+    }
+
+    /** 정답을 맞혔을때, index가 3 이하면 악마 뱃지 획득 */
+    async function setNewBadgeStatusByIndex(sortedGuesses :JsonSimilarityType[]){
+        const findAnswer = sortedGuesses.filter(item => item.rank === 0);
+        // rank가 0인 (정답인) 데이터가 존재한다면
+        if(findAnswer.length !== 0){
+            // 정답인 데이터의 index가 3 이하라면
+            if (
+                findAnswer[0] && 
+                (findAnswer[0].index !== undefined) && 
+                (findAnswer[0].index <= 3)
+            ){
+                // 악마 꼬들꼬들 뱃지 획득
+                await handleMultipleConditions(nowUserData, 4);
+            }
+        }
+    }
 
     useEffect(() => {
         if(!guesses){
@@ -106,11 +136,7 @@ export function useHandleLocalstorage(result : SimilarityType | null){
         if(guessedWord.query !== undefined && guessedWord.rank !== -1){
             // 추측한 단어가 정답일 때 winState 변경 
             if(guessedWord.rank === 0){
-                if(winState === -1){
-                    setWinState(1);
-                    getPlayTime(guessedWord, guesses);
-                    router.refresh();
-                }
+                ClearAnswer(guessedWord)
             }
 
             if(guesses){
@@ -123,11 +149,7 @@ export function useHandleLocalstorage(result : SimilarityType | null){
                     }
                     // 만약 어레이에 정답 객체가 있으면 winState 변경
                     if(pg.rank === 0){
-                        if(winState === -1){
-                            setWinState(1);
-                            getPlayTime(pg, guesses);
-                            router.refresh();
-                        }
+                        ClearAnswer(pg)
                     }
                 })
                 // 이전에 추측하지 않은 단어만 localstorage에 등록
@@ -136,8 +158,12 @@ export function useHandleLocalstorage(result : SimilarityType | null){
                 }
                 // 유사도 높은 순대로 정렬
                 sortedGuesses = sortedGuesses.sort((a, b) => b.similarity - a.similarity);
+
                 // store & localstorage에 등록
                 setGuessesState(sortedGuesses);
+
+                // 뱃지 상태 조절
+                setNewBadgeStatusByIndex(sortedGuesses);
             }
         }
 
