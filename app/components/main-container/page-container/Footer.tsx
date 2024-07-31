@@ -6,7 +6,7 @@ export default function FooterContainer(){
 
     return(
         <>
-            <div className="row w-100" style={{margin : 'auto', justifyContent : 'center', alignItems : 'center'}}>
+            <div className="row w-100 mt-5 mb-5" style={{margin : 'auto', justifyContent : 'center', alignItems : 'center'}}>
                 <div className="col-4 text-center">
                     <Link href="/QnA">
                         <FontAwesomeIcon icon={faQuestion} className="footer-icons" />

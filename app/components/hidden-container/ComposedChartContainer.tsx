@@ -6,7 +6,6 @@ import React from 'react';
 import { ComposedChart, Area, CartesianGrid, Tooltip, ResponsiveContainer, TooltipProps, YAxis, XAxis, Line, Legend, Bar } from 'recharts';
 import LoadingSpinner from '../loading-container/LoadingSpinner';
 import { AvgObjectByDateType } from '@/pages/api/get/count';
-
 // 데이터 색 정의
 
 const DataColor = {

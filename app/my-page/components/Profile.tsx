@@ -1,10 +1,11 @@
 import { cookies } from "next/headers";
 import './profile.css'
-import { getServerUserData } from '@/util/functions/getServerUserData';
+import { UserDataType } from '@/util/functions/getServerUserData';
 import LeftProfileContainer from './LeftProfileContainer';
 import RightBadgeArrContainer from "./RightBadgeArrContainer";
 
-export default async function ProfileContainer(){
+export default async function ProfileContainer({userdata} : {userdata : UserDataType | undefined}){
+
     // 다크모드 쿠키 불러오기
     let darkmode = cookies().get('mode') as {[ket :string] :string};
 
@@ -13,8 +14,6 @@ export default async function ProfileContainer(){
         darkmode = {mode : 'darkmode', value : 'light'};
     }
 
-    // 로그인 테스트
-    const userdata = await getServerUserData();
 
     // 사용자 이미지, 뱃지 설정
     const userEmail = userdata?.email;
