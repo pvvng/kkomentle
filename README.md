@@ -83,4 +83,6 @@
 #### ~6. 정답을 맞힌 직후 클리어 박스에 indexgusses가 -1로 표시된다. router.refresh 하면 정상적으로 보이긴 한다~
   - main page가 static rendering 중이어서 db 변경되는 값을 즉각적으로 반영하지 못해 발생하는 문제였다.
   - export const dynamic = 'force-dynamic'; 추가함으로서 main page를 dynamic rendering 시켜서 문제 해결
-#### **7. 랭크 페이지 구현하기**
+#### ~7. 랭크 페이지 구현하기~
+  - playtime 이 0일때 1000점, tryCount가 1일 때 1000 점으로 기준을 잡고, playtime이 10(분) 커질때마다 -1 점, trycount가 1 늘어날때마다 -1 점 해서 점수를 계산한다
+  - 점수가 높은 순서대로 20개 불러와서 리스트를 만든다
