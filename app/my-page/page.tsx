@@ -1,3 +1,5 @@
+export const dynamic = 'force-dynamic';
+
 import { getServerUserData } from "@/util/functions/getServerUserData";
 import Navbar from "../components/main-container/page-container/Navbar";
 import SaveSimilarWordsContainer from "../components/SaveSimilarWordsContainer";

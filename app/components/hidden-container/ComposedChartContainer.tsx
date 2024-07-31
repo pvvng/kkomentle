@@ -87,14 +87,14 @@ const CustomTooltip = (props: TooltipProps<any, any>) => {
         <p className='m-0'>
           나의 걸린 시간:&nbsp; 
           <span style={{color : DataColor.time}}>{time}&nbsp;</span>
-          분 (상위 {percentileTime}%)
+          분 (상위 {percentileTime !== 0 ? percentileTime : 1}%)
         </p>
         <hr className='m-0'/>
 
         <p className='m-0'>
           나의 시도 횟수:&nbsp; 
           <span style={{color : DataColor.tryCount}}>{tryCount}&nbsp;</span>
-          회 (상위 {percentileTry}%)
+          회 (상위 {percentileTry !== 0 ? percentileTry : 1}%)
         </p>
         <hr className='m-0'/>
 
