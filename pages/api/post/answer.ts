@@ -1,6 +1,7 @@
 import { connectDB } from "@/util/database";
 import { NextApiRequest, NextApiResponse } from "next";
 
+/** 내일의 정답 업데이트하는 API */
 export default async function handler (req :NextApiRequest, res :NextApiResponse){
     try {
         const db = (await connectDB).db('kkomentle');

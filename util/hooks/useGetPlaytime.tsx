@@ -2,6 +2,8 @@ import { usePlayTimeLocalstorage, useUserData } from "@/app/store";
 import moment from "moment-timezone";
 import { JsonSimilarityType } from "./useHandleLocalstorage";
 import axios from "axios";
+import { UserDataType } from "../functions/getServerUserData";
+import handleMultipleConditions from "../functions/handleMultipleConditionsBadge";
 
 /** 정답을 맞히거나 포기했을때 playtime을 계산하는 함수를 뱉는 커스텀 훅 */
 export default function useGetPlayTime(){
@@ -45,6 +47,10 @@ export default function useGetPlayTime(){
             }
             // db에 클리어 정보 업데이트
             let postPlayTime = await axios.post('/api/post/tryCount', putter);
+            // playtime이 10분 이하일 경우 악동 꼬들꼬들 뱃지 획득
+            if(playtime <= 10){
+                await handleMultipleConditions(nowUserData, 3);
+            }
         }  
     }
 

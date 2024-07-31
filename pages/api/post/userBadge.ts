@@ -1,32 +1,38 @@
 import { connectDB } from "@/util/database";
 import { NextApiRequest, NextApiResponse } from "next";
 
-/** 마이페이지 사용자 이름 변경 API */
+/** 사용자의 뱃지 보유 상태를 변경하는 API */
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
     if (req.method !== 'POST') {
         return res.status(405).json({ error: 'Method Not Allowed' });
     }
 
     try {
-        const newName: string = req.body.name;
+
+        // newValue : 바꿀 데이터 값, index : 바꿀 데이터 index number
+        const [newValue, index] : [boolean, number] = req.body.badgeArr;
         const userEmail: string = req.body.email;
 
-        if (!newName || !userEmail) {
-            return res.status(400).json({ error: 'Name and email are required' });
+        if (index < 0 || index > 4) {
+            return res.status(400).json({ error : 'not allowed number' });
         }
 
         const db = (await connectDB).db('kkomentle');
         const updateResult = await db.collection('userdata')
             .updateOne(
                 { email: userEmail },
-                { $set: { name: newName } }
+                { $set: {  [`badge.${index}`]: newValue } }
             );
 
         if (updateResult.matchedCount === 0) {
             return res.status(404).json({ error: 'User not found' });
         }
-        
-        res.redirect(302, '/my-page');
+
+        if (updateResult.modifiedCount === 0) {
+            return res.status(500).json({ error: 'Failed to update user' });
+        }
+
+        res.status(200).json('이미지 업데이트 완료');
     } catch (error) {
         console.error('Error updating user name:', error);
         res.status(500).json({ error: 'Internal Server Error' });
