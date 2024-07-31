@@ -1,8 +1,10 @@
 import { useEffect, useState } from "react";
 import { SimilarityType } from "../functions/rankSimilarity";
-import { useGuessesLocalstorage, usePlayTimeLocalstorage, useTodayDateLocalstorage, useUserData, useWinStateLocalstorage } from '@/app/store'
+import { useGuessesLocalstorage, useHintLocalstorage, usePlayTimeLocalstorage, useTodayDateLocalstorage, useWinStateLocalstorage } from '@/app/store'
 import moment from "moment-timezone";
-import axios from "axios";
+import useGetPlayTime from "./useGetPlaytime";
+import useUpdateLocalStorageByDBdata from "./useUpdateLocalStorageByData";
+import { useRouter } from "next/navigation";
 
 // localstorage에 저장하는 추측 값 어레이의 타입
 export interface JsonSimilarityType extends SimilarityType {
@@ -12,12 +14,20 @@ export interface JsonSimilarityType extends SimilarityType {
 /** localstorage에 기본 값을 세팅하거나, 사용자가 입력한 값을 넣는 커스텀 훅*/
 export function useHandleLocalstorage(result : SimilarityType | null){
 
+    const router = useRouter();
     // zustand store
     const { winState ,setWinState, loadWinState } = useWinStateLocalstorage();
     const { guesses, setGuessesState, loadGuessesState } = useGuessesLocalstorage();
     const { today, setTodayDateState, loadTodayDateState } = useTodayDateLocalstorage();
     const { playtime, setPlayTimeState, loadPlayTimeState } = usePlayTimeLocalstorage();
-    const { nowUserData } = useUserData();
+    const { isHintUsed, setHintState, loadHintState } = useHintLocalstorage();
+
+    // 커스텀 훅
+    const getPlayTime = useGetPlayTime();
+    const {
+        updateLocalStorageByDBdata, 
+        // updateDBDataByLocalstoreage
+    } = useUpdateLocalStorageByDBdata();
 
     // 사용자 디바이스의 시간을 한국시로 포맷하기
     // 현재 시간 암호화
@@ -27,41 +37,6 @@ export function useHandleLocalstorage(result : SimilarityType | null){
 
     // 현재 사용자가 입력한 값의 데이터
     let [nowInputData, setNowInputData] = useState<JsonSimilarityType|null>(null);
-
-    /** 정답을 맞췄을 때 playtime을 얻는 함수 */
-    async function getPlayTime(
-        /** 새롭게 등록되는 추측 단어 객체 */
-        guessedWord :JsonSimilarityType, 
-        /** 기존 localhost에 등록된 추측 단어 객체 어레이 */
-        guesses :JsonSimilarityType[] | null,
-    ){
-        let endTime = guessedWord.time || 0;
-
-        // 만약 guesses의 length 가 0일 경우에는 starttime이 undfiend가 되어 0이 될것이다.
-        // 이를 방지하기 위해 startTime이 undefiend 일 경우 endtime과 동일하게 만들어버린다.
-        let startTime = guesses?.filter(item => item.index === 1)[0]?.time || endTime;
-
-        let playtime = endTime - startTime;
-
-        // playtime store에 playtime 계산한 업데이트
-        setPlayTimeState(playtime);
-
-        let guessesLength = guesses?.length || 0;
-        let formattedDate = koreanNowDate.format('YYYY-MM-DD');
-
-        if(guessedWord !== undefined && guessesLength >= 0){
-            const putter = {
-                guessedWord : guessedWord.query,
-                date : formattedDate,
-                playtime : playtime,
-                try : guessesLength + 1,
-                isLogin : nowUserData === undefined ? 
-                undefined : nowUserData.email
-            }
-            // db에 클리어 정보 업데이트
-            let postPlayTime = await axios.post('/api/post/tryCount', putter);
-        }  
-    }
 
     useEffect(() => {
         if(!guesses){
@@ -76,6 +51,11 @@ export function useHandleLocalstorage(result : SimilarityType | null){
         if(!playtime){
             loadPlayTimeState();
         }
+        if(!isHintUsed){
+            loadHintState();
+        }
+        // 유저가 로그인 한 상태이고, db에 데이터가 존재하면 그걸로 업데이트 시키기
+        updateLocalStorageByDBdata();
     }, []);
 
     useEffect(() => {
@@ -87,8 +67,17 @@ export function useHandleLocalstorage(result : SimilarityType | null){
             setTodayDateState(now);
             setWinState(-1);
             setPlayTimeState(0);
+            setHintState(false);
+            // 유저가 로그인 한 상태이고, db에 데이터가 존재하면 그걸로 업데이트 시키기
+            updateLocalStorageByDBdata();
+        }else{
+
         }
     }, [today])
+
+    // useEffect(() => {
+    //     updateDBDataByLocalstoreage();
+    // },[winState, guesses])
 
     useEffect(() => {
         // 기본 값 정의
@@ -120,6 +109,7 @@ export function useHandleLocalstorage(result : SimilarityType | null){
                 if(winState === -1){
                     setWinState(1);
                     getPlayTime(guessedWord, guesses);
+                    router.refresh();
                 }
             }
 
@@ -136,6 +126,7 @@ export function useHandleLocalstorage(result : SimilarityType | null){
                         if(winState === -1){
                             setWinState(1);
                             getPlayTime(pg, guesses);
+                            router.refresh();
                         }
                     }
                 })
@@ -160,4 +151,3 @@ export function useHandleLocalstorage(result : SimilarityType | null){
 
     return { nowInputData }; 
 }
-

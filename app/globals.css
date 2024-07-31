@@ -234,6 +234,78 @@ body .main-container{
       font-size: 12px;
   }
 }
+.refresh-btn svg{
+  transition: all 1s;
+}
+
+.refresh-btn svg:hover{
+  transform: rotate(360deg);
+}
+
+.footer-icons{
+  transition: all 0.3s;
+  text-decoration: none;
+  width: 50px;
+  height: 50px;
+
+  @media screen and (max-width : 470px) {
+    width: 40px;
+    height: 40px;  
+  }
+  @media screen and (max-width : 380px) {
+    width: 30px;
+    height: 30px;  
+  }
+}
+
+.footer-icons:hover{
+  color : #063d8f;
+}
+
+.footer-icons:focus{
+  color : #063d8f;
+}
+
+.speech-bubble {
+  position: relative;
+  background: #fbe300; /* 버블 배경색 */
+  color: #3b1e1e;
+  border-radius: 10px; /* 버블의 둥근 모서리 */
+  padding: 5px 10px; /* 버블 안의 여백 */
+  max-width: 200px; /* 버블의 최대 너비 */
+  font-size: 14px; /* 텍스트 크기 */
+}
+
+.speech-bubble::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 100%;
+  transform: translateY(-50%);
+  border-width: 5px;
+  border-style: solid;
+  border-color: transparent transparent transparent #fbe300;
+}
+
+.speech-bubble {
+  font-size: 14px;
+  @media screen and (max-width : 470px) {
+    border-radius: 0px;
+    font-size: 12px;
+  }
+  @media screen and (max-width : 380px) {
+    border-radius: 0px;
+    font-size: 10px;
+  }
+}
+
+.kakao-btn{
+  width : 60px;
+  height: auto;
+  @media screen and (max-width : 380px) {
+    width : 55px;
+  }
+}
 
 @media only screen and (max-width: 640px) {
     body, input, button {

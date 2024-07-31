@@ -1,18 +1,20 @@
 'use client'
 
 import rankSimilarity, { SimilarityType } from "@/util/functions/rankSimilarity";
+import { useEffect } from "react";
+import { useNowMode, useSettingState, useWinStateLocalstorage } from "@/app/store";
+import { useRouter } from "next/navigation";
 import { useQuery } from "@tanstack/react-query";
 import Link from "next/link";
 import LoadingSpinner from "@/app/components/loading-container/LoadingSpinner";
-import { useEffect } from "react";
-import { useNowMode, useSettingState } from "@/app/store";
-import { useRouter } from "next/navigation";
 
 export default function GetSimilarlityContainer({darkmode} : {darkmode : {[key :string] :string}}){
 
     const { setSettingState }  = useSettingState();
+    const { winState } = useWinStateLocalstorage();
     const { setNowMode } = useNowMode();
     const router = useRouter();
+
 
     useEffect(() => {
         // cookie로 다크모드 여부를 확인하지 못했을 때
@@ -30,7 +32,7 @@ export default function GetSimilarlityContainer({darkmode} : {darkmode : {[key :
                 setSettingState({ darkmode : false });
             }
         }
-    },[darkmode])
+    },[darkmode, router, setNowMode, setSettingState])
 
     // react-query를 이용해서 db에 있는 rankSimilarity 데이터를 불러오고 이를 캐싱함
     // 이를 통해 매번 input 값을 입력할 때마다 새롭게 rankSimilarity 데이터를 불러오는 것을 해소함
@@ -51,6 +53,21 @@ export default function GetSimilarlityContainer({darkmode} : {darkmode : {[key :
     const filterdArr = rankSimilarityArr.filter(
         item => typeof item?.rank === 'number' && item?.rank <= 1000
     );
+
+    if(winState === -1) return (
+        <div style={{
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'center',
+            alignItems: 'center',
+            height: '100vh', // 전체 화면 높이를 사용
+            textAlign: 'center' // 텍스트 중앙 정렬
+        }}>
+            <img src="꼬들꼬들마스코트.png" width="100%" height="auto" alt="LOGO" />
+            <h1 className="text-center">접근 권한이 없는 페이지에요</h1>
+        </div>
+    )
+
     return(
         <div className="p-2">
             <p className="text-center">

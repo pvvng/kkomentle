@@ -56,10 +56,12 @@ export default function InputContainer(props :TodayIndexType){
                 winState !== -1 &&
                 <ClearBoxContainer {...props} />
             }
-            <TableContainer result={result} />
+            <div style={{minHeight : '360px'}}>
+                <TableContainer result={result} />
+            </div>
             {
                 winState === -1 &&
-                <GaveUpButtonContainer />
+                <GaveUpButtonContainer tenQuery={props.tenQuery} />
             }
         </div>
     )

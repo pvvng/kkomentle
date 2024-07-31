@@ -15,6 +15,7 @@ export interface TodayIndexType {
     tomarrow : string;
     index : number;
     darkmode : {[key :string] :string};
+    tenQuery : string;
 }
 
 interface PropsType {
@@ -40,7 +41,7 @@ export default function MainContainer({darkmode, userdata} : PropsType){
     // userdata store에 저장
     useEffect(() => {
         setNowUserData(userdata);
-    },[userdata])
+    },[userdata, setNowUserData])
 
     if(isError) return <p className="text-center">에러가 발생했습니다. 잠시 후 시도해주세요.</p>
     
@@ -78,10 +79,13 @@ export default function MainContainer({darkmode, userdata} : PropsType){
                 } 
                 &nbsp;입니다.
             </p>
+
             {
                 todayIndex !== undefined ?
                 <InputContainer {...todayIndex} />:
-                <LoadingSpinner/>
+                <div style={{minHeight : '500px'}}>
+                    <LoadingSpinner />
+                </div>
             }
         </>
 

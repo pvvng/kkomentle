@@ -34,7 +34,7 @@ export function KakaoSignInBtn (){
 export function SignInBtn ({darkmode} : {darkmode : {[ket :string] :string}}){
     return <button 
     className={
-        darkmode.value === 'dark'?
+        darkmode.value === 'dark' || darkmode.mode === 'dark'?
         "border-1 rounded-1 pt-1 pb-1 sign-btn dark-mode-input-and-btn":
         "border-1 rounded-1 pt-1 pb-1 sign-btn"
     } 

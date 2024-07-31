@@ -4,14 +4,14 @@
     "icons":[
         {
             "purpose":"any maskable",
-            "sizes":"512x512",
-            "src":"icon512_maskable.png",
+            "sizes":"192x192",
+            "src":"icon192_maskable.png",
             "type":"image/png"
         },
         {
             "purpose":"any maskable",
-            "sizes":"192x192",
-            "src":"icon192_maskable.png",
+            "sizes":"512x512",
+            "src":"icon512_maskable.png",
             "type":"image/png"
         }
     ],
@@ -23,6 +23,6 @@
     "scope":"/",
     "short_name":"꼬들꼬들",
     "name":"꼬들꼬들 - 단어 유사도 추측 게임",
-    "description":"단어 유사도를 바탕으로 정답 단어를 맞춰보세요!"
-    ,"id":"kkodle-kkodle"
+    "description":"단어 유사도를 바탕으로 정답 단어를 맞춰보세요!",
+    "id":"kkodle-kkodle"
 }

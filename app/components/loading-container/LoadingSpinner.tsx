@@ -18,7 +18,7 @@ export default function LoadingSpinner(){
             </div>
             <p 
                 className="text-center mt-3"
-                style={{ color : nowMode.mode === 'dark' ? 'white' : 'dark' }}
+                style={{ color : nowMode.mode === 'dark' ? 'white' : 'black' }}
             >로딩 중 입니다.</p>
         </>
     )

@@ -1,9 +1,8 @@
-import Footer from "./components/main-container/page-container/Footer";
 import Header from "./components/main-container/under-main-container.tsx/Header";
 import SettingAlertContainer from "./components/main-container/page-container/SettingAlertContainer";
 import Navbar from "./components/main-container/page-container/Navbar";
 import MainContainer from "./components/main-container/page-container/MainContainer";
-import SaveSimilarWordsContainer from "./components/SaveSimilarWordsContainer";
+import FooterContainer from "./components/main-container/page-container/Footer";
 import { cookies } from "next/headers";
 import { getServerUserData, UserDataType } from "@/util/functions/getServerUserData";
 
@@ -17,12 +16,12 @@ export default async function Home() {
   return (
     <>
       <Navbar />
-      {/* <SaveSimilarWordsContainer /> */}
       <SettingAlertContainer />  
       <div className="main-container">
         <Header />
         <MainContainer darkmode={darkmode} userdata={userdata} />
-        <Footer />
+        <hr/>
+        <FooterContainer />
       </div>
     </>
   );

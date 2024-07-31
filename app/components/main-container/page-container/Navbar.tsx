@@ -2,6 +2,7 @@ import Image from "next/image";
 import { SignInBtn, SignOutBtn } from "./SignBtn";
 import { cookies } from "next/headers";
 import { getServerUserData } from "@/util/functions/getServerUserData";
+import Link from "next/link";
 
 export default async function Navbar(){
     // 다크모드 쿠키 불러오기
@@ -19,7 +20,7 @@ export default async function Navbar(){
         <>
             <div className="text-center p-2">
                 <div className="w-100 row" style={{maxWidth:'640px', margin : 'auto', justifyContent : 'center', alignItems : 'center'}}>
-                <a className="col-6 text-start" href="https://github.com/pvvng/kkomentle" target="_blank">
+                <Link className="col-6 text-start" href="/">
                     <Image 
                         src='/꼬들꼬들마스코트.png' 
                         alt="꼬들꼬들" 
@@ -27,7 +28,7 @@ export default async function Navbar(){
                         height="48" 
                         priority
                     />
-                </a>
+                </Link>
                 <div className="col-6 text-end">
                     {
                         !userdata?

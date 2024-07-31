@@ -6,9 +6,9 @@ export default async function handler (req :NextApiRequest, res :NextApiResponse
         const db = (await connectDB).db('kkomentle');
         const postAnswerResult = await db.collection('answer').insertOne(req.body);
 
-        return res.status(200).json('오늘의 정답 업데이트 완료');
+        return res.status(200).json(postAnswerResult);
     } catch (error) {
-        console.error('오늘의 정답 업데이트 중 에러 발생:', error);
-        return res.status(500).json('서버 오류: 오늘의 정답 업데이트 실패');
+        console.error('내일의 정답 업데이트 중 에러 발생:', error);
+        return res.status(500).json('서버 오류로 내일의 정답 업데이트 실패');
     }
 }
