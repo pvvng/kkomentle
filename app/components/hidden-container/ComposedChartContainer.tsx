@@ -111,7 +111,7 @@ const CustomTooltip = (props: TooltipProps<any, any>) => {
   return null;
 };
 
-async function fetchGraphData(): Promise<AvgObjectByDateType[] | undefined> {
+export async function fetchGraphData(): Promise<AvgObjectByDateType[] | undefined> {
   try {
     const result = await axios.get('/api/get/count');
     return result.data as AvgObjectByDateType[];
