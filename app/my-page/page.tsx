@@ -8,8 +8,6 @@ export default async function MyPage(){
     // 로그인 테스트
     const userdata = await getServerUserData();
 
-    console.log(userdata);
-
     return (
         <>
             <Navbar />
