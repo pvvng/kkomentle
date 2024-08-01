@@ -1,14 +1,17 @@
 'use client'
 
 import Link from "next/link";
-import { useNowMode, useUserData, useWinStateLocalstorage } from "@/app/store";
 import copyToClipboard from "@/util/functions/copyToClipboard";
 import useGetClipBoardText from "@/util/hooks/useGetClipBoardText";
-import { TodayIndexType } from "../main-container/page-container/MainContainer";
 import ComposedChartContainer from "./ComposedChartContainer";
-import { SignInBtn } from "../main-container/page-container/SignBtn";
 import KakaoShare from "./KakaoShareBtn";
-import RefreshBtnContainer from "../main-container/under-main-container.tsx/RefreshBtnContainer";
+import { TodayIndexType } from "../main-container/page-container/MainContainer";
+import { SignInBtn } from "../main-container/page-container/SignBtn";
+import { lazy, Suspense } from "react";
+import { useNowMode, useUserData, useWinStateLocalstorage } from "@/app/store";
+import { SuspenseLoadingContainer } from "../loading-container/LoadingSpinner";
+
+const RefreshBtnContainer = lazy(() => import("../main-container/under-main-container.tsx/RefreshBtnContainer"));
 
 export default function ClearBoxContainer(props :TodayIndexType){
 
@@ -48,6 +51,7 @@ export default function ClearBoxContainer(props :TodayIndexType){
             <p className="m-0 mt-3 mb-3">{props.index + 1}번째 꼬들꼬들은 오늘 밤 자정(한국 시간 기준)에 열립니다.</p>
             <KakaoShare />
             <hr/>
+
             <div className="fw-bold mb-2">
                 <p className="m-0 mb-1 fst-italic">
                     <img src="꼬들꼬들마스코트.png" width = "20px" height="auto" alt="Logo"/>
@@ -66,6 +70,7 @@ export default function ClearBoxContainer(props :TodayIndexType){
                 }
             </div>
             <hr/>
+
             <div className="fw-bold">
                 <p className="m-0 mb-1 fst-italic">
                     <img src="꼬들꼬들마스코트.png" width = "20px" height="auto" alt="Logo"/>
@@ -73,8 +78,13 @@ export default function ClearBoxContainer(props :TodayIndexType){
                 </p>
                 {
                     nowUserData !== undefined?
-                    <ComposedChartContainer />:
-                    <><SignInBtn darkmode = {nowMode} /><span>{' '}하고 확인하기</span></>
+                    <Suspense fallback={<SuspenseLoadingContainer height={350} />}>
+                        <ComposedChartContainer />
+                    </Suspense>:
+                    <>
+                        <SignInBtn darkmode = {nowMode} />
+                        <span>{' '}하고 확인하기</span>
+                    </>
                 }
             </div>
         </div>

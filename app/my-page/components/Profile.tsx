@@ -1,8 +1,8 @@
-import { cookies } from "next/headers";
 import './profile.css'
 import LeftProfileContainer from './LeftProfileContainer';
 import RightBadgeArrContainer from "./RightBadgeArrContainer";
 import { UserDataType } from "@/util/functions/getServerUserData";
+import { cookies } from "next/headers";
 
 export default async function ProfileContainer({userdata} : {userdata : UserDataType | undefined}){
 
@@ -20,7 +20,18 @@ export default async function ProfileContainer({userdata} : {userdata : UserData
     const userImageStatus = userdata?.image;
     const userBadgeStatus = userdata?.badge;
 
-    if(userdata === undefined) return <h2 className='text-center'>로그인 후 이용 가능한 페이지에요.</h2>
+    if(userdata === undefined) return (
+        <div 
+            className='row w-100' 
+            style={{
+                margin : 'auto', 
+                justifyContent :'center', 
+                alignItems : 'center',
+                height : '500px'
+            }}>
+            <p className='text-center'>로그인 후 이용 가능한 페이지에요.</p>
+        </div>    
+    )
 
     return (
         <form action="/api/post/username" method="POST">
