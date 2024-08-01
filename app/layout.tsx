@@ -33,6 +33,7 @@ export default function RootLayout({
       <head>
         <title>꼬들꼬들</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+        <link rel="preconnect" href="https://fastly.jsdelivr.net"/>
         <link rel='manifest' href='/manifest.json' />
         <link rel="apple-touch-startup-image" media="screen and (device-width: 430px) and (device-height: 932px) and (-webkit-device-pixel-ratio: 3) and (orientation: landscape)" href="splash_screens/iPhone_15_Pro_Max__iPhone_15_Plus__iPhone_14_Pro_Max_landscape.png"/>
         <link rel="apple-touch-startup-image" media="screen and (device-width: 393px) and (device-height: 852px) and (-webkit-device-pixel-ratio: 3) and (orientation: landscape)" href="splash_screens/iPhone_15_Pro__iPhone_15__iPhone_14_Pro_landscape.png"/>

@@ -1,11 +1,16 @@
 'use client'
 
 import useQueryAnswerChecker from "@/util/hooks/useQueryAnswerChecker";
-import TableContainer from "../table-container/TableContainer";
-import ClearBoxContainer from "../../hidden-container/ClearBoxContainer";
-import GaveUpButtonContainer from "./GaveUpButtoncontainer";
 import { useNowMode, useWinStateLocalstorage } from "../../../store";
 import { TodayIndexType } from "../page-container/MainContainer";
+import { lazy, Suspense } from "react";
+import LoadingSpinner, { SuspenseLoadingContainer } from "../../loading-container/LoadingSpinner";
+
+// Lazy load components
+const ClearBoxContainer = lazy(() => import("../../hidden-container/ClearBoxContainer"));
+const GaveUpButtonContainer = lazy(() => import("./GaveUpButtoncontainer"));
+const TableContainer = lazy(() => import("../table-container/TableContainer"));
+
 
 export default function InputContainer(props :TodayIndexType){
 
@@ -23,6 +28,7 @@ export default function InputContainer(props :TodayIndexType){
     return(
         <div className="row w-100" style={{margin : 'auto'}}>
             <input 
+                id="get-user-text"
                 ref={inputRef}
                 onKeyDown={(e) => handleKeyPress(e)}
                 maxLength={5}
@@ -50,18 +56,25 @@ export default function InputContainer(props :TodayIndexType){
             >
                 추측하기
             </button>
+            {/* <SuspenseLoadingContainer height = {350} /> */}
+
             {
-                winState === null?
-                null:
-                winState !== -1 &&
-                <ClearBoxContainer {...props} />
+                winState === null ? null :
+                    winState !== -1 &&
+                    <Suspense fallback={<SuspenseLoadingContainer height = {350} />}>
+                        <ClearBoxContainer {...props} />
+                    </Suspense>
             }
-            <div style={{minHeight : '360px'}}>
-                <TableContainer result={result} />
+            <div style={{ minHeight: '360px' }}>
+                <Suspense fallback={<div className="text-center"><SuspenseLoadingContainer height = {350}/></div>}>
+                    <TableContainer result={result} />
+                </Suspense>
             </div>
             {
                 winState === -1 &&
-                <GaveUpButtonContainer tenQuery={props.tenQuery} />
+                <Suspense fallback={<div className="text-center"><SuspenseLoadingContainer height = {350} /></div>}>
+                    <GaveUpButtonContainer tenQuery={props.tenQuery} />
+                </Suspense>
             }
         </div>
     )
