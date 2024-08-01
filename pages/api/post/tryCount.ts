@@ -9,6 +9,7 @@ interface BodyType {
     playtime: number;
     try: number;
     isLogin: string | undefined;
+    isGaveup : boolean;
 }
 
 /** 사용자의 승리 상태, 최대 기록 변경하는 API */
@@ -71,18 +72,22 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             }
         }
 
-        try {
-            // try count db에 업로드
-            await db.collection('try-count').insertOne({
-                ...putter,
-                _id: new ObjectId(),
-            });
-        } catch (error) {
-            console.error('Error inserting try-count data:', error);
-            return res.status(500).json({ error: 'Data insertion failed' });
+        // 정답을 맞혔을때만 시행
+        if(!putter.isGaveup){
+            try {
+                // try count db에 업로드
+                await db.collection('try-count').insertOne({
+                    ...putter,
+                    _id: new ObjectId(),
+                });
+            } catch (error) {
+                console.error('Error inserting try-count data:', error);
+                return res.status(500).json({ error: 'Data insertion failed' });
+            }
         }
 
         return res.status(200).json('db업데이트 완료');
+
     } catch (error) {
         console.error('Database update error:', error);
         return res.status(500).json({ error: 'Internal Server Error' });

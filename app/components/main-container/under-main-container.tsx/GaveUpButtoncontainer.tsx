@@ -69,22 +69,6 @@ export default function GaveUpButtonContainer({tenQuery} : {tenQuery :string}){
                     onClick={handleUseHint}
                 >{!isHintUsed ? '힌트 사용' : '힌트 다시 확인'}</button>
             </div>
-            {/* <a 
-                href="https://newsjel.ly/archives/newsjelly-report/data-storytelling/14842?utm_source=semantle_ko&utm_medium=bottom_banner"
-                target="_blank"
-                className="col-4"
-            >
-                <div 
-                    style={{
-                        backgroundImage : 'url(/banner-image.png)', 
-                        backgroundRepeat: 'no-repeat', 
-                        backgroundPosition:'center center',
-                        backgroundSize : 'cover',
-                        height  : '100%'
-                    }}
-                >
-                </div>
-            </a> */}
         </div>
     )
 }
