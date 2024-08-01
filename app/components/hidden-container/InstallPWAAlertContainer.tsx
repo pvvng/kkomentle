@@ -1,6 +1,6 @@
 'use client'
 
-import { faDownload } from '@fortawesome/free-solid-svg-icons';
+import { faArrowUpFromBracket, faDownload, faSquarePlus } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useEffect, useState } from 'react';
 
@@ -84,14 +84,19 @@ export default function InstallPWAAlertContainer() {
             {/* IOS 아닌 디바이스에 대한 install prompt */}
             {showInstallPrompt && (
                 <div className="install-banner">
-                <button onClick={handleInstallClick}>꼬들꼬들을 지금 다운로드 받아보세요!</button>
+                    <button onClick={handleInstallClick}>
+                        지금 꼬들꼬들 다운하기{' '}
+                        <FontAwesomeIcon icon={faDownload} />
+                    </button>
                 </div>
             )}
             {/* IOS인 디바이스에 대한 install prompt */}
             {showiOSPrompt && (
                 <div className="ios-install-banner">
-                <p>꼬들꼬들을 지금 다운로드 받아보세요!</p>
-                    <FontAwesomeIcon icon={faDownload} />
+                <p>
+                    앱 다운로드를 원하신다면 
+                    <strong>공유 아이콘{' '}</strong><FontAwesomeIcon icon={faArrowUpFromBracket} />{' '}을 클릭하고, 
+                    <strong>홈화면에 추가{' '}</strong><FontAwesomeIcon icon={faSquarePlus} />{' '}를 클릭하세요!</p>
                 </div>
             )}
         </div>
