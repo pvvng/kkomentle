@@ -39,7 +39,7 @@ export default async function fetchNewBadgeStatus(nowUserData: UserDataType | un
                 if (response.status === 200) {
                     switch (badgeNumber) {
                         case 0:
-                            alert('기본 꼬들꼬들 뱃지를 획득했어요!');
+                            alert('꼬들꼬들 뱃지를 획득했어요!');
                             break;
                         case 1:
                             alert('별 꼬들꼬들 뱃지를 획득했어요!');

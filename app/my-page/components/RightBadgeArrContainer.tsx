@@ -4,7 +4,6 @@ import { BadBoyBadge, DefaultBadge, GhostBadge, KingBadge, StarBadge } from "@/a
 import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
 import { useRouter } from "next/navigation";
 import axios from "axios";
-import { useState } from "react";
 
 interface PropsType {
     userEmail : string|undefined;

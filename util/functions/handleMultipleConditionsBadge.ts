@@ -3,6 +3,12 @@ import { UserDataType } from './getServerUserData';
 
 /** fetchNewBadgeStatus 함수의 병렬적 통신 처리를 위한 함수 */
 export default async function handleMultipleConditions(nowUserData: UserDataType | undefined, badgeNumber: number) {
+
+    // 로그인 하지 않은 유저일 경우 빈 값 반환
+    if(nowUserData === undefined){
+        return null;
+    }
+
     const requests = [];
 
     switch (badgeNumber) {

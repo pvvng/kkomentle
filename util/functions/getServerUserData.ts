@@ -76,6 +76,7 @@ export async function getServerUserData(): Promise<UserDataType | undefined> {
       };
       await db.collection('userdata').insertOne(newUser);
       console.log('회원가입 성공!');
+      alert('꼬들꼬들 뱃지를 획득했어요!');
       return newUser;
     } catch (error) {
       // 에러처리
