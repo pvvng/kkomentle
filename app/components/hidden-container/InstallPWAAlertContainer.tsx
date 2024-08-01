@@ -1,6 +1,6 @@
 'use client'
 
-import { faArrowUpFromBracket, faDownload, faSquarePlus } from '@fortawesome/free-solid-svg-icons';
+import { faArrowUpFromBracket, faDownload, faSquarePlus, faX } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useEffect, useState } from 'react';
 
@@ -18,6 +18,8 @@ export default function InstallPWAAlertContainer() {
     const [isiOS, setIsiOS] = useState<boolean>(false);
     // IOS prompt 보여주는 상태
     const [showiOSPrompt, setShowiOSPrompt] = useState<boolean>(false);
+    // 사용자가 더블클릭시 prompt 닫는 상태
+    const [isOnDoubleClick, setIsOnDoubleClick] = useState<boolean>(false);
 
     useEffect(() => {
         // 이용자 디바이스
@@ -73,7 +75,7 @@ export default function InstallPWAAlertContainer() {
                 console.log('User dismissed the A2HS prompt');
             }
 
-            // 설치 prompt 관련 상태 초기회
+            // 설치 prompt 관련 상태 초기화
             setDeferredPrompt(null);
             setShowInstallPrompt(false);
         }
@@ -82,22 +84,32 @@ export default function InstallPWAAlertContainer() {
     return (
         <div>
             {/* IOS 아닌 디바이스에 대한 install prompt */}
-            {showInstallPrompt && (
-                <div className="install-banner">
+            {(showInstallPrompt && !isOnDoubleClick) && (
+                <div className="install-banner"
+                    onDoubleClick={() => {
+                        setIsOnDoubleClick(true);
+                    }}
+                >
                     <button onClick={handleInstallClick}>
                         지금 꼬들꼬들 다운하기{' '}
                         <FontAwesomeIcon icon={faDownload} />
                     </button>
+                    <p className='m-0 mt-2 quit-text'>(더블 클릭해서 창 닫기)</p>
                 </div>
             )}
             {/* IOS인 디바이스에 대한 install prompt */}
-            {showiOSPrompt && (
-                <div className="ios-install-banner">
-                    <p className='m-0'>
-                        <p className='m-0'>앱 다운로드를 원하신다면?</p>
-                        <p className='m-0'><strong>공유 아이콘{' '}</strong><FontAwesomeIcon icon={faArrowUpFromBracket} />{' '}을 클릭하고,</p> 
-                        <p className='m-0'><strong>홈화면에 추가{' '}</strong><FontAwesomeIcon icon={faSquarePlus} />{' '}를 클릭하세요!</p>
-                    </p>
+            {(showiOSPrompt && !isOnDoubleClick) && (
+                <div className="ios-install-banner"
+                    onDoubleClick={() => {
+                        setIsOnDoubleClick(true);
+                    }}
+                >
+                    <div className='m-0 col-12'>
+                        <p className='m-1 fw-bold'>앱 다운로드를 원하시나요?</p>
+                        <p className='m-0 ios-install-banner-explain'><FontAwesomeIcon icon={faArrowUpFromBracket} />{' '}<strong>공유 아이콘{' '}</strong>을 클릭하고,</p> 
+                        <p className='m-0 ios-install-banner-explain'><FontAwesomeIcon icon={faSquarePlus} />{' '}<strong>홈화면에 추가{' '}</strong>를 클릭하세요!</p>
+                        <p className='mt-2 quit-text'>(더블 클릭해서 창 닫기)</p>
+                    </div>
                 </div>
             )}
         </div>

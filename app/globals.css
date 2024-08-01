@@ -323,10 +323,13 @@ body .main-container{
   bottom: 0;
   width: 100%;
   background: #f8f9fa;
-  padding: 10px;
+  padding: 15px;
   text-align: center;
-  box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 -5px 10px rgba(0, 0, 0, 0.1);
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
   z-index: 2000;
+  cursor: pointer;
 }
 
 .install-banner button {
@@ -346,13 +349,24 @@ body .main-container{
 
 .ios-install-banner p {
   margin: 0;
-  padding-right: 10px;
 }
 
-.ios-install-banner img {
-  display: inline;
+.ios-install-banner-explain{
+  font-size: 14px;
 }
 
+.quit-text{
+  font-size: 12px;
+  color: rgb(59, 59, 59);
+}
+
+.d-none{
+  display: none;
+}
+
+d-block{
+  display: block;
+}
 
 @media only screen and (max-width: 640px) {
     body, input, button {
