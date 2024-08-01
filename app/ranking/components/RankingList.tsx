@@ -8,6 +8,8 @@ import { useQuery } from "@tanstack/react-query";
 import { getImage } from '@/app/components/badge-container/getBadgeImageContainer';
 import { useState } from "react";
 import { UserDataType } from "@/util/functions/getServerUserData";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCrown } from "@fortawesome/free-solid-svg-icons";
 
 interface PropsType{
     darkmode : {[key :string] :string};
@@ -33,8 +35,6 @@ export default function RankingListContainer({darkmode, userdata} : PropsType){
         userEmail = userdata.email;
     }
 
-    console.log(userEmail)
-
     let [refetchState, setRefetchState] = useState(0);
     // 웹 라이트모드 / 다크모드 설정
     useSetModeCookie(darkmode);
@@ -53,6 +53,7 @@ export default function RankingListContainer({darkmode, userdata} : PropsType){
 
     return(
         <>
+            <h2 className='text-center'>{formattedTodayDate} 랭킹</h2>
             {/* react query 종속성 변경해서 data refetch 하는 버튼 */}
             <button 
                 className={
@@ -67,7 +68,8 @@ export default function RankingListContainer({darkmode, userdata} : PropsType){
                     <path d="M8 4.466V.534a.25.25 0 0 1 .41-.192l2.36 1.966c.12.1.12.284 0 .384L8.41 4.658A.25.25 0 0 1 8 4.466"/>
                 </svg>
             </button>
-            <h2 className='text-center'>{formattedTodayDate} 랭킹</h2>
+            <div style={{clear : 'both'}}></div>
+            <hr/>
             {data.map((d, i) => 
                 <div key={d._id + d.name + i} 
                     className="w-100 border rounded p-2 mt-2 row text-center" 
@@ -76,9 +78,7 @@ export default function RankingListContainer({darkmode, userdata} : PropsType){
                         justifyContent : 'center', 
                         alignItems : 'center',
                         background : 
-                        i === 0 || 
-                        i === 1 || 
-                        i === 2 ? 
+                        (i === 0 || i === 1 || i === 2) ? 
                         'linear-gradient(25deg, rgba(33,110,255,1) 0%, rgba(41,235,184,1) 49%, rgba(0,212,255,1) 100%)': 
                         'none',
                     }}
@@ -86,7 +86,11 @@ export default function RankingListContainer({darkmode, userdata} : PropsType){
                     <div className='col-4'>
                         <div>
                             <span className="fw-bold">
-                                {i + 1}등&nbsp;
+                                {
+                                    (i === 0 || i === 1 || i === 2 )? 
+                                    <FontAwesomeIcon icon={faCrown} />:
+                                    <span>{i + 1}등</span>
+                                }
                             </span>
                         </div>
                         <div style={{width : '70%', margin : 'auto'}}>

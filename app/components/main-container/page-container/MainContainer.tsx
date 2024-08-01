@@ -1,13 +1,15 @@
 'use client'
 
 import { useQuery } from "@tanstack/react-query";
-import { useEffect } from "react";
+import { lazy, Suspense, useEffect } from "react";
 import { useUserData } from "@/app/store";
 import { UserDataType } from "@/util/functions/getServerUserData";
-import InputContainer from "../under-main-container.tsx/InputContainer";
-import LoadingSpinner from "../../loading-container/LoadingSpinner";
 import fetchMainContentData from "@/util/functions/fetchMainContentData";
 import useSetModeCookie from "@/util/hooks/useSetModeCookie";
+import LoadingSpinner, { SuspenseLoadingContainer } from "../../loading-container/LoadingSpinner";
+
+// Lazy load components
+const InputContainer = lazy(() => import('../under-main-container.tsx/InputContainer'));
 
 export interface TodayIndexType {
     word : string;
@@ -31,7 +33,7 @@ export default function MainContainer({darkmode, userdata} : PropsType){
     useSetModeCookie(darkmode);
     
     // 컴포넌트에 필요한 데이터 리액트 쿼리로 불러오기
-    const {data, isError} = useQuery({
+    const {data, isLoading, isError} = useQuery({
         queryKey : ['content'],
         queryFn : () => fetchMainContentData(darkmode)
     })
@@ -81,11 +83,20 @@ export default function MainContainer({darkmode, userdata} : PropsType){
             </p>
 
             {
-                todayIndex !== undefined ?
-                <InputContainer {...todayIndex} />:
-                <div style={{minHeight : '500px'}}>
-                    <LoadingSpinner />
-                </div>
+                isLoading ? (
+                    <div style={{minHeight : '500px'}}><LoadingSpinner height={500} /></div>
+                ) : (
+                    <div>
+                    {/* <Suspense fallback={
+                        <div className="text-center" style={{minHeight : '500px'}}>
+                            <SuspenseLoadingContainer />
+                        </div>
+                    }> */}
+                        {/* data가 존재할 때만 InputContainer 렌더링 */}
+                        {todayIndex && <InputContainer {...todayIndex} />}
+                    {/* </Suspense> */}
+                    </div>
+                )
             }
         </>
 

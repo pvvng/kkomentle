@@ -7,6 +7,7 @@ import MainContainer from "./components/main-container/page-container/MainContai
 import FooterContainer from "./components/main-container/page-container/Footer";
 import { cookies } from "next/headers";
 import { getServerUserData, UserDataType } from "@/util/functions/getServerUserData";
+import InstallPWAAlertContainer from "./components/hidden-container/InstallPWAAlertContainer";
 
 export default async function Home() {
 
@@ -17,6 +18,7 @@ export default async function Home() {
 
   return (
     <>
+      <InstallPWAAlertContainer />
       <Navbar />
       <SettingAlertContainer />  
       <div className="main-container">
