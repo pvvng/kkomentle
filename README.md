@@ -58,7 +58,8 @@
 > 
 > 해결되지 않은 문제는 **굵게** 표시
 
-#### **1. 웹, PWA 처음 실행할 때, 흰 화면이 1~3초 정도 지속된다.**
+#### ~1. 웹, PWA 처음 실행할 때, 흰 화면이 1~3초 정도 지속된다.~
+  - splash screen을 추가했다.
 #### **2. 모바일에서 input 클릭 시 자동 확대되는 문제.**
 #### ~3. 나의 플레이 기록에서 상위 백분위 몇펀지 계산해서 보여주고, kakao로 공유할 수 있도록 하기.~
   - kakao 공유하기 기능 구현 완료
@@ -79,7 +80,8 @@
     > 
     > 악마 : 3트 안에 클리어시 지급
 #### **5. 로그인 전 localstorage에 저장된 요소가 로그인 후 db에 저장되게 하는 방안 고려하기**
-#### **5. sw 조작해서 다운로드 푸쉬 알람 띄우기**
+#### ~5. sw 조작해서 다운로드 푸쉬 알람 띄우기~
+  - 이거 sw조작해서 하는게 아니라 beforeinstallprompt event를 조작해서 하는 거였다. ios에서는 beforeinstallprompt가 제대로 동작하지 않으니, 사용자 디바이스가 ios인지 확인하고, ios면 설치 방법 설명해주는 alert box 보여주고, 아니면 다운로드 alert box 보여주는 방식으로 구현했다. 더블클릭하면 alert box 안보이도록 설정함. 
 #### ~6. 정답을 맞힌 직후 클리어 박스에 indexgusses가 -1로 표시된다. router.refresh 하면 정상적으로 보이긴 한다~
   - main page가 static rendering 중이어서 db 변경되는 값을 즉각적으로 반영하지 못해 발생하는 문제였다.
   - export const dynamic = 'force-dynamic'; 추가함으로서 main page를 dynamic rendering 시켜서 문제 해결
