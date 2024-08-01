@@ -93,10 +93,11 @@ export default function InstallPWAAlertContainer() {
             {/* IOS인 디바이스에 대한 install prompt */}
             {showiOSPrompt && (
                 <div className="ios-install-banner">
-                <p>
-                    앱 다운로드를 원하신다면 
-                    <strong>공유 아이콘{' '}</strong><FontAwesomeIcon icon={faArrowUpFromBracket} />{' '}을 클릭하고, 
-                    <strong>홈화면에 추가{' '}</strong><FontAwesomeIcon icon={faSquarePlus} />{' '}를 클릭하세요!</p>
+                    <p className='m-0'>
+                        <p className='m-0'>앱 다운로드를 원하신다면?</p>
+                        <p className='m-0'><strong>공유 아이콘{' '}</strong><FontAwesomeIcon icon={faArrowUpFromBracket} />{' '}을 클릭하고,</p> 
+                        <p className='m-0'><strong>홈화면에 추가{' '}</strong><FontAwesomeIcon icon={faSquarePlus} />{' '}를 클릭하세요!</p>
+                    </p>
                 </div>
             )}
         </div>
