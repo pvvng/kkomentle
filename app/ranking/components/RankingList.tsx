@@ -48,7 +48,7 @@ export default function RankingListContainer({darkmode, userdata} : PropsType){
         queryFn : fetchTodayTryCount
     })
 
-    if(data === undefined || isLoading) return <LoadingSpinner />
+    if(data === undefined || isLoading) return <LoadingSpinner height={500} />
     if(isError) return <p className='text-center'>예상치 못한 에러가 발생했어요.</p>
 
     return(

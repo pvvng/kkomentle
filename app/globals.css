@@ -20,6 +20,13 @@ div {
   unicode-bidi: isolate;
 }
 
+button[type="submit"] {
+  -webkit-appearance: none; /* Safari에서 기본 스타일 제거 */
+  -moz-appearance: none; /* Firefox에서 기본 스타일 제거 */
+  appearance: none; /* 기타 브라우저에서 기본 스타일 제거 */
+
+}
+
 .sign-btn{
   font-size: 16px;
   

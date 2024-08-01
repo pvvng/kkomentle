@@ -24,8 +24,8 @@ export default async function Navbar(){
                     <Image 
                         src='/꼬들꼬들마스코트.png' 
                         alt="꼬들꼬들" 
-                        width="50" 
-                        height="48" 
+                        width="64" 
+                        height="56" 
                         priority
                     />
                 </Link>
