@@ -10,7 +10,13 @@ const withPWA = nextPWA({
 
 const nextConfig = {
   reactStrictMode: true,
-  // 추가 설정이 있다면 여기에 작성
+  webpack(config, { dev, isServer }) {
+    if (!dev && !isServer) {
+      // 프로덕션 모드에서만 소스 맵을 생성
+      config.devtool = 'source-map';
+    }
+    return config;
+  },
 };
 
 export default withPWA(nextConfig);
