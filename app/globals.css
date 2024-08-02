@@ -380,4 +380,8 @@ d-block{
         font-size: 16px;
     }
 }
+
+input[type="text"]{
+  font-size: 16px;
+}
 /* !!!!!!!!!!!!!!!!!!!!!!!! */
