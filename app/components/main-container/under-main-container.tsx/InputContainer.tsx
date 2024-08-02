@@ -6,11 +6,10 @@ import { TodayIndexType } from "../page-container/MainContainer";
 import { lazy, Suspense } from "react";
 import { SuspenseLoadingContainer } from "../../loading-container/LoadingSpinner";
 import GaveUpButtonContainer from "./GaveUpButtoncontainer";
+import TableContainer from "../table-container/TableContainer";
 
 // Lazy load components
 const ClearBoxContainer = lazy(() => import("../../hidden-container/ClearBoxContainer"));
-const TableContainer = lazy(() => import("../table-container/TableContainer"));
-
 
 export default function InputContainer(props :TodayIndexType){
 
@@ -66,9 +65,7 @@ export default function InputContainer(props :TodayIndexType){
                     </Suspense>
             }
             <div style={{minHeight : '360px'}}>
-                <Suspense fallback={<SuspenseLoadingContainer height = {360}/>}>
-                    <TableContainer result={result} />
-                </Suspense>
+                <TableContainer result={result} />
             </div>
             {
                 winState === -1 &&

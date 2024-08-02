@@ -23,18 +23,10 @@ export default function QnAContainer(){
 
     return(
         <>
-            <div 
-                className="mt-3 header-title" 
-                style={{ display: 'flex', flexDirection: 'column' }}
-            >
-                <div>
-                    <img src="꼬들꼬들마스코트.png" width = "50px" height="auto" alt="Logo"/>
-                    <b className="mx-2">질문과 답변</b>
-                </div>
+            <div className="mb-4">
+                <b className="header-title">질문과 답변</b>
             </div>
-            <Link href="/" className="float-end">메인화면으로 돌아가기</Link>
-            <div style={{clear : 'both'}}></div>
-            <hr/>
+            
             <p><b>Q. 꼬들꼬들은 무엇인가요?</b></p>
             <p className="float-start">A.</p>
             <ul className="mx-4">

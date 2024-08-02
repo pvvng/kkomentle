@@ -19,7 +19,6 @@ export default async function Home() {
   return (
     <>
       <InstallPWAAlertContainer />
-      <Navbar />
       <SettingAlertContainer />  
       <div className="main-container">
         <Header />
