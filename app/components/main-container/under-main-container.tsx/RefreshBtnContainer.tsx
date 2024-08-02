@@ -13,6 +13,7 @@ export default function RefreshBtnContainer(){
                 "float-end refresh-btn border-1 rounded-1 pt-1 pb-1 dark-mode-input-and-btn":
                 "float-end refresh-btn border-1 rounded-1 pt-1 pb-1"
             }
+            aria-label="refresh"
             onClick={() => {router.refresh()}}
         >
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-arrow-clockwise" viewBox="0 0 16 16">

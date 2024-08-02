@@ -84,9 +84,14 @@ export function useHandleLocalstorage(result : SimilarityType | null){
         if(!isHintUsed){
             loadHintState();
         }
+
+    }, []);
+
+    // store에 저장된 userdata가 변경될때만 DB데이터를 localstorage에 저장하기
+    useEffect(() => {
         // 유저가 로그인 한 상태이고, db에 데이터가 존재하면 그걸로 업데이트 시키기
         updateLocalStorageByDBdata();
-    }, []);
+    },[nowUserData])
 
     useEffect(() => {
         // 한국시로 현재 시간 포맷
@@ -100,8 +105,6 @@ export function useHandleLocalstorage(result : SimilarityType | null){
             setHintState(false);
             // 유저가 로그인 한 상태이고, db에 데이터가 존재하면 그걸로 업데이트 시키기
             updateLocalStorageByDBdata();
-        }else{
-
         }
     }, [today])
 

@@ -14,7 +14,6 @@ export default async function ProfileContainer({userdata} : {userdata : UserData
         darkmode = {mode : 'darkmode', value : 'light'};
     }
 
-
     // 사용자 이미지, 뱃지 설정
     const userEmail = userdata?.email;
     const userImageStatus = userdata?.image;
