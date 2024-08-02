@@ -126,43 +126,35 @@ body .main-container{
     font-size: 24px;
   }
   @media screen and (max-width : 430px) {
-    font-size: 22px;
-  }
-  @media screen and (max-width : 360px) {
     font-size: 20px;
   }
-  @media screen and (max-width : 320px) {
+  @media screen and (max-width : 360px) {
     font-size: 18px;
+  }
+  @media screen and (max-width : 320px) {
+    font-size: 17px;
   }
 }
 
 .setting-emogi{
-  width: 24px;
-  height : 24px;
+  width: 26px;
+  height : 26px;
 
   @media screen and (max-width : 470px) {
-    width: 20px;
-    height : 20px;
+    width: 24px;
+    height : 24px;
   }
-  @media screen and (max-width : 380px) {
-    width: 16px;
-    height : 16px;
-  }
-  @media screen and (max-width : 470px) {
+  @media screen and (max-width : 430px) {
     width: 22px;
     height : 22px;
   }
-  @media screen and (max-width : 430px) {
-    width: 18px;
-    height : 18px;
-  }
   @media screen and (max-width : 360px) {
-    width: 16px;
-    height : 16px;
+    width: 20px;
+    height : 20px;
   }
   @media screen and (max-width : 320px) {
-    width: 14px;
-    height : 14px;
+    width: 20px;
+    height : 20px;
   }
 }
 
