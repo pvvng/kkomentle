@@ -88,4 +88,14 @@
 #### ~7. 랭크 페이지 구현하기~
   - playtime 이 0일때 1000점, tryCount가 1일 때 1000 점으로 기준을 잡고, playtime이 10(분) 커질때마다 -1 점, trycount가 1 늘어날때마다 -1 점 해서 점수를 계산한다
   - 점수가 높은 순서대로 20개 불러와서 리스트를 만든다
-#### **8. localstorage에 쿼리 저장이 안되는 것 같음**
+#### **~8. localstorage에 쿼리 저장이 안되는 것 같음~ localstorage에 gusses가 저장되고, mongoDB에도 무사히 저장되었으나, 메인페이지에서 다른 페이지로 이동하고, 다시 메인페이지로 돌아오면 직전 gusses로 롤백됨. 아마 mongoDB에 저장된 gusses가 정상적으로 업데이트 되지 않는듯**
+  - MainContainer(부모) 컴포넌트와 TableContainer(손자) 컴포넌트의 렌더링 시간의 문제였다.
+  - MainContainer 컴포넌트는 렌더링 될때마다(useEffect : []) zustand store에 userdata를 저장한다(이후 zustand store에 저장된 userdata는 nowUserData라 지칭).
+  - TableContainer 컴포넌트에서 사용되는 useHandleLocalstorage 커스텀 훅에선 렌더링 될 때마다(useEffect : []) localstorage에 nowUserData를 덮어씌운다. (정확히는 useUpdateLocalStorageByDBData 훅 을 useHandleLocalstore에서 사용해서 그럼)
+  -  계획한 대로 동작하게 하려면 우선 MainContainer가 먼저 렌더링 되어 변경된 userdata 가 nowUserData 로 변해야함
+  -  nowUserData가 변한 후, localstorage에 변경점이 적용 되어야함.
+  -  여기서 문제가 생김. 메인페이지(/)에서 다른 페이지로 이동 후, 다시 메인페이지로 이동하면 TableContainer가 먼저 실행되고, 이후 MainContainer가 실행됨.
+  -  그래서 TableContainer가 먼저 렌더링 되어 userdata가 nowUserData로 변하는 과정이 뒤늦게 일어나고, localstorage에 변경점이 적용되지 않았음.
+  -  TableContainer가 먼저 렌더링 되는 이유는 알 수 없음. 다만, TableContainer에서 localstorage에 nowUserData를 덮어씌우는 과정에 대한 종속성을 기존 렌더링[] 에서 [nowUserData] 로 변경함.
+  -  이렇게 하면 TableContainer의 렌더링이 MainContainer보다 빠르게 일어나도 nowUserData의 변경점을 찾지 못함으로 localstorage에 변경점이 적용되지 않음. 
+
