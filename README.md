@@ -91,7 +91,8 @@
 #### ~7. 랭크 페이지 구현하기~
   - playtime 이 0일때 1000점, tryCount가 1일 때 1000 점으로 기준을 잡고, playtime이 10(분) 커질때마다 -1 점, trycount가 1 늘어날때마다 -1 점 해서 점수를 계산한다
   - 점수가 높은 순서대로 20개 불러와서 리스트를 만든다
-#### **~8. localstorage에 쿼리 저장이 안되는 것 같음~ localstorage에 gusses가 저장되고, mongoDB에도 무사히 저장되었으나, 메인페이지에서 다른 페이지로 이동하고, 다시 메인페이지로 돌아오면 직전 gusses로 롤백됨. 아마 mongoDB에 저장된 gusses가 정상적으로 업데이트 되지 않는듯**
+#### ~8. localstorage에 쿼리 저장이 안되는 것 같음~ 
+  > **localstorage에 gusses가 저장되고, mongoDB에도 무사히 저장되었으나, 메인페이지에서 다른 페이지로 이동하고, 다시 메인페이지로 돌아오면 직전 gusses로 롤백됨. 아마 mongoDB에 저장된 gusses가 정상적으로 업데이트 되지 않는듯**
   - MainContainer(부모) 컴포넌트와 TableContainer(손자) 컴포넌트의 렌더링 시간의 문제였다.
   - MainContainer 컴포넌트는 렌더링 될때마다(useEffect : []) zustand store에 userdata를 저장한다(이후 zustand store에 저장된 userdata는 nowUserData라 지칭).
   - TableContainer 컴포넌트에서 사용되는 useHandleLocalstorage 커스텀 훅에선 렌더링 될 때마다(useEffect : []) localstorage에 nowUserData를 덮어씌운다. (정확히는 useUpdateLocalStorageByDBData 훅 을 useHandleLocalstore에서 사용해서 그럼)
