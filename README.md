@@ -101,5 +101,5 @@
   -  그래서 TableContainer가 먼저 렌더링 되어 userdata가 nowUserData로 변하는 과정이 뒤늦게 일어나고, localstorage에 변경점이 적용되지 않았음.
   -  TableContainer가 먼저 렌더링 되는 이유는 알 수 없음. 다만, TableContainer에서 localstorage에 nowUserData를 덮어씌우는 과정에 대한 종속성을 기존 렌더링[] 에서 [nowUserData] 로 변경함.
   -  이렇게 하면 TableContainer의 렌더링이 MainContainer보다 빠르게 일어나도 nowUserData의 변경점을 찾지 못함으로 localstorage에 변경점이 적용되지 않음. 
-#### ~9. android에서 PWA 다운 alert box가 간혹 보이지 않음~
+#### **9. android에서 PWA 다운 alert box가 간혹 보이지 않음**
   - chrome이 아니라 네이버, 카카오에서 꼬들꼬들을 실행하면 해당 문제가 발생함.
