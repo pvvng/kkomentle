@@ -126,13 +126,14 @@ export default function InstallPWAAlertContainer() {
             )}
             {/* 기타 브라우저일때 */}
             {(showCustomPrompt && !isOnDoubleClick) && (
-                <div className="custom-install-banner"
+                <div className="install-banner"
                     onDoubleClick={() => {
                         setIsOnDoubleClick(true);
                     }}
                 >
                     <div className='m-0 col-12'>
-                        <p className='m-1 fw-bold'>해당 브라우저에서는 설치를 지원하지 않습니다. 크롬 브라우저를 사용해 주세요.</p>
+                        <p className='m-1 fw-bold'>해당 브라우저에서는 설치를 지원하지 않습니다.</p>
+                        <p className='m-1 fw-bold'>크롬, 엣지, 파이어폭스, 오페라 등의 브라우저를 사용해 주세요.</p>
                         <p className='mt-2 quit-text'>(더블 클릭해서 창 닫기)</p>
                     </div>
                 </div>
