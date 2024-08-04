@@ -35,7 +35,9 @@ export default function GaveUpButtonContainer({tenQuery} : {tenQuery :string}){
 
     const handleUseHint = async () => {
         if(!isHintUsed){
-            const isHintUsed = confirm('오늘의 힌트를 사용할까요?');
+            const isHintUsed = confirm(
+                '오늘의 힌트를 사용할까요?\n(힌트 사용시 점수에 영향이 갈 수 있어요.)'
+            );
             if(isHintUsed){
                 await handleMultipleConditions(nowUserData, 1);
                 // 힌트 상태 변경하기

@@ -31,7 +31,7 @@ export default async function handleMultipleConditions(nowUserData: UserDataType
     // 모든 요청을 병렬로 처리
     try {
         await Promise.all(requests);
-        console.log('모든 배지 상태 업데이트 완료');
+        // console.log('모든 배지 상태 업데이트 완료');
     } catch (error) {
         console.error('배지 업데이트 중 오류 발생:', error);
     }

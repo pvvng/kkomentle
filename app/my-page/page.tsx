@@ -12,12 +12,11 @@ export default async function MyPage(){
 
     return (
         <>
-            {/* admin만 접근 가능하게 세팅 */}
-            {
-                (userdata?.email !== undefined && 
-                userdata.email === process.env.ADMIN_EMAIL) 
-                && <div className="main-container"><SaveSimilarWordsContainer /></div>
-            }
+            <Navbar />
+            <div className="main-container">
+                <ProfileContainer userdata={userdata} />
+            </div>
+            {/* <SaveSimilarWordsContainer /> */}
             <div className="main-container">
                 <ProfileContainer userdata={userdata} />
             </div>
