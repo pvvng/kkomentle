@@ -10,6 +10,7 @@ import "./globals.css";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { cookies } from "next/headers";
 import ReactQueryProvider from "@/util/provider/ReactQueryProvider";
+import Navbar from './components/main-container/page-container/Navbar';
 
 export const metadata: Metadata = {
   title: "꼬들꼬들",
@@ -83,6 +84,7 @@ export default function RootLayout({
           : ''
         }>
           <ReactQueryProvider>
+            <Navbar />
             {children}
           </ReactQueryProvider>
         </body>

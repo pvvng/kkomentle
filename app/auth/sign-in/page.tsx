@@ -2,7 +2,7 @@ import { KakaoSignInBtn } from "@/app/components/main-container/page-container/S
 
 const BACKGROUND_STYE = {
     width: '100%', 
-    height: '100vh',
+    height: 'calc(100vh - 150px)',
     display: 'grid',
     placeItems: 'center',
 }
