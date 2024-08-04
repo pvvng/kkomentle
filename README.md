@@ -47,7 +47,7 @@
 ### 느낀 점
 
 ## 7. 업데이트 및 변동 사항
-[2024.08.04 이전 변동사항 확인](https://github.com/pvvng/kkomentle/blob/develop/README.md)
+[2024.08.04 이전 변동사항 확인](https://github.com/pvvng/kkomentle/blob/develop-readme/README.md)
 ## 8. file tree
 
     📦app
