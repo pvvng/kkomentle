@@ -32,6 +32,11 @@ export default function InstallPWAAlertContainer() {
         // IOS 가 맞다면 IOS 감시 플래그 상태 true로 변경
         setIsiOS(isIOSDevice);
 
+        const isChrome = /chrome/.test(userAgent) && !/edge|edg/.test(userAgent);
+        const isEdge = /edg/.test(userAgent);
+        const isFirefox = /firefox/.test(userAgent);
+        const isOpera = /opera|opr/.test(userAgent);
+
         // IOS 디바이스가 맞을때
         if (isIOSDevice) {
             // 웹앱이 standalone (독립실행형) 모드인지 확인
@@ -40,23 +45,28 @@ export default function InstallPWAAlertContainer() {
             if (!isInStandaloneMode) {
                 setShowiOSPrompt(true);
             }
-        // IOS 디바이스가 아닐때
+        // IOS 디바이스가 아니면서 브라우저가 크롬, 엣지, 파이어폭스, 오페라 중 하나일때
+        } else if (isChrome || isEdge || isFirefox || isOpera) {
+            const handler = (e: Event) => {
+                e.preventDefault();
+                setDeferredPrompt(e as BeforeInstallPromptEvent);
+                setShowInstallPrompt(true);
+            };
+
+            window.addEventListener('beforeinstallprompt', handler as EventListener);
+
+            return () => {
+                window.removeEventListener('beforeinstallprompt', handler as EventListener);
+            };
+        // 그 이외 브라우저일때
         } else {
-            if (/naver|kakaotalk/.test(userAgent)) {
-                setShowCustomPrompt(true);
-                setBrowserName(/naver/.test(userAgent) ? '네이버' : '카카오톡');
+            setShowCustomPrompt(true);
+            if (/naver/.test(userAgent)) {
+                setBrowserName('네이버');
+            } else if (/kakaotalk/.test(userAgent)) {
+                setBrowserName('카카오톡');
             } else {
-                const handler = (e: Event) => {
-                    e.preventDefault();
-                    setDeferredPrompt(e as BeforeInstallPromptEvent);
-                    setShowInstallPrompt(true);
-                };
-
-                window.addEventListener('beforeinstallprompt', handler as EventListener);
-
-                return () => {
-                    window.removeEventListener('beforeinstallprompt', handler as EventListener);
-                };
+                setBrowserName('기타');
             }
         }
     }, []);
@@ -85,7 +95,7 @@ export default function InstallPWAAlertContainer() {
 
     return (
         <div>
-            {/* IOS 아닌 디바이스에 대한 install prompt */}
+            {/* 크롬, 엣지, 오페라, 파이어폭스 브라우저 install prompt */}
             {(showInstallPrompt && !isOnDoubleClick) && (
                 <div className="install-banner"
                     onDoubleClick={() => {
@@ -114,6 +124,7 @@ export default function InstallPWAAlertContainer() {
                     </div>
                 </div>
             )}
+            {/* 기타 브라우저일때 */}
             {(showCustomPrompt && !isOnDoubleClick) && (
                 <div className="custom-install-banner"
                     onDoubleClick={() => {
