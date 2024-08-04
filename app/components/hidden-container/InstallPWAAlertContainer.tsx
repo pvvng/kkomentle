@@ -20,9 +20,12 @@ export default function InstallPWAAlertContainer() {
     const [showiOSPrompt, setShowiOSPrompt] = useState<boolean>(false);
     // 사용자가 더블클릭시 prompt 닫는 상태
     const [isOnDoubleClick, setIsOnDoubleClick] = useState<boolean>(false);
+    // 브라우저가 chorme edge가 아닐때
+    const [showCustomPrompt, setShowCustomPrompt] = useState<boolean>(false);
+    const [browserName, setBrowserName] = useState<string>('');
 
     useEffect(() => {
-        // 이용자 디바이스
+        // 이용자 디바이스 확인
         const userAgent = window.navigator.userAgent.toLowerCase();
         // 이용자 디바이스가 ios인지 확인
         const isIOSDevice = /iphone|ipad|ipod/.test(userAgent);
@@ -39,23 +42,22 @@ export default function InstallPWAAlertContainer() {
             }
         // IOS 디바이스가 아닐때
         } else {
-            const handler = (e: Event) => {
-                // 기본 이벤트 동작 정지
-                // 여기서 기본 이벤트 동작은 브라우저가 자동으로 설치 prompt를 표시하는 것
-                e.preventDefault();
-                // 이벤트 객체 상태에 저장
-                setDeferredPrompt(e as BeforeInstallPromptEvent);
-                // 설치 prompt 표시 상태 변경
-                setShowInstallPrompt(true);
-            };
-        
-            // 이벤트 리스너 등록, 앞서 정의한 handler 함수를 호출
-            window.addEventListener('beforeinstallprompt', handler as EventListener);
+            if (/naver|kakaotalk/.test(userAgent)) {
+                setShowCustomPrompt(true);
+                setBrowserName(/naver/.test(userAgent) ? '네이버' : '카카오톡');
+            } else {
+                const handler = (e: Event) => {
+                    e.preventDefault();
+                    setDeferredPrompt(e as BeforeInstallPromptEvent);
+                    setShowInstallPrompt(true);
+                };
 
-            // 이벤트 리스너 클린업
-            return () => {
-                window.removeEventListener('beforeinstallprompt', handler as EventListener);
-            };
+                window.addEventListener('beforeinstallprompt', handler as EventListener);
+
+                return () => {
+                    window.removeEventListener('beforeinstallprompt', handler as EventListener);
+                };
+            }
         }
     }, []);
 
@@ -108,6 +110,18 @@ export default function InstallPWAAlertContainer() {
                         <p className='m-1 fw-bold'>앱 다운로드를 원하시나요?</p>
                         <p className='m-0 ios-install-banner-explain'><FontAwesomeIcon icon={faArrowUpFromBracket} />{' '}<strong>공유 아이콘{' '}</strong>을 클릭하고,</p> 
                         <p className='m-0 ios-install-banner-explain'><FontAwesomeIcon icon={faSquarePlus} />{' '}<strong>홈화면에 추가{' '}</strong>를 클릭하세요!</p>
+                        <p className='mt-2 quit-text'>(더블 클릭해서 창 닫기)</p>
+                    </div>
+                </div>
+            )}
+            {(showCustomPrompt && !isOnDoubleClick) && (
+                <div className="custom-install-banner"
+                    onDoubleClick={() => {
+                        setIsOnDoubleClick(true);
+                    }}
+                >
+                    <div className='m-0 col-12'>
+                        <p className='m-1 fw-bold'>해당 브라우저에서는 설치를 지원하지 않습니다. 크롬 브라우저를 사용해 주세요.</p>
                         <p className='mt-2 quit-text'>(더블 클릭해서 창 닫기)</p>
                     </div>
                 </div>
