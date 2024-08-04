@@ -111,28 +111,28 @@
 
     📦pages
      ┗ 📂api
-     ┃ ┣ 📂auth
-     ┃ ┃ ┗ 📜[...nextauth].ts
-     ┃ ┣ 📂get
-     ┃ ┃ ┣ 📜checkAnswer.ts
-     ┃ ┃ ┣ 📜count.ts
-     ┃ ┃ ┣ 📜embedding.ts
-     ┃ ┃ ┣ 📜ranking.ts
-     ┃ ┃ ┗ 📜todaySimilar.ts
-     ┃ ┣ 📂post
-     ┃ ┃ ┣ 📜answer.ts
-     ┃ ┃ ┣ 📜tryCount.ts
-     ┃ ┃ ┣ 📜updateUserdata.ts
-     ┃ ┃ ┣ 📜userBadge.ts
-     ┃ ┃ ┣ 📜userGussess.ts
-     ┃ ┃ ┣ 📜userImage.ts
-     ┃ ┃ ┣ 📜username.ts
-     ┃ ┃ ┣ 📜userPlayTime.ts
-     ┃ ┃ ┗ 📜winstate.ts
-     ┃ ┗ 📂word
-     ┃ ┃ ┣ 📜answer.ts
-     ┃ ┃ ┣ 📜frequency.ts
-     ┃ ┃ ┗ 📜similar.ts
+       ┣ 📂auth
+       ┃ ┗ 📜[...nextauth].ts
+       ┣ 📂get
+       ┃ ┣ 📜checkAnswer.ts
+       ┃ ┣ 📜count.ts
+       ┃ ┣ 📜embedding.ts
+       ┃ ┣ 📜ranking.ts
+       ┃ ┗ 📜todaySimilar.ts
+       ┣ 📂post
+       ┃ ┣ 📜answer.ts
+       ┃ ┣ 📜tryCount.ts
+       ┃ ┣ 📜updateUserdata.ts
+       ┃ ┣ 📜userBadge.ts
+       ┃ ┣ 📜userGussess.ts
+       ┃ ┣ 📜userImage.ts
+       ┃ ┣ 📜username.ts
+       ┃ ┣ 📜userPlayTime.ts
+       ┃ ┗ 📜winstate.ts
+       ┗ 📂word
+         ┣ 📜answer.ts
+         ┣ 📜frequency.ts
+         ┗ 📜similar.ts
 
      📦util
      ┣ 📂functions
