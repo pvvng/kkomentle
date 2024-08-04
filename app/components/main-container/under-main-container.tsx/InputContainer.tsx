@@ -4,13 +4,12 @@ import useQueryAnswerChecker from "@/util/hooks/useQueryAnswerChecker";
 import { useNowMode, useWinStateLocalstorage } from "../../../store";
 import { TodayIndexType } from "../page-container/MainContainer";
 import { lazy, Suspense } from "react";
-import LoadingSpinner, { SuspenseLoadingContainer } from "../../loading-container/LoadingSpinner";
+import { SuspenseLoadingContainer } from "../../loading-container/LoadingSpinner";
+import GaveUpButtonContainer from "./GaveUpButtoncontainer";
+import TableContainer from "../table-container/TableContainer";
 
 // Lazy load components
 const ClearBoxContainer = lazy(() => import("../../hidden-container/ClearBoxContainer"));
-const GaveUpButtonContainer = lazy(() => import("./GaveUpButtoncontainer"));
-const TableContainer = lazy(() => import("../table-container/TableContainer"));
-
 
 export default function InputContainer(props :TodayIndexType){
 
@@ -65,16 +64,12 @@ export default function InputContainer(props :TodayIndexType){
                         <ClearBoxContainer {...props} />
                     </Suspense>
             }
-            <div style={{ minHeight: '360px' }}>
-                <Suspense fallback={<div className="text-center"><SuspenseLoadingContainer height = {350}/></div>}>
-                    <TableContainer result={result} />
-                </Suspense>
+            <div style={{minHeight : '360px'}}>
+                <TableContainer result={result} />
             </div>
             {
                 winState === -1 &&
-                <Suspense fallback={<div className="text-center"><SuspenseLoadingContainer height = {350} /></div>}>
-                    <GaveUpButtonContainer tenQuery={props.tenQuery} />
-                </Suspense>
+                <GaveUpButtonContainer tenQuery={props.tenQuery} />
             }
         </div>
     )

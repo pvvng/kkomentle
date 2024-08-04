@@ -20,14 +20,21 @@ div {
   unicode-bidi: isolate;
 }
 
+button[type="submit"] {
+  -webkit-appearance: none; /* Safari에서 기본 스타일 제거 */
+  -moz-appearance: none; /* Firefox에서 기본 스타일 제거 */
+  appearance: none; /* 기타 브라우저에서 기본 스타일 제거 */
+
+}
+
 .sign-btn{
-  font-size: 16px;
+  font-size: 18px;
   
   @media screen and (max-width : 470px) {
-      font-size: 14px;
+      font-size: 16px;
   }
   @media screen and (max-width : 380px) {
-      font-size: 12px;
+      font-size: 14px;
   }
 }
 
@@ -82,10 +89,10 @@ div {
 .input-label-wrapper label {
   margin-left: 8px; /* label과 input 사이의 간격 */
   @media screen and (max-width : 470px) {
-    font-size: 12px;
+    font-size: 14px;
   }
   @media screen and (max-width : 380px) {
-    font-size: 10px;
+    font-size: 12px;
   }
 }
 
@@ -95,6 +102,15 @@ body .main-container{
   padding: 0 1em 1em;
 
   @media screen and (max-width : 470px) {
+    font-size: 16px;
+  }
+  @media screen and (max-width : 380px) {
+    font-size: 14px;
+  }
+}
+
+.progress-bar {
+  @media screen and (max-width : 470px) {
     font-size: 14px;
   }
   @media screen and (max-width : 380px) {
@@ -102,21 +118,12 @@ body .main-container{
   }
 }
 
-.progress-bar {
-  @media screen and (max-width : 470px) {
-    font-size: 12px;
-  }
-  @media screen and (max-width : 380px) {
-    font-size: 10px;
-  }
-}
-
 .header-title {
-  font-size: 24px;
+  font-size: 26px;
   font-weight: bold;
 
   @media screen and (max-width : 470px) {
-    font-size: 22px;
+    font-size: 24px;
   }
   @media screen and (max-width : 430px) {
     font-size: 20px;
@@ -125,37 +132,29 @@ body .main-container{
     font-size: 18px;
   }
   @media screen and (max-width : 320px) {
-    font-size: 16px;
+    font-size: 17px;
   }
 }
 
 .setting-emogi{
-  width: 24px;
-  height : 24px;
+  width: 26px;
+  height : 26px;
 
   @media screen and (max-width : 470px) {
-    width: 20px;
-    height : 20px;
+    width: 24px;
+    height : 24px;
   }
-  @media screen and (max-width : 380px) {
-    width: 16px;
-    height : 16px;
-  }
-  @media screen and (max-width : 470px) {
+  @media screen and (max-width : 430px) {
     width: 22px;
     height : 22px;
   }
-  @media screen and (max-width : 430px) {
-    width: 18px;
-    height : 18px;
-  }
   @media screen and (max-width : 360px) {
-    width: 16px;
-    height : 16px;
+    width: 20px;
+    height : 20px;
   }
   @media screen and (max-width : 320px) {
-    width: 14px;
-    height : 14px;
+    width: 20px;
+    height : 20px;
   }
 }
 
@@ -225,13 +224,13 @@ body .main-container{
 }
 
 .submit-btn { 
-  font-size: 16px;
+  font-size: 18px;
   
   @media screen and (max-width : 470px) {
-      font-size: 14px;
+      font-size: 16px;
   }
   @media screen and (max-width : 380px) {
-      font-size: 12px;
+      font-size: 14px;
   }
 }
 .refresh-btn svg{
@@ -288,14 +287,14 @@ body .main-container{
 }
 
 .speech-bubble {
-  font-size: 14px;
+  font-size: 16px;
   @media screen and (max-width : 470px) {
     border-radius: 0px;
-    font-size: 12px;
+    font-size: 14px;
   }
   @media screen and (max-width : 380px) {
     border-radius: 0px;
-    font-size: 10px;
+    font-size: 12px;
   }
 }
 
@@ -308,13 +307,13 @@ body .main-container{
 }
 
 .my-page-badge-des{
-  font-size: 14px;
+  font-size: 18px;
 
   @media screen and (max-width : 470px) {
-    font-size: 12px;
+    font-size: 16px;
   }
   @media screen and (max-width : 380px) {
-    font-size: 10px;
+    font-size: 14px;
   }
 }
 
@@ -372,5 +371,9 @@ d-block{
     body, input, button {
         font-size: 16px;
     }
+}
+
+input[type="text"]{
+  font-size: 16px;
 }
 /* !!!!!!!!!!!!!!!!!!!!!!!! */

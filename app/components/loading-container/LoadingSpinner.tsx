@@ -19,7 +19,7 @@ export default function LoadingSpinner({height} : {height ?: (string | number)})
     }
 
     return(
-        <div className="w-100 row" style={{height: boxHeight}}>
+        <div className="w-100 row" style={{height: boxHeight, margin : 'auto'}}>
             <div style={{margin : 'auto'}}>
                 <div className="lava-lamp">
                     <div className="bubble"></div>
@@ -47,7 +47,7 @@ export function SuspenseLoadingContainer({height} : {height : (string | number)}
     }
 
     return(
-        <div className="w-100 row" style={{height : boxHeight}}>
+        <div className="w-100 row" style={{height : boxHeight, margin : 'auto'}}>
             <div className="text-center" style={{margin : 'auto'}}>
                 <div className={
                     nowMode.mode === 'dark' ? 

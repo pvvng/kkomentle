@@ -35,7 +35,9 @@ export default function GaveUpButtonContainer({tenQuery} : {tenQuery :string}){
 
     const handleUseHint = async () => {
         if(!isHintUsed){
-            const isHintUsed = confirm('오늘의 힌트를 사용할까요?');
+            const isHintUsed = confirm(
+                '오늘의 힌트를 사용할까요?\n(힌트 사용시 점수에 영향이 갈 수 있어요.)'
+            );
             if(isHintUsed){
                 await handleMultipleConditions(nowUserData, 1);
                 // 힌트 상태 변경하기
@@ -69,22 +71,6 @@ export default function GaveUpButtonContainer({tenQuery} : {tenQuery :string}){
                     onClick={handleUseHint}
                 >{!isHintUsed ? '힌트 사용' : '힌트 다시 확인'}</button>
             </div>
-            {/* <a 
-                href="https://newsjel.ly/archives/newsjelly-report/data-storytelling/14842?utm_source=semantle_ko&utm_medium=bottom_banner"
-                target="_blank"
-                className="col-4"
-            >
-                <div 
-                    style={{
-                        backgroundImage : 'url(/banner-image.png)', 
-                        backgroundRepeat: 'no-repeat', 
-                        backgroundPosition:'center center',
-                        backgroundSize : 'cover',
-                        height  : '100%'
-                    }}
-                >
-                </div>
-            </a> */}
         </div>
     )
 }

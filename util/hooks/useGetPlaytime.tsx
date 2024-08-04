@@ -1,4 +1,4 @@
-import { usePlayTimeLocalstorage, useUserData } from "@/app/store";
+import { useHintLocalstorage, usePlayTimeLocalstorage, useUserData } from "@/app/store";
 import moment from "moment-timezone";
 import { JsonSimilarityType } from "./useHandleLocalstorage";
 import axios from "axios";
@@ -9,6 +9,7 @@ import handleMultipleConditions from "../functions/handleMultipleConditionsBadge
 export default function useGetPlayTime(){
     const { setPlayTimeState } = usePlayTimeLocalstorage();
     const { nowUserData } = useUserData();
+    const { isHintUsed } = useHintLocalstorage();
 
     // 사용자 디바이스의 시간을 한국시로 포맷하기
     // 현재 시간 암호화
@@ -21,6 +22,8 @@ export default function useGetPlayTime(){
         guessedWord :JsonSimilarityType, 
         /** 기존 localhost에 등록된 추측 단어 객체 어레이 */
         guesses :JsonSimilarityType[] | null,
+        /** 포기했는지 or 정답을 맞혔는지 확인하는 플래그 인자 */
+        isGaveup : boolean,
     ){
         let endTime = guessedWord.time || 0;
 
@@ -43,12 +46,15 @@ export default function useGetPlayTime(){
                 playtime : playtime,
                 try : guessesLength + 1,
                 isLogin : 
-                nowUserData === undefined ? undefined : nowUserData.email
+                nowUserData === undefined ? undefined : nowUserData.email,
+                isGaveup : isGaveup,
+                isHintUsed : isHintUsed,
             }
             // db에 클리어 정보 업데이트
             let postPlayTime = await axios.post('/api/post/tryCount', putter);
-            // playtime이 10분 이하일 경우 악동 꼬들꼬들 뱃지 획득
-            if(playtime <= 10){
+
+            // 정답을 포기하지 않고 맞혔고, playtime이 10분 이하일 경우 악동 꼬들꼬들 뱃지 획득
+            if(!isGaveup && playtime <= 10){
                 await handleMultipleConditions(nowUserData, 3);
             }
         }  

@@ -44,7 +44,7 @@ export function useHandleLocalstorage(result : SimilarityType | null){
     async function ClearAnswer(guessedWord : (SimilarityType | JsonSimilarityType)){
         if(winState === -1){
             setWinState(1);
-            await getPlayTime(guessedWord, guesses);
+            await getPlayTime(guessedWord, guesses, false);
             // 최초로 클리어시 유령 꼬들꼬들 뱃지 획득
             handleMultipleConditions(nowUserData, 2);
             router.refresh();
@@ -84,9 +84,14 @@ export function useHandleLocalstorage(result : SimilarityType | null){
         if(!isHintUsed){
             loadHintState();
         }
+
+    }, []);
+
+    // store에 저장된 userdata가 변경될때만 DB데이터를 localstorage에 저장하기
+    useEffect(() => {
         // 유저가 로그인 한 상태이고, db에 데이터가 존재하면 그걸로 업데이트 시키기
         updateLocalStorageByDBdata();
-    }, []);
+    },[nowUserData])
 
     useEffect(() => {
         // 한국시로 현재 시간 포맷
@@ -100,8 +105,6 @@ export function useHandleLocalstorage(result : SimilarityType | null){
             setHintState(false);
             // 유저가 로그인 한 상태이고, db에 데이터가 존재하면 그걸로 업데이트 시키기
             updateLocalStorageByDBdata();
-        }else{
-
         }
     }, [today])
 

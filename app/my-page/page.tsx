@@ -16,12 +16,10 @@ export default async function MyPage(){
             <div className="main-container">
                 <ProfileContainer userdata={userdata} />
             </div>
-            {/* admin만 접근 가능하게 세팅 */}
-            {
-                (userdata?.email !== undefined && 
-                userdata.email === process.env.ADMIN_EMAIL) 
-                && <SaveSimilarWordsContainer />
-            }
+            {/* <SaveSimilarWordsContainer /> */}
+            <div className="main-container">
+                <ProfileContainer userdata={userdata} />
+            </div>
         </>
     )
 }

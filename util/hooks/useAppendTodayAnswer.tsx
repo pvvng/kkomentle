@@ -13,8 +13,10 @@ export default function useAppendTodayAnswer(){
     const { guesses, setGuessesState } = useGuessesLocalstorage();
     const getPlayTime =  useGetPlayTime();
 
-    // 오늘의 정답을 guesses localstorage에 추가하는 함수
-    // 인자 : 변경할 정답 상태 (0 : 포기 , 1 : 정답)
+    /** 오늘의 정답을 guesses localstorage에 추가하는 함수
+     * 
+     * 인자 : 변경할 정답 상태 / 오직 포기에서만 동작
+     * */
     async function appendTodayAnswer(type :number){
 
         const userNowDate = new Date();
@@ -36,7 +38,8 @@ export default function useAppendTodayAnswer(){
             temp.push(tempTodayWord);
             setGuessesState(temp);
             setWinState(type);
-            getPlayTime(tempTodayWord, guesses);
+            // 문제의 코드
+            getPlayTime(tempTodayWord, guesses, true);
         }
     }
 

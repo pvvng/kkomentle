@@ -49,14 +49,15 @@ export default function MainContainer({darkmode, userdata} : PropsType){
     
     return(
         <>
-            <p className="m-0 mt-sm-4 mb-sm-4 mt-1 mb-3">
-                {
-                    todayIndex !== undefined?
-                    todayIndex.index:
-                    '???'
-                }
-                번째 꼬들꼬들의 정답 단어를 맞혀보세요.
-                <br/>
+            <div className="m-0 mt-sm-4 mb-sm-4 mt-1 mb-3">
+                <p className="m-0 mb-1">
+                    {
+                        todayIndex !== undefined?
+                        todayIndex.index:
+                        '???'
+                    }
+                    번째 꼬들꼬들의 정답 단어를 맞혀보세요.
+                </p>
                 정답 단어와 가장 유사한 단어의 유사도는&nbsp;
                 <b>
                     {
@@ -80,23 +81,11 @@ export default function MainContainer({darkmode, userdata} : PropsType){
                     '???'
                 } 
                 &nbsp;입니다.
-            </p>
-
+            </div>
             {
-                isLoading ? (
-                    <div style={{minHeight : '500px'}}><LoadingSpinner height={500} /></div>
-                ) : (
-                    <div>
-                    {/* <Suspense fallback={
-                        <div className="text-center" style={{minHeight : '500px'}}>
-                            <SuspenseLoadingContainer />
-                        </div>
-                    }> */}
-                        {/* data가 존재할 때만 InputContainer 렌더링 */}
-                        {todayIndex && <InputContainer {...todayIndex} />}
-                    {/* </Suspense> */}
-                    </div>
-                )
+                isLoading ? 
+                <div style={{minHeight : '500px'}}><LoadingSpinner height={500} /></div>:
+                todayIndex && <InputContainer {...todayIndex} />
             }
         </>
 

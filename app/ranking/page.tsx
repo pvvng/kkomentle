@@ -12,7 +12,6 @@ export default async function Ranking(){
 
     return( 
         <>
-            <Navbar />
             <div className="main-container">
                 <RankingListContainer darkmode={darkmode} userdata={userdata} />
             </div>

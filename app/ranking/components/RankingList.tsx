@@ -25,6 +25,7 @@ interface TodayPlayData{
     isLogin ?: string;
     image : string;
     name : string;
+    isHintUsed : boolean;
     totalScore : number;
 }
 
@@ -48,7 +49,7 @@ export default function RankingListContainer({darkmode, userdata} : PropsType){
         queryFn : fetchTodayTryCount
     })
 
-    if(data === undefined || isLoading) return <LoadingSpinner />
+    if(data === undefined || isLoading) return <LoadingSpinner height={500} />
     if(isError) return <p className='text-center'>예상치 못한 에러가 발생했어요.</p>
 
     return(
@@ -108,6 +109,13 @@ export default function RankingListContainer({darkmode, userdata} : PropsType){
                         </p>
                         <p className='m-0'>게임 시간 : <strong>{d.playtime}</strong>분</p>
                         <p className='m-0'>시도 횟수 : <strong>{d.try}</strong>회</p>
+                        <p className="m-0">
+                            {
+                                d.isHintUsed?
+                                <strong>힌트 사용</strong> : 
+                                <strong>힌트 미사용</strong>
+                            }
+                        </p>
                     </div>
                     <div className='col-3'>
                         <p className='m-0 fw-bold'>{d.totalScore}점</p>
