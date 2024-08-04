@@ -60,7 +60,9 @@
 
 #### ~1. 웹, PWA 처음 실행할 때, 흰 화면이 1~3초 정도 지속된다.~
   - splash screen을 추가했다.
-#### **2. 모바일에서 input 클릭 시 자동 확대되는 문제.**
+#### ~2. 모바일에서 input 클릭 시 자동 확대되는 문제.~
+  - input의 font-size가 16px 이하여서 자동 확대 되는거였음.
+  - input의 텍스트를 항상 16px로 조정하면서 문제 해결
 #### ~3. 나의 플레이 기록에서 상위 백분위 몇펀지 계산해서 보여주고, kakao로 공유할 수 있도록 하기.~
   - kakao 공유하기 기능 구현 완료
   - 백분위 tooltip에 기록
@@ -79,7 +81,8 @@
     > 악동 : 10분 안에 클리어시 지급
     > 
     > 악마 : 3트 안에 클리어시 지급
-#### **5. 로그인 전 localstorage에 저장된 요소가 로그인 후 db에 저장되게 하는 방안 고려하기**
+#### ~5. 로그인 전 localstorage에 저장된 요소가 로그인 후 db에 저장되게 하는 방안 고려하기~
+  - 개발 상 문제로 -관-
 #### ~5. sw 조작해서 다운로드 푸쉬 알람 띄우기~
   - 이거 sw조작해서 하는게 아니라 beforeinstallprompt event를 조작해서 하는 거였다. ios에서는 beforeinstallprompt가 제대로 동작하지 않으니, 사용자 디바이스가 ios인지 확인하고, ios면 설치 방법 설명해주는 alert box 보여주고, 아니면 다운로드 alert box 보여주는 방식으로 구현했다. 더블클릭하면 alert box 안보이도록 설정함. 
 #### ~6. 정답을 맞힌 직후 클리어 박스에 indexgusses가 -1로 표시된다. router.refresh 하면 정상적으로 보이긴 한다~
@@ -88,3 +91,16 @@
 #### ~7. 랭크 페이지 구현하기~
   - playtime 이 0일때 1000점, tryCount가 1일 때 1000 점으로 기준을 잡고, playtime이 10(분) 커질때마다 -1 점, trycount가 1 늘어날때마다 -1 점 해서 점수를 계산한다
   - 점수가 높은 순서대로 20개 불러와서 리스트를 만든다
+#### ~8. localstorage에 쿼리 저장이 안되는 것 같음~ 
+  > **localstorage에 gusses가 저장되고, mongoDB에도 무사히 저장되었으나, 메인페이지에서 다른 페이지로 이동하고, 다시 메인페이지로 돌아오면 직전 gusses로 롤백됨. 아마 mongoDB에 저장된 gusses가 정상적으로 업데이트 되지 않는듯**
+  - MainContainer(부모) 컴포넌트와 TableContainer(손자) 컴포넌트의 렌더링 시간의 문제였다.
+  - MainContainer 컴포넌트는 렌더링 될때마다(useEffect : []) zustand store에 userdata를 저장한다(이후 zustand store에 저장된 userdata는 nowUserData라 지칭).
+  - TableContainer 컴포넌트에서 사용되는 useHandleLocalstorage 커스텀 훅에선 렌더링 될 때마다(useEffect : []) localstorage에 nowUserData를 덮어씌운다. (정확히는 useUpdateLocalStorageByDBData 훅 을 useHandleLocalstore에서 사용해서 그럼)
+  -  계획한 대로 동작하게 하려면 우선 MainContainer가 먼저 렌더링 되어 변경된 userdata 가 nowUserData 로 변해야함
+  -  nowUserData가 변한 후, localstorage에 변경점이 적용 되어야함.
+  -  여기서 문제가 생김. 메인페이지(/)에서 다른 페이지로 이동 후, 다시 메인페이지로 이동하면 TableContainer가 먼저 실행되고, 이후 MainContainer가 실행됨.
+  -  그래서 TableContainer가 먼저 렌더링 되어 userdata가 nowUserData로 변하는 과정이 뒤늦게 일어나고, localstorage에 변경점이 적용되지 않았음.
+  -  TableContainer가 먼저 렌더링 되는 이유는 알 수 없음. 다만, TableContainer에서 localstorage에 nowUserData를 덮어씌우는 과정에 대한 종속성을 기존 렌더링[] 에서 [nowUserData] 로 변경함.
+  -  이렇게 하면 TableContainer의 렌더링이 MainContainer보다 빠르게 일어나도 nowUserData의 변경점을 찾지 못함으로 localstorage에 변경점이 적용되지 않음. 
+#### **9. android에서 PWA 다운 alert box가 간혹 보이지 않음**
+  - chrome이 아니라 네이버, 카카오에서 꼬들꼬들을 실행하면 해당 문제가 발생함.
