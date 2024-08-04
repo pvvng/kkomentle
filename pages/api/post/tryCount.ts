@@ -10,6 +10,7 @@ interface BodyType {
     try: number;
     isLogin: string | undefined;
     isGaveup : boolean;
+    isHintUsed : boolean;
 }
 
 /** 사용자의 승리 상태, 최대 기록 변경하는 API */

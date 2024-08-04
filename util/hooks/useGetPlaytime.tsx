@@ -1,4 +1,4 @@
-import { usePlayTimeLocalstorage, useUserData } from "@/app/store";
+import { useHintLocalstorage, usePlayTimeLocalstorage, useUserData } from "@/app/store";
 import moment from "moment-timezone";
 import { JsonSimilarityType } from "./useHandleLocalstorage";
 import axios from "axios";
@@ -9,6 +9,7 @@ import handleMultipleConditions from "../functions/handleMultipleConditionsBadge
 export default function useGetPlayTime(){
     const { setPlayTimeState } = usePlayTimeLocalstorage();
     const { nowUserData } = useUserData();
+    const { isHintUsed } = useHintLocalstorage();
 
     // 사용자 디바이스의 시간을 한국시로 포맷하기
     // 현재 시간 암호화
@@ -47,6 +48,7 @@ export default function useGetPlayTime(){
                 isLogin : 
                 nowUserData === undefined ? undefined : nowUserData.email,
                 isGaveup : isGaveup,
+                isHintUsed : isHintUsed,
             }
             // db에 클리어 정보 업데이트
             let postPlayTime = await axios.post('/api/post/tryCount', putter);

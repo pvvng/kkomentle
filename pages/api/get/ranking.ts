@@ -2,14 +2,16 @@ import { connectDB } from "@/util/database";
 import { NextApiRequest, NextApiResponse } from "next";
 import moment from "moment-timezone";
 
-interface GetUserDataType{
-    _id : string;
-    date : string;
-    gussesWord : string;
-    playtime : number;
-    try : number;
-    isLogin : string;
-}
+// interface GetUserDataType{
+//     _id : ObjectId;
+//     date : string;
+//     gussesWord : string;
+//     playtime : number;
+//     try : number;
+//     isLogin : string;
+//     isGaveUp : boolean;
+//     isHintUsed : boolean;
+// }
 /** 오늘의 플레이 데이터 불러오기 */
 export default async function handler(req :NextApiRequest, res :NextApiResponse){
 
@@ -32,7 +34,11 @@ export default async function handler(req :NextApiRequest, res :NextApiResponse)
         const scoredTryCount = getTryCount.map(gtc => {
             const playtimeScore = 1000 - gtc.playtime; // playtime이 낮을수록 점수가 높음
             const tryScore = 1000 - gtc.try; // try가 낮을수록 점수가 높음
+            gtc.isHintUsed = gtc.isHintUsed;
             gtc.totalScore = playtimeScore + tryScore; // 총 점수 계산
+            if(gtc.isHintUsed){
+                gtc.totalScore = gtc.totalScore - 500;
+            }
             return gtc;
         });
 
