@@ -104,3 +104,5 @@
   -  이렇게 하면 TableContainer의 렌더링이 MainContainer보다 빠르게 일어나도 nowUserData의 변경점을 찾지 못함으로 localstorage에 변경점이 적용되지 않음. 
 #### **9. android에서 PWA 다운 alert box가 간혹 보이지 않음**
   - chrome이 아니라 네이버, 카카오에서 꼬들꼬들을 실행하면 해당 문제가 발생함.
+  - beforeinstallprompt 이벤트는 크롬, 오페라, 엣지, 파이어폭스에서만 지원하기 때문임. 이외 브라우저 사용시 이벤트를 적용하는 브라우저로 이동하여 다운로드 하라는 알림창 보여줘야함
+  
