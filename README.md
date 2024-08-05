@@ -17,6 +17,7 @@
         zustand
         axios
         moment
+        next-auth
         next-pwa
         recharts
         react-bootstrap
@@ -48,16 +49,132 @@
  
 ## 4. 이용 방법과 주요 기능
 ### 4-0. 로그인
+<div align='center'>
+    <img src='https://github.com/user-attachments/assets/01793d96-ded0-4399-a514-28825b3e1146' width='48%' />
+</div>
+
+- Navbar의 로그인 버튼을 눌러 로그인 페이지로 이동합니다.
+- next-auth 의 소셜 로그인을 활용하여 Kakao Login이 가능합니다.
+- 만약 회원가입되지 않은 사용자 (db에 없는 사용자) 가 로그인했다면 자동으로 회원가입이 이루어집니다.
+
 - - - 
 ### 4-1. 메인페이지
+##### 기본 기능
+<div align='center'>
+    <img src='https://github.com/user-attachments/assets/d005dd57-d578-4dec-9443-c50843421a43' width='48%' />
+    <img src='https://github.com/user-attachments/assets/d2b9f0a8-c548-4fd0-b06a-cec12513c517' width='48%' />
+</div>
+
+- 처음 꼬들꼬들에 접속하면 보이는 화면입니다.
+- input에 값을 입력하여 오늘의 정답 단어와 입력한 값 사이의 유사도를 아래의 표에서 보여줍니다.
+
+<div align='center'>
+    <img src='https://github.com/user-attachments/assets/e5bfd189-d875-4fba-b28e-e657710aa6f1' width='48%' />
+</div>
+
+- 상단 세팅 버튼 (기어 이모지)를 클릭하여 다크모드 및 클립 보드에 저정할 요소를 커스텀 가능합니다.
+  
+##### PWA 알림창
+<div align='center'>
+    <img src='https://github.com/user-attachments/assets/f107650a-7570-4653-afa1-b1cf2f53c577' width='31%' />
+      <img src='https://github.com/user-attachments/assets/55c638f2-72c3-497a-8af2-695ecbf21195' width='31%' />
+    <img src='https://github.com/user-attachments/assets/3111a346-d26a-480c-901f-c41c85132895' width='31%' />
+</div>
+
+- PWA 설치 알림창입니다.
+- 첫번째 : android/(chrome, edge, firefox, opera 브라우저)
+- 두번째 : ios
+- 세번째 : android/(기타 브라우저)
+
+- android 알림창을 분리한 이유는 chrome, edge, firefox, opera 브라우저에서만 beforeinstallprompt 이벤트가 동작하기 때문입니다.
+
+##### 힌트 사용
+<div align='center'>
+    <img src='https://github.com/user-attachments/assets/eafe6ca5-c846-4d5e-9f87-a89187efb1e5' width='48%' />
+</div>
+
+- 힌트 사용 버튼을 클릭하면 confirm 알림창이 표시됩니다.
+- 힌트 사용을 승낙한다면 오늘의 단어와 10번째로 유사한(유사도 10위) 단어를 얻습니다.
+- 힌트는 언제든 다시 확인 가능합니다.
+- 힌트 사용 후 문제를 해결하면 총 점수 부분에서 패널티가 주어집니다 (-500점)
+
+##### 포기 
+<div align='center'>
+    <img src='https://github.com/user-attachments/assets/316ed903-ccf6-49f5-93e1-74aafdfdf148' width='48%' />
+    <img src='https://github.com/user-attachments/assets/d6e3136f-488f-4dea-a624-b8287638d7bb' width='48%' />
+</div>
+
+- 포기 버튼 클릭 시 "포기 박스" 가 화면에 표시됩니다.
+- 포기 박스에는 오늘의 정답과 포기하기 전까지의 게임 플레이 데이터 등이 표시됩니다.
+- 포기 박스의 상단 우측 새로고침 버튼을 누르면 해당 박스를 리렌더링합니다
+- 포기 박스의 상단 상위 1000개의 단어 <a> 태그를 클릭하면 오늘의 유사어 1000 페이지로 이동합니다.
+- 카카오톡 로고 버튼을 클릭하면 카카오톡 share 페이지로 이동합니다.
+
+##### 클리어
+<div align='center'>
+    <img src='https://github.com/user-attachments/assets/78d57cec-5960-4d40-870d-adc5f6d41ef5' width='48%' />
+    <img src='https://github.com/user-attachments/assets/b928d56b-d6d4-4110-8f11-6a908bbe1e4e' width='48%' />
+</div>
+- 정답을 맞혔을 경우 "성공 박스" 가 화면에 표시됩니다.
+- 성공 박스에는 오늘의 정답과 맞하기 전까지의 게임 플레이 데이터 등이 표시됩니다.
+- 성공 박스의 상단 우측 새로고침 버튼을 누르면 해당 박스를 리렌더링합니다
+- 성공 박스의 상단 상위 1000개의 단어 <a> 태그를 클릭하면 오늘의 유사어 1000 페이지로 이동합니다.
+- 카카오톡 로고 버튼을 클릭하면 카카오톡 share 페이지로 이동합니다.
+
+##### 플레이 데이터 그래프
+<div align='center'>
+    <img src='https://github.com/user-attachments/assets/a51f1e2f-877a-465e-aca3-30a9c7129704' width='48%' />
+    <img src='https://github.com/user-attachments/assets/231ca585-9641-4f22-8bdb-2e770bac1713' width='48%' />
+</div>
+
+- 로그인 한 경우에만 포기 박스 / 성공 박스에서 볼 수 있는 그래프입니다.
+- 오늘을 기준으로 지난 일주일 간 모든 유저의 플레이 데이터와, 플레이 데이터를 기준으로 얻은 사용자의 데이터를 보여줍니다.
+- 그래프는 recharts 라이브러리를 사용하였습니다.
+
 - - -
 ### 4-2. 랭킹페이지
+<div align='center'>
+    <img src='https://github.com/user-attachments/assets/dd85d871-2088-42cd-b0cb-3e4c0edb4e1a' width='48%' />
+</div>
+
+- 오늘의 랭킹이 표시되는 페이지입니다.
+- 랭킹은 게임 시간, 시도 횟수, 힌트 사용 여부 등을 합산하여 산출됩니다.
+- 뱃지로 커스텀한 프로필을 랭킹 페이지에서 사용 가능합니다.
+- 만약 로그인 하지 않은 유저가 게임을 클리어 했다면, "user + 무작위 문자/숫자 조합 5자리" 가 사용자 이름으로 설정됩니다.
+- 또한 로그인 하지 않은 유저는 프로필 뱃지가 "기본 꼬들꼬들" 로 고정됩니다.
+
 - - -
 ### 4-3. 마이페이지
+<div align='center'>
+    <img src='https://github.com/user-attachments/assets/2a2957c7-4353-44ee-8f02-14e214b92a11' width='31%' />
+      <img src='https://github.com/user-attachments/assets/5a20c24e-9382-4a6c-a2a7-9c30dd3bf16b' width='31%' />
+    <img src='https://github.com/user-attachments/assets/f2703ce0-1488-499a-b1bb-19b299b950f9' width='31%' />
+</div>
+
+- 마이페이지에서 이름과 뱃지 프로필을 수정가능합니다.
+- 이름에는 숫자, 영어, 한글만 허용되며 다른 특수 문자는 허용되지 않습니다.
+- 보유하지 않은 뱃지는 가려진 채로 보입니다.
+- 보유하지 않은 뱃지를 프로필로 설정하는 것은 불가능합니다.
+- 뱃지는 게임 플레이 도중 특수 조건을 만족하면 자동으로 획득 가능합니다.
+  
 - - -
 ### 4-4. 질문과 답변 페이지
+<div align='center'>
+    <img src='https://github.com/user-attachments/assets/f937e5a0-5284-44bb-98f3-bd51a930c376' width='48%' />
+</div>
+
+- [꼬맨틀 메인페이지](https://semantle-ko.newsjel.ly/) 하단에 위치한 질문과 답변을 가져온 페이지입니다.
+
 - - - 
 ### 4-5. 정답 유사어 1000 페이지
+
+<div align='center'>
+    <img src='https://github.com/user-attachments/assets/df267cbe-cc91-4dfd-ae2f-77fe550737e9' width='48%' />
+</div>
+
+- 포기 박스 / 클리어 박스 중간에 위치한 상위 1000개의 단어 <a> 태그를 클릭하면 볼 수 있는 페이지입니다. 오늘의 정답 단어와 유사한 단어 1000개를 확인 가능합니다.
+- 또한, 포기 / 정답 상태가 아닌 이용자가 해당 url을 입력하면 접근이 차단되게 설정하였습니다.
+
 - - - 
 ## 5. 프로젝트 회고
 
@@ -66,6 +183,7 @@
 
 ## 6. 후기
 ### 느낀 점
+- 다른 프로젝트는 진행 기간이 대부분 일주일 내외였습니다. 꼬들꼬들은 한 달 정도 진행했는데, 디테일 한 부분까지 제법 챙긴 것같아 제법 마음에 듭니다.
 
 ## 7. 업데이트 및 변동 사항
 [2024.08.04 이전 변동사항 확인](https://github.com/pvvng/kkomentle/blob/develop-readme/README.md)
