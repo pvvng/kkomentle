@@ -36,6 +36,15 @@ export default function InstallPWAAlertContainer() {
         const isEdge = /edg/.test(userAgent);
         const isFirefox = /firefox/.test(userAgent);
         const isOpera = /opera|opr/.test(userAgent);
+        const isNaver = /naver/.test(userAgent);
+        const isKakaoTalk = userAgent.match(/kakaotalk/i);
+        const targetURL = location.href;
+        
+        if(isNaver){
+            location.href = 'kakaotalk://web/openExternal?url='+encodeURIComponent(targetURL);
+        }if(isKakaoTalk){
+            location.href = 'kakaotalk://web/openExternal?url='+encodeURIComponent(targetURL);
+        }
 
         // IOS 디바이스가 맞을때
         if (isIOSDevice) {
@@ -56,7 +65,7 @@ export default function InstallPWAAlertContainer() {
             window.addEventListener('beforeinstallprompt', handler as EventListener);
 
             return () => {
-                window.removeEventListener('beforeinstallprompt', handler as EventListener);
+                window.removeEventListener('c', handler as EventListener);
             };
         // 그 이외 브라우저일때
         } else {
