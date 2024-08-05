@@ -15,8 +15,6 @@ export const handler :Handler = async (event, context) => {
     // 내일의 단어 db에 업데이트하는 문장
     console.log(selectTodayAnswer.data)
     let updateTomarrowAnswer = await insertAnswer(selectTodayAnswer.data.tomarrow);
-    // db 유사어 업데이트
-    // const saveSimilarWords = await axios.post(`${APP_URL}/api/word/similar`);
 
     return {
       statusCode: 200,

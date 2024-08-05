@@ -1,7 +1,6 @@
 export const dynamic = 'force-dynamic';
 
 import { getServerUserData } from "@/util/functions/getServerUserData";
-import Navbar from "../components/main-container/page-container/Navbar";
 import SaveSimilarWordsContainer from "../components/SaveSimilarWordsContainer";
 import ProfileContainer from "./components/Profile";
 
@@ -12,14 +11,10 @@ export default async function MyPage(){
 
     return (
         <>
-            <Navbar />
             <div className="main-container">
                 <ProfileContainer userdata={userdata} />
             </div>
-            {/* <SaveSimilarWordsContainer /> */}
-            <div className="main-container">
-                <ProfileContainer userdata={userdata} />
-            </div>
+            <SaveSimilarWordsContainer />
         </>
     )
 }

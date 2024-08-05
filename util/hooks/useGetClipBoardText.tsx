@@ -1,5 +1,4 @@
 import { useGuessesLocalstorage, usePlayTimeLocalstorage, useSettingState, useUserData } from "@/app/store";
-import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
 /** 클립보드에 적힐 텍스트 뱉는 커스텀 훅
@@ -12,7 +11,6 @@ import { useEffect, useState } from "react";
  */
 export default function useGetClipBoardText (index :number){
 
-    const router = useRouter();
     // 정답을 몇번만에 맞췄는지 기록하는 상태    
     let [indexGuesses, setIndexGuesses] = useState(0);
 

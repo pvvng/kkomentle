@@ -1,12 +1,12 @@
 'use client'
 
 import { useQuery } from "@tanstack/react-query";
-import { lazy, Suspense, useEffect } from "react";
+import { lazy, useEffect } from "react";
 import { useUserData } from "@/app/store";
 import { UserDataType } from "@/util/functions/getServerUserData";
 import fetchMainContentData from "@/util/functions/fetchMainContentData";
 import useSetModeCookie from "@/util/hooks/useSetModeCookie";
-import LoadingSpinner, { SuspenseLoadingContainer } from "../../loading-container/LoadingSpinner";
+import LoadingSpinner from "../../loading-container/LoadingSpinner";
 
 // Lazy load components
 const InputContainer = lazy(() => import('../under-main-container.tsx/InputContainer'));

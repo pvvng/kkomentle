@@ -5,7 +5,6 @@ import { useEffect } from "react";
 import { useNowMode, useSettingState, useWinStateLocalstorage } from "@/app/store";
 import { useRouter } from "next/navigation";
 import { useQuery } from "@tanstack/react-query";
-import Link from "next/link";
 import LoadingSpinner from "@/app/components/loading-container/LoadingSpinner";
 
 export default function GetSimilarlityContainer({darkmode} : {darkmode : {[key :string] :string}}){
@@ -70,9 +69,6 @@ export default function GetSimilarlityContainer({darkmode} : {darkmode : {[key :
 
     return(
         <div className="p-2">
-            <p className="text-center">
-                <Link href='/'>메인 화면으로 돌아가기</Link>
-            </p>
             <table style={{margin : 'auto'}}>
                 <tbody>
                     <tr className="text-center w-100">

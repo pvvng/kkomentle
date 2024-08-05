@@ -2,16 +2,6 @@ import { connectDB } from "@/util/database";
 import { NextApiRequest, NextApiResponse } from "next";
 import moment from "moment-timezone";
 
-// interface GetUserDataType{
-//     _id : ObjectId;
-//     date : string;
-//     gussesWord : string;
-//     playtime : number;
-//     try : number;
-//     isLogin : string;
-//     isGaveUp : boolean;
-//     isHintUsed : boolean;
-// }
 /** 오늘의 플레이 데이터 불러오기 */
 export default async function handler(req :NextApiRequest, res :NextApiResponse){
 

@@ -20,4 +20,4 @@ export default async function getEmbedding(inputText: string) {
       console.error("OpenAI API Error:", error);
       throw new Error("Failed to retrieve embedding from OpenAI");
     }
-  }
+}
