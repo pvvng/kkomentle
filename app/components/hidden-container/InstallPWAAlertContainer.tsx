@@ -32,14 +32,17 @@ export default function InstallPWAAlertContainer() {
         // IOS 가 맞다면 IOS 감시 플래그 상태 true로 변경
         setIsiOS(isIOSDevice);
 
+        // 브라우저 체크
         const isChrome = /chrome/.test(userAgent) && !/edge|edg/.test(userAgent);
         const isEdge = /edg/.test(userAgent);
         const isFirefox = /firefox/.test(userAgent);
         const isOpera = /opera|opr/.test(userAgent);
+
+        // 브라우저가 naver, kakao 면 강제 리디렉트 시키기
         const isNaver = /naver/.test(userAgent);
         const isKakaoTalk = userAgent.match(/kakaotalk/i);
         const targetURL = location.href;
-        
+
         if(isNaver){
             location.href = 'kakaotalk://web/openExternal?url='+encodeURIComponent(targetURL);
         }if(isKakaoTalk){
@@ -70,9 +73,9 @@ export default function InstallPWAAlertContainer() {
         // 그 이외 브라우저일때
         } else {
             setShowCustomPrompt(true);
-            if (/naver/.test(userAgent)) {
+            if (isNaver) {
                 setBrowserName('네이버');
-            } else if (/kakaotalk/.test(userAgent)) {
+            } else if (isKakaoTalk) {
                 setBrowserName('카카오톡');
             } else {
                 setBrowserName('기타');
