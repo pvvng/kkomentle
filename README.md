@@ -2,7 +2,7 @@
 
 ## 1. 설치 방법
 
-### [꼬들꼬들](https://kkodle-kkodle.netlify.app/)
+### [꼬들꼬들](https://kkodle-kkodle.netlify.app/) 👈 클릭
 
 ## 2. 개요
 - 프로젝트 이름 : 단어 유사도 추측 게임 - 꼬들꼬들
