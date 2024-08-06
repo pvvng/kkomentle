@@ -209,6 +209,10 @@
 
 ## 7. 업데이트 및 변동 사항
 [2024.08.04 이전 변동사항 확인](https://github.com/pvvng/kkomentle/blob/develop-readme/README.md)
+
+##### 1. ranking page 다른 날짜도 불러올 수 있게 하기
+##### 2. 리팩토링해서 lighthouse 점수 높이기
+
 ## 8. file tree
 
     📦app
