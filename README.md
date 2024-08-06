@@ -59,7 +59,8 @@
 
 - - - 
 ### 4-1. 메인페이지
-##### 기본 기능
+##### 기본 기능 (단어 입력)
+
 <div align='center'>
     <img src='https://github.com/user-attachments/assets/d005dd57-d578-4dec-9443-c50843421a43' width='48%' />
     <img src='https://github.com/user-attachments/assets/d2b9f0a8-c548-4fd0-b06a-cec12513c517' width='48%' />
@@ -68,11 +69,22 @@
 - 처음 꼬들꼬들에 접속하면 보이는 화면입니다.
 - input에 값을 입력하여 오늘의 정답 단어와 입력한 값 사이의 유사도를 아래의 표에서 보여줍니다.
 
+##### 기본 기능 (추측 단어 표)
+<div align='left'>
+    <img src='https://github.com/user-attachments/assets/14514829-791c-4b64-9f3a-3c41df6b02aa' width='48%' />
+</div>
+
+- 추측 단어 표는 유사도가 높은 순서대로 정렬됩니다.
+- 유사어 텍스트 파일에 등록된 단어를 사용자가 입력하면 미리 DataBase에 저장된 오늘의 정답에 대한 유사도를 표로 반환합니다.
+- 또한, 유사어 텍스트 파일에 등록된 단어는 1~1000위까지 정답 단어와 유사한 순위가 기록되어 있기 때문에 순위를 progress bar로 표현한 박스를 확인 가능합니다. 
+- 유사어 텍스트 파일(약 5600개의 유사어가 등록되어 있습니다.)에 등록되지 않은 단어를 사용자가 입력하면 openAI Embedding API를 사용해서 정답 단어에 대한 유사도를 표로 반환합니다. 이때 순위는 "???" 로 확인 가능합니다.
+- 정답 단어는 "정답" 텍스트로 확인 가능합니다.
+##### 기본 기능 (라이트모드 / 다크모드)
 <div align='center'>
     <img src='https://github.com/user-attachments/assets/e5bfd189-d875-4fba-b28e-e657710aa6f1' width='48%' />
 </div>
 
-- 상단 세팅 버튼 (기어 이모지)를 클릭하여 다크모드 및 클립 보드에 저정할 요소를 커스텀 가능합니다.
+- 상단 세팅 버튼 (기어 이모지)를 클릭하여 라이트모드 / 다크모드 변경 및 클립 보드에 저정할 요소를 커스텀 할 수 있습니다.
   
 ##### PWA 알림창
 <div align='center'>
