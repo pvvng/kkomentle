@@ -99,7 +99,7 @@
 - 세번째 : android/(기타 브라우저)
 
 - android 알림창을 분리한 이유는 chrome, edge, firefox, opera 브라우저에서만 beforeinstallprompt 이벤트가 동작하기 때문입니다.
-- 네이버 인앱, 카카오 인앱에서 웹을 실행하는 경우엔 chrome 브라우저로 강제 리다이렉트 됩니다.
+- 네이버 인앱 브라우저, 카카오 인앱 브라우저에서 웹을 실행하는 경우엔 chrome 브라우저로 강제 리다이렉트 됩니다.
 
 ##### 힌트 사용
 <div align='center'>
