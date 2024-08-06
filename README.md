@@ -198,6 +198,7 @@
 3. [fs, path로 텍스트 파일 해체하기](https://velog.io/@pvvng/fs-path%EB%A1%9C-%ED%85%8D%EC%8A%A4%ED%8A%B8-%ED%8C%8C%EC%9D%BC-%ED%95%B4%EC%B2%B4%ED%95%98%EA%B8%B0)
 4. [여러가지 비동기 통신이 동시에 나타났을 때 처리하기](https://velog.io/@pvvng/%EC%97%AC%EB%9F%AC%EA%B0%80%EC%A7%80-%EB%B9%84%EB%8F%99%EA%B8%B0-%ED%86%B5%EC%8B%A0%EC%9D%B4-%EB%8F%99%EC%8B%9C%EC%97%90-%EB%B0%9C%EC%83%9D%ED%96%88%EC%9D%84-%EB%95%8C-%EC%B2%98%EB%A6%AC%ED%95%98%EA%B8%B0)
 5. [PWA 다운로드 알림창 띄우기](https://velog.io/@pvvng/PWA-%EB%8B%A4%EC%9A%B4%EB%A1%9C%EB%93%9C-%EC%95%8C%EB%A6%BC%EC%B0%BD-%EB%9D%84%EC%9A%B0%EA%B8%B0)
+6. [Next js 카카오 로그인 구현과 커스텀 로그인 페이지 만들기](https://velog.io/@pvvng/Next-js-%EC%B9%B4%EC%B9%B4%EC%98%A4-%EB%A1%9C%EA%B7%B8%EC%9D%B8-%EA%B5%AC%ED%98%84%EA%B3%BC-%EC%BB%A4%EC%8A%A4%ED%85%80-%EB%A1%9C%EA%B7%B8%EC%9D%B8-%ED%8E%98%EC%9D%B4%EC%A7%80-%EB%A7%8C%EB%93%A4%EA%B8%B0)
 - ### 5-1. 프로젝트 중 신경 쓴 부분
   - 
 - ### 5-2. 프로젝트 중 어려웠던 부분 && 프로젝트의 아쉬운 부분
