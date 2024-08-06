@@ -177,6 +177,15 @@
 - 또한, 포기 / 정답 상태가 아닌 이용자가 해당 url을 입력하면 접근이 차단되게 설정하였습니다.
 
 ## 5. 프로젝트 회고
+**참고자료** 
+
+[velog 시리즈](https://velog.io/@pvvng/series/%ED%86%A0%EC%9D%B4%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8-%EA%BC%AC%EB%93%A4%EA%BC%AC%EB%93%A4)
+
+1. [텍스트 클립보드에 복사시키기](https://velog.io/@pvvng/%EB%B2%84%ED%8A%BC-%ED%81%B4%EB%A6%AD%ED%95%98%EB%A9%B4-%ED%85%8D%EC%8A%A4%ED%8A%B8-%ED%81%B4%EB%A6%BD%EB%B3%B4%EB%93%9C%EC%97%90-%EB%B3%B5%EC%82%AC%EC%8B%9C%ED%82%A4%EA%B8%B0)
+2. [Netlify Function 이용해서 cron job 수행하기](https://velog.io/@pvvng/Netlify-Function-%EC%9D%B4%EC%9A%A9%ED%95%B4%EC%84%9C-cron-job-%EC%88%98%ED%96%89%ED%95%98%EA%B8%B0)
+3. [fs, path로 텍스트 파일 해체하기](https://velog.io/@pvvng/fs-path%EB%A1%9C-%ED%85%8D%EC%8A%A4%ED%8A%B8-%ED%8C%8C%EC%9D%BC-%ED%95%B4%EC%B2%B4%ED%95%98%EA%B8%B0)
+4. [여러가지 비동기 통신이 동시에 나타났을 때 처리하기](https://velog.io/@pvvng/%EC%97%AC%EB%9F%AC%EA%B0%80%EC%A7%80-%EB%B9%84%EB%8F%99%EA%B8%B0-%ED%86%B5%EC%8B%A0%EC%9D%B4-%EB%8F%99%EC%8B%9C%EC%97%90-%EB%B0%9C%EC%83%9D%ED%96%88%EC%9D%84-%EB%95%8C-%EC%B2%98%EB%A6%AC%ED%95%98%EA%B8%B0)
+5. [PWA 다운로드 알림창 띄우기](https://velog.io/@pvvng/PWA-%EB%8B%A4%EC%9A%B4%EB%A1%9C%EB%93%9C-%EC%95%8C%EB%A6%BC%EC%B0%BD-%EB%9D%84%EC%9A%B0%EA%B8%B0)
 - ### 5-1. 프로젝트 중 신경 쓴 부분
   - 
 - ### 5-2. 프로젝트 중 어려웠던 부분 && 프로젝트의 아쉬운 부분
