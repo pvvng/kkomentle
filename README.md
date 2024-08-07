@@ -211,6 +211,7 @@
 [2024.08.04 이전 변동사항 확인](https://github.com/pvvng/kkomentle/blob/develop-readme/README.md)
 
 ##### 1. ranking page 다른 날짜도 불러올 수 있게 하기
+  - ranking page input date 추가해서 원하는 날짜를 선택하면 해당 날짜의 데이터를 쿼리로 전달 가능하도록 하는 코드를 추가하였다.
 ##### 2. 리팩토링해서 lighthouse 점수 높이기
 ##### 3. playtime 값을 얻을때, 최초로 추측한 단어 (gusses[0])의 time과 정답 단어의 time 값을 빼는 방식을 사용하였음. 그런데, 자정 이전에 게임을 진행하다가 자정 이후에 정답을 맞혀버리면 playtime이 음수의 값을 가지게 되는 문제가 존재한다.
   - time의 산출방식은 아래의 코드와 같다.
