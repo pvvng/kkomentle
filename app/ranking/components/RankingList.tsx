@@ -6,10 +6,12 @@ import moment from 'moment-timezone';
 import useSetModeCookie from "@/util/hooks/useSetModeCookie";
 import { useQuery } from "@tanstack/react-query";
 import { getImage } from '@/app/components/badge-container/getBadgeImageContainer';
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { UserDataType } from "@/util/functions/getServerUserData";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCrown } from "@fortawesome/free-solid-svg-icons";
+import './calendar.css';
+import InputDateAndRefreshBtnContainer from "./InputDateAndRefreshBtnContainer";
 
 interface PropsType{
     darkmode : {[key :string] :string};
@@ -36,41 +38,38 @@ export default function RankingListContainer({darkmode, userdata} : PropsType){
         userEmail = userdata.email;
     }
 
-    let [refetchState, setRefetchState] = useState(0);
+    // input value 저장하는 상태 && React-Query 종속성 상태
+    let [inputValueState, setInputValueState] = useState<string|null>(null);
     // 웹 라이트모드 / 다크모드 설정
     useSetModeCookie(darkmode);
 
     // 현재 한국 시간 기준 날짜
     const koreanNowDate = moment().tz("Asia/Seoul");
     const formattedTodayDate = moment(koreanNowDate).format('YYYY-MM-DD');
+
+    useEffect(() => {
+        if(!inputValueState){
+            setInputValueState(formattedTodayDate);
+        }
+    },[])
     
     const { data, isLoading, isError} = useQuery({
-        queryKey : ['data', refetchState],
-        queryFn : fetchTodayTryCount
+        queryKey : ['data', inputValueState],
+        queryFn : () => fetchTodayTryCount(inputValueState||formattedTodayDate)
     })
+
+    const props = {inputValueState, setInputValueState, formattedTodayDate, darkmode}
 
     if(data === undefined || isLoading) return <LoadingSpinner height={500} />
     if(isError) return <p className='text-center'>예상치 못한 에러가 발생했어요.</p>
 
     return(
         <>
-            <h2 className='text-center'>{formattedTodayDate} 랭킹</h2>
-            {/* react query 종속성 변경해서 data refetch 하는 버튼 */}
-            <button 
-                className={
-                    darkmode.value === 'dark'? 
-                    "float-end refresh-btn border-1 rounded-1 pt-1 pb-1 dark-mode-input-and-btn":
-                    "float-end refresh-btn border-1 rounded-1 pt-1 pb-1"
-                }
-                onClick={() => {setRefetchState(pre => pre + 1)}}
-            >
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-arrow-clockwise" viewBox="0 0 16 16">
-                    <path fillRule="evenodd" d="M8 3a5 5 0 1 0 4.546 2.914.5.5 0 0 1 .908-.417A6 6 0 1 1 8 2z"/>
-                    <path d="M8 4.466V.534a.25.25 0 0 1 .41-.192l2.36 1.966c.12.1.12.284 0 .384L8.41 4.658A.25.25 0 0 1 8 4.466"/>
-                </svg>
-            </button>
-            <div style={{clear : 'both'}}></div>
+            <h2 className='text-center'>{inputValueState} 랭킹</h2>
+            <InputDateAndRefreshBtnContainer {...props} />
             <hr/>
+
+            {/* rank map */}
             {data.map((d, i) => 
                 <div key={d._id + d.name + i} 
                     className="w-100 border rounded p-2 mt-2 row text-center" 
@@ -126,9 +125,9 @@ export default function RankingListContainer({darkmode, userdata} : PropsType){
     )
 }
 
-export async function fetchTodayTryCount(){
+export async function fetchTodayTryCount(date : string){
     try {
-      const result = await axios.get('/api/get/ranking');
+      const result = await axios.get(`/api/get/ranking?date=${date}`);
       return result.data as TodayPlayData[];
     } catch (error) {
       console.error('Error fetching graph data:', error);

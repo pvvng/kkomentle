@@ -1,0 +1,7 @@
+
+input[type="date"]::-webkit-calendar-picker-indicator{
+    appearance: none; 
+    background-image: url('/꼬들꼬들마스코트.png');
+}
+
+
