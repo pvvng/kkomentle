@@ -33,6 +33,12 @@ export default function useGetPlayTime(){
 
         let playtime = endTime - startTime;
 
+        /** playime의 값이 음수라면 (자정 이전 플레이하다가 자정 이후 정답을 맞혔을 경우) */
+        if(playtime < 0){
+            // 자정의 time 값(24*60+0 = 1440) 에서 시작한 시간을 빼고, endTime의 값을 더한다
+            playtime = (1440 - startTime) + endTime;
+        }
+
         // playtime store에 playtime 계산한 업데이트
         setPlayTimeState(playtime);
 
