@@ -212,6 +212,29 @@
 
 ##### 1. ranking page 다른 날짜도 불러올 수 있게 하기
 ##### 2. 리팩토링해서 lighthouse 점수 높이기
+##### 3. playtime 값을 얻을때, 최초로 추측한 단어 (gusses[0])의 time과 정답 단어의 time 값을 빼는 방식을 사용하였음. 그런데, 자정 이전에 게임을 진행하다가 자정 이후에 정답을 맞혀버리면 playtime이 음수의 값을 가지게 되는 문제가 존재한다.
+  - time의 산출방식은 아래의 코드와 같다.
+    ```js
+      const userNowDate = new Date();
+      const koreanNowDate = moment(userNowDate).tz("Asia/Seoul");
+      const nowTime = (koreanNowDate.hours() * 60) + koreanNowDate.minutes();
+    ```
+    위 계산 방식을 통해 만약 playtime의 값이 음수가 나온다면 자정을 나타내는 time 값인 1440(24 * 6 + 0) 에서 시작시간을 빼고, 뺀 값에 endTime을 더해 보정된 playtime을 산출한다.
+    ```js
+      let playtime = endTime - startTime;
+
+      /** playime의 값이 음수라면 (자정 이전 플레이하다가 자정 이후 정답을 맞혔을 경우) */
+      if(playtime < 0){
+        // 자정의 time 값(24*60+0 = 1440) 에서 시작한 시간을 빼고, endTime의 값을 더한다
+        playtime = (1440 - startTime) + endTime;
+      }
+
+      // playtime store에 playtime 계산한 업데이트
+      setPlayTimeState(playtime);
+    ```
+##### 4. ranking의 점수가 너무 무책임하다. 조금 더 세밀한 조정이 있으면 좋을 듯하다.
+  - playtime과 tryCount에 대한 추가 점수 함수 (getExtraPoints)를 추가하였다.
+##### 5. 일부 Kakao 계정은 email 값이 지정되지 않는다고 한다.
 
 ## 8. file tree
 
