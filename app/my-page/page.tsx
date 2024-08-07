@@ -14,7 +14,7 @@ export default async function MyPage(){
             <div className="main-container">
                 <ProfileContainer userdata={userdata} />
             </div>
-            {/* <SaveSimilarWordsContainer /> */}
+            <SaveSimilarWordsContainer />
         </>
     )
 }
